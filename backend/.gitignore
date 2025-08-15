@@ -1,0 +1,39 @@
+# Node.js dependencies
+node_modules/
+
+# 환경 변수 파일
+.env
+.env.*.local
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs
+*.log
+
+# 운영 중 생기는 임시 데이터
+tmp/
+temp/
+
+# OS별 임시 파일
+.DS_Store
+Thumbs.db
+
+# 빌드 결과물
+dist/
+build/
+
+# IDE 관련
+.vscode/
+.idea/
+*.swp
+
+# 테스트 관련
+coverage/
+
+# pm2 process logs
+.pids
+*.pid
+*.seed
