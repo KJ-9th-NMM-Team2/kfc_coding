@@ -7,7 +7,7 @@ export default function Footer() {
     <footer role="contentinfo">
       <Container className="py-4">
         {/* 상단 링크 */}
-        <Row className="mb-1  ">
+        <Row className="mb-1">
           <Col>
             <a
               href="https://knto.or.kr/helpdeskPolicyPrivacyHomepage"
