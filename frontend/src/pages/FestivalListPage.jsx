@@ -1,5 +1,5 @@
 import React from "react";
-import FestivalSearch from "./FestivalSearch";
+import FestivalSearch from "../components/FestivalSearch";
 
 export default function FestivalListPage() {
   // 임시.

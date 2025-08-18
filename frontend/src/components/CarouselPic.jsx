@@ -1,9 +1,17 @@
 import React from "react";
 import "./CarouselPic.css";
+import { Link } from "react-router-dom";
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}.${month}.${day}`;
+}
 
 export function CarouselPic(props) {
   const slide = props.slide;
-  console.log(slide);
   return (
     <div className="carousel-bg-wrapper position-relative">
       {/* 흐린 배경 이미지 */}
@@ -19,10 +27,16 @@ export function CarouselPic(props) {
         className="carousel-poster-center"
       />
       {/* 오른쪽으로 밀린 정보 텍스트 */}
-      <div className="carousel-info-right">
-        <h3>{slide.name}</h3>
+      <div className="carousel-info-right" style={{ color: "white" }}>
+        <Link className="text-decoration-none" to={`festivals/${slide._id}`}>
+          <h3 className="fw-bold text-white">
+            {slide.name}
+          </h3>
+        </Link>
         <p>{slide.short_description}</p>
-        <p>{`${slide.start_date} - ${slide.end_date}`}</p>
+        <p>{`${formatDate(slide.start_date)} - ${formatDate(
+          slide.end_date
+        )}`}</p>
         <p>{slide.location}</p>
       </div>
     </div>
@@ -38,9 +52,13 @@ export function MiniCarouselPic(props) {
         src={slide.thumbnail_url}
       />
       <div className="carousel-info-center">
-        <h3>{slide.name}</h3>
+        <Link className="text-decoration-none" to={`festivals/${slide._id}`}>
+          <h3 className="fw-bold text-white">{slide.name}</h3>
+        </Link>
         <p>{slide.short_description}</p>
-        <p>{`${slide.start_date} - ${slide.end_date}`}</p>
+        <p>{`${formatDate(slide.start_date)} - ${formatDate(
+          slide.end_date
+        )}`}</p>
         <p>{slide.location}</p>
       </div>
     </>
