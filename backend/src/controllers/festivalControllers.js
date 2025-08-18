@@ -32,7 +32,6 @@ const getOneFestival = asyncHandler(async (req, res) => {
 // GET /api/festivals/top5
 // 첫 5개 축제 가져오기
 const getFiveFestivals = asyncHandler(async (req, res) => {
-  console.log("요청이 들어왓어요");
   const festivals = await Festival.find()
     .limit(5)
     .select(
