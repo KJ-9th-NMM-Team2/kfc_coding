@@ -29,7 +29,7 @@ export function CarouselPic(props) {
       {/* 오른쪽으로 밀린 정보 텍스트 */}
       <div className="carousel-info-right" style={{ color: "white" }}>
         <Link className="text-decoration-none" to={`festivals/${slide._id}`}>
-          <h3 className="fw-bold text-white" style={{ color: "white" }}>
+          <h3 className="fw-bold text-white">
             {slide.name}
           </h3>
         </Link>
