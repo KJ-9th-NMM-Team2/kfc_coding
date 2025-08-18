@@ -45,8 +45,27 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
+// GET /api/festivals/being3
+// 진행 중 3개 축제 가져오기
+const getThreeFestivals = asyncHandler(async (req, res) => {
+  const today = new Date();
+  today.setDate(today.getDate() + 1); // 내일부터
+
+  const festivals = await Festival.find({
+    start_date: { $gte: today },
+  })
+    .limit(3)
+    .select(
+      "name short_description start_date end_date location thumbnail_url poster_url"
+    )
+    .sort({ start_date: 1 });
+
+  res.json(festivals);
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
   getFiveFestivals,
+  getThreeFestivals,
 };
