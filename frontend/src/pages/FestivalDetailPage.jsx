@@ -4,7 +4,7 @@ import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.j
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
 import FestivalDetailCard from '../components/FestivalDetailCard.jsx';
 import FestivalDetailSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
-import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
+import FestivalContactInfoCard from '../components/FestivalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
@@ -79,7 +79,8 @@ const FestivalDetailPage = () => {
     );
   }
 
-
+return(
+    <>
             {/* Main Content */}
             <Container className="py-5">
                 <Row>
@@ -105,20 +106,8 @@ const FestivalDetailPage = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* Footer */}
-      <footer>
-        <Container>
-          <Row>
-            <Col className="mb-2">
-              군산 국가유산 야행과 함께하는 특별한 여름밤
-            </Col>
-            <Col>문화유산과 현대가 어우러진 독특한 경험을 선사합니다</Col>
-          </Row>
-        </Container>
-      </footer>
-    </Container>
-  );
+    </>
+);
 };
 
 export default FestivalDetailPage;
