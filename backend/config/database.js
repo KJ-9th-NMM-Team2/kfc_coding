@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect('mongodb+srv://nmmteam2:1Py6vWa4CeOEWAU5@kfc-cluster.jgve5k7.mongodb.net/?retryWrites=true&w=majority', {
+    const conn = await mongoose.connect('mongodb+srv://nmmteam2:1Py6vWa4CeOEWAU5@kfc-cluster.jgve5k7.mongodb.net/festivalDb?retryWrites=true&w=majority', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

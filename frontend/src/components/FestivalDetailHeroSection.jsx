@@ -31,7 +31,7 @@ export default function FestivalDetailHeroSection({festival, festivalDates}) {
                         }}
                     >
                         <p className="fs-5 mb-0">
-                            {festival['short-description']}
+                            {(festival && (festival.short_description || festival['short-description'])) || ''}
                         </p>
                     </div>
                     <h1 className="display-4 fw-bold mb-4">

@@ -7,7 +7,7 @@ const Festival = require('../models/Festival');
  */
 const getAllFestivals = async (req, res) => {
   try {
-    const festivals = await Festival.find({});
+    const festivals = await Festival.find({}); //모든 축제목록 불러오기
     
     res.status(200).json(festivals);
 
@@ -23,16 +23,18 @@ const getAllFestivals = async (req, res) => {
  */
 const getOneFestival = async (req, res) => {
   try {
+    
+
     // 라우트 파라미터(:id)로 전달된 ID 값을 req.params.id로 가져옵니다.
     const festivalId = req.params.id;
-    
+    //console.log(Festival);
     const festival = await Festival.findById(festivalId);
 
     if (!festival) {
       return res.status(404).json({ message: '해당 축제를 찾을 수 없습니다.' });
     }
     
-    // festival 반환
+    // "특정" festival 반환
     res.status(200).json(festival);
   } catch (error) {
     

@@ -1,25 +1,79 @@
-import React from 'react';
-import FestivalDetailHeroSection from '../components/FestivalDeatilHeroSection.jsx';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.jsx';
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
-import FestivalDeatilCard from '../components/FestivalDeatilCard.jsx';
-import FestivalDeatilSocialLinkCard from '../components/FestivalDeatilSocialLinkCard.jsx';
+import FestivalDeatilCard from '../components/FestivalDetailCard.jsx';
+import FestivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 
-// Mock 데이터 테스트
-const festivalDetailMock = [
-  {
-    name: '군산 국가유산 야행',
-    'short-description': '빛과 소리로 물드는 군산 원도심의 야간 축제',
-    start_date: '2025-08-01',
-    end_date: '2025-08-04'
-  }
-];
-
-
+// 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
-    const festival = festivalDetailMock[0];
-    const festivalDates = festival ? [`${festival.start_date} ~ ${festival.end_date}`] : [];
+    const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc 
+    console.log("URL 에서 가져온 ID:", id);
+    const [festival, setFestival] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchFestival = async () => {
+            try {
+                const endpoint = id ? `/api/festivals/${id}` : `/api/festivals`;
+                const res = await fetch(endpoint);
+                if (!res.ok) {
+                    throw new Error(`API 요청 실패: ${res.status}`);
+                }
+                const data = await res.json();
+                // id가 없을 때는 목록에서 첫 번째 항목을 사용
+                setFestival(id ? data : (Array.isArray(data) ? data[0] : null));
+            } catch (e) {
+                setError(e.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFestival();
+    }, [id]);
+
+    const formatDate = (iso) => {
+        if (!iso) return '';
+        try {
+            const d = new Date(iso);
+            if (Number.isNaN(d.getTime())) return String(iso).slice(0, 10);
+            const yyyy = d.getFullYear();
+            const mm = String(d.getMonth() + 1).padStart(2, '0');
+            const dd = String(d.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        } catch {
+            return String(iso).slice(0, 10);
+        }
+    };
+
+    const festivalDates = festival ? [`${formatDate(festival.start_date)} ~ ${formatDate(festival.end_date)}`] : [];
+
+    if (loading) {
+        return (
+            <Container fluid className="min-vh-100 bg-light d-flex align-items-center justify-content-center">
+                <div>불러오는 중...</div>
+            </Container>
+        );
+    }
+
+    if (error) {
+        return (
+            <Container fluid className="min-vh-100 bg-light d-flex align-items-center justify-content-center">
+                <div>에러: {error}</div>
+            </Container>
+        );
+    }
+
+    if (!festival) {
+        return (
+            <Container fluid className="min-vh-100 bg-light d-flex align-items-center justify-content-center">
+                <div>표시할 축제 데이터가 없습니다.</div>
+            </Container>
+        );
+    }
 
     return (
         <Container fluid className="min-vh-100 bg-light">
@@ -46,18 +100,18 @@ const FestivalDetailPage = () => {
                 <Row>
                     <Col md={8}>
                         {/* Festival 소개 */}
-                        <FestivalDetailDesc />
+                        <FestivalDetailDesc festival={festival}/>
                     </Col>
                     <Col md={4}>
                         <div className="d-grid gap-3">
                             {/* Festival Details Card */}
-                            <FestivalDeatilCard />
+                            <FestivalDeatilCard festival={festival}/>
 
                             {/* Social & Links Card */}
-                            <FestivalDeatilSocialLinkCard />
+                            <FestivalDeatilSocialLinkCard festival={festival}/>
 
                             {/* Contact Info Card */}
-                            <FestivalContactInfoCard />
+                            <FestivalContactInfoCard festival={festival}/>
                         </div>
                     </Col>
                 </Row>

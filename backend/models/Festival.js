@@ -101,4 +101,6 @@ const festivalSchema = new mongoose.Schema({
 
 // Festival 모델을 만들면, 이후 Festival.find() 식으로 몽고db 메서드 사용 가능.
 const Festival = mongoose.model("Festival", festivalSchema);
+
+// Festival 모델 Export
 module.exports = Festival;
