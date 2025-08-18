@@ -4,14 +4,23 @@ const Festival = require("../models/Festival.js");
 // GET /api/festivals
 // 모든 축제 가져오기
 const getAllFestivals = asyncHandler(async (req, res) => {
-  // Festival 이용해서 가져오기. 임시.
-  res.send("모든 축제 가져오기");
+  const now = new Date();
+  const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
+
+  const festivals = await Festival.find(
+    { end_date: { $gte: now } }, // 이미 끝난 축제 제외
+    "name start_date end_date region location thumbnail_url" // 필요한 필드만
+  )
+    .sort({ start_date: 1, _id: 1 }) // 시작일 오름차순(보조정렬 _id)
+    .limit(limit);
+
+  res.status(200).json(festivals);
 });
 
 // GET /api/festivals/:id
 // id에 해당하는 하나의 축제 가져오기
 const getOneFestival = asyncHandler(async (req, res) => {
-    // 라우트 파라미터(:id)로 전달된 ID 값을 req.params.id로 가져옵니다.
+  // 라우트 파라미터(:id)로 전달된 ID 값을 req.params.id로 가져옵니다.
   const festivalId = req.params.id;
   //console.log(Festival);
   const festival = await Festival.findById(festivalId);
