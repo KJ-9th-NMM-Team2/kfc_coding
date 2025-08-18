@@ -1,11 +1,20 @@
 import React from 'react';
-import festivalDetailMock from '../mock/festivalDetail.json';
 import FestivalDetailHeroSection from '../components/FestivalDeatilHeroSection.jsx';
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
 import FestivalDeatilCard from '../components/FestivalDeatilCard.jsx';
 import FestivalDeatilSocialLinkCard from '../components/FestivalDeatilSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+
+// Mock 데이터 테스트
+const festivalDetailMock = [
+  {
+    name: '군산 국가유산 야행',
+    'short-description': '빛과 소리로 물드는 군산 원도심의 야간 축제',
+    start_date: '2025-08-01',
+    end_date: '2025-08-04'
+  }
+];
 
 
 const FestivalDetailPage = () => {
