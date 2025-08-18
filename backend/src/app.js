@@ -12,6 +12,9 @@ dbConnect();
 // 프론트엔드 쪽 요청 처리에 필요
 app.use(cors());
 // 요청받은 json 데이터 파싱에 필요
+// e.g., form으로 전달받은 데이터
+app.use(express.urlencoded({ extended: true }));
+// e.g., json으로 전달받은 데이터
 app.use(express.json());
 // /api/festivals 경로의 요청 처리하는 라우터 미들웨어
 app.use("/api/festivals", require("./routes/festivalRoutes.js"));
