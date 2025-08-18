@@ -34,7 +34,19 @@ const getOneFestival = asyncHandler(async (req, res) => {
   // }
 });
 
+// GET /api/festivals/top5
+// 첫 5개 축제 가져오기
+const getFiveFestivals = asyncHandler(async (req, res) => {
+  const festivals = await Festival.find()
+    .limit(5)
+    .select(
+      "name short_description start_date end_date location thumbnail_url poster_url"
+    );
+  res.json(festivals);
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
+  getFiveFestivals,
 };
