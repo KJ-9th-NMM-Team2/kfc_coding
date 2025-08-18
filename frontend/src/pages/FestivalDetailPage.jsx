@@ -1,19 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.jsx';
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
 import FestivalDeatilCard from '../components/FestivalDetailCard.jsx';
-import FestivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
+import FesivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
-import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
-// import { useParams } from 'react-router-dom';
+// import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
+import { useParams } from 'react-router-dom';
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
     const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc 
     console.log("URL 에서 가져온 ID:", id);
-    const { festival, loading, error } = useFestival(id);
+    // const { festival, loading, error } = useFestival(id);
+
+    const [festival, setFestival] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchFestival = async () => {
+            try {
+                const endpoint = id ? `/api/festivals/${id}` : `/api/festivals`;
+                const res = await fetch(endpoint);
+                if (!res.ok) {
+                    throw new Error(`API 요청 실패: ${res.status}`);
+                }
+                const data = await res.json();
+                // id가 없을 때는 목록에서 첫 번째 항목을 사용
+                setFestival(id ? data : (Array.isArray(data) ? data[0] : null));
+            } catch (e) {
+                setError(e.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchFestival();
+    }, [id]);
 
     const formatDate = (iso) => {
         if (!iso) return '';
