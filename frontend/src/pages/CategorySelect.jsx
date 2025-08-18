@@ -1,10 +1,3 @@
-import categoryIcon from "./icons/category.png";
-import waterIcon from "./icons/water.png";
-import summerIcon from "./icons/summer.png";
-import familyIcon from "./icons/family.png";
-import nightIcon from "./icons/night.png";
-import artIcon from "./icons/art.png";
-import showIcon from "./icons/show.png";
 import Select from "react-select";
 
 const PRIMARY = "#0d6efd";
@@ -64,7 +57,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={categoryIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/category.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     카테고리
                 </span>
             ),
@@ -73,7 +66,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "물놀이",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={waterIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/water.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     물놀이
                 </span>
             ),
@@ -82,7 +75,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "여름",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={summerIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/summer.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     여름
                 </span>
             ),
@@ -91,7 +84,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "가족과함께",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={familyIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/family.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     가족과함께
                 </span>
             ),
@@ -100,7 +93,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "야행",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={nightIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/night.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     야행
                 </span>
             ),
@@ -109,7 +102,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "문화예술",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={artIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/art.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     문화예술
                 </span>
             ),
@@ -118,7 +111,7 @@ function CategorySelect({ value = "", onChange }) {
             value: "공연",
             label: (
                 <span style={{ display: "flex", alignItems: "center" }}>
-                    <img src={showIcon} alt="" width="16" height="16" style={{ marginRight: 8 }} />
+                    <img src="/icons/show.png" alt="" width="16" height="16" style={{ marginRight: 8 }} />
                     공연
                 </span>
             ),

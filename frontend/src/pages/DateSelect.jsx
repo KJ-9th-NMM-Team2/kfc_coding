@@ -1,4 +1,3 @@
-import dateIcon from "./icons/date.png";
 import Select, { components } from "react-select";
 
 const PRIMARY = "#0d6efd";
@@ -55,7 +54,7 @@ const theme = (t) => ({
 const CustomControl = (props) => (
     <components.Control {...props}>
         <img
-            src={dateIcon}
+            src="/icons/date.png"
             alt="시기 아이콘"
             width="16"
             height="16"

@@ -1,4 +1,3 @@
-import regionIcon from "./icons/region.png";
 import Select, { components } from "react-select";
 
 const PRIMARY = "#0d6efd";
@@ -55,7 +54,7 @@ const theme = (t) => ({
 const CustomControl = (props) => (
     <components.Control {...props}>
         <img
-            src={regionIcon}
+            src={"/icons/region.png"}
             alt="지역 아이콘"
             width="16"
             height="16"
