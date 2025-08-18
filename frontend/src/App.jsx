@@ -1,14 +1,14 @@
-// App.jsx
-import './App.css'
-import FestivalSearch from './pages/FestivalSearch'
-import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./App.css";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   return (
-    <div className="app-container">
-      <FestivalSearch />
-    </div>
-  )
+    <>
+      {/* routes/AppRouter에 따라 페이지 라우팅 */}
+      <AppRouter />
+    </>
+  );
 }
 
-export default App
+export default App;
