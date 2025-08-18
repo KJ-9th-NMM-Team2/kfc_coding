@@ -6,6 +6,8 @@ import FestivalDeatilCard from '../components/FestivalDetailCard.jsx';
 import FestivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
+// import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
+import { useParams } from 'react-router-dom';
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
@@ -74,7 +76,6 @@ const FestivalDetailPage = () => {
             </Container>
         );
     }
-
     return (
         <Container fluid className="min-vh-100 bg-light">
             {/* Navigation Bar */}
@@ -118,16 +119,16 @@ const FestivalDetailPage = () => {
             </Container>
 
             {/* Footer */}
-        <footer>
-            <Container>
-                <Row> 
-                <Col className="mb-2">군산 국가유산 야행과 함께하는 특별한 여름밤</Col>
-                <Col>
-                    문화유산과 현대가 어우러진 독특한 경험을 선사합니다
-                </Col>
-                </Row>
-            </Container>
-        </footer>
+            <footer>
+                <Container>
+                    <Row>
+                        <Col className="mb-2">군산 국가유산 야행과 함께하는 특별한 여름밤</Col>
+                        <Col>
+                            문화유산과 현대가 어우러진 독특한 경험을 선사합니다
+                        </Col>
+                    </Row>
+                </Container>
+            </footer>
         </Container>
     );
 };
