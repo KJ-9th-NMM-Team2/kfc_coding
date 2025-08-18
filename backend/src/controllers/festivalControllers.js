@@ -37,7 +37,6 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
     .select(
       "name short_description start_date end_date location thumbnail_url poster_url"
     );
-  console.log(festivals);
   res.json(festivals);
 });
 
