@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import { useParams } from 'react-router-dom';
-import FestivalDetailHeroSection from "../components/FestivalDetailHeroSection.jsx";
-import FestivalDetailDesc from "../components/FestivalDetailDesc.jsx";
-import FestivalDetailCard from "../components/FestivalDetailCard.jsx";
-import FestivalDetailSocialLinkCard from "../components/FestivalDetailSocialLinkCard.jsx";
-import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
-import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.jsx';
+import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
+import FestivalDetailCard from '../components/FestivalDetailCard.jsx';
+import FestivalDetailSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
+import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
+import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
 
@@ -79,35 +79,22 @@ const FestivalDetailPage = () => {
     );
   }
 
-  if (!festival) {
-    return (
-      <Container
-        fluid
-        className="min-vh-100 bg-light d-flex align-items-center justify-content-center"
-      >
-        <div>표시할 축제 데이터가 없습니다.</div>
-      </Container>
-    );
-  }
-  return (
-    <Container fluid className="min-vh-100 bg-light">
-      {/* Hero Section */}
-      <FestivalDetailHeroSection
-        festival={festival}
-        festivalDates={festivalDates}
-      />
 
-      {/* Main Content */}
-      <Container className="py-5">
-        <Row>
-          <Col md={8}>
-            {/* Festival 소개 */}
-            <FestivalDetailDesc festival={festival} />
-          </Col>
-          <Col md={4}>
-            <div className="d-grid gap-3">
-              {/* Festival Details Card */}
-              <FestivalDetailCard festival={festival} />
+            {/* Main Content */}
+            <Container className="py-5">
+                <Row>
+                    <Col md={8}>
+                        {/* Festival 소개 */}
+                        <FestivalDetailDesc festival={festival}/>
+                    </Col>
+                    <Col md={4}>
+                        <div className="d-grid gap-3">
+                            {/* Festival Details Card */}
+                            <FestivalDetailCard festival={festival}/>
+
+                            {/* Social & Links Card */}
+                            <FestivalDetailSocialLinkCard festival={festival}/>
+
 
               {/* Social & Links Card */}
               <FestivalDetailSocialLinkCard festival={festival} />

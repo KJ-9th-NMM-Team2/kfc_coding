@@ -1,4 +1,4 @@
-import dateIcon from "./icons/date.png";
+import dateIcon from "../../public/icons/date.png";
 import Select, { components } from "react-select";
 
 const PRIMARY = "#0d6efd";
