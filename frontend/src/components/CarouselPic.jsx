@@ -12,7 +12,6 @@ function formatDate(dateString) {
 
 export function CarouselPic(props) {
   const slide = props.slide;
-  console.log(slide);
   return (
     <div className="carousel-bg-wrapper position-relative">
       {/* 흐린 배경 이미지 */}
