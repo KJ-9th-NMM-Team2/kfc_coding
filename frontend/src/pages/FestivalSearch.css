@@ -1,0 +1,26 @@
+.filter-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(220px, 1fr)) auto auto;
+    gap: 12px;
+    align-items: stretch;
+}
+
+.filter-bar .item {
+    width: 100%;
+}
+
+.filter-bar .item-auto {
+    display: grid;
+    align-items: stretch;
+}
+
+.filter-bar .item-auto>* {
+    height: 44px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .filter-bar {
+        grid-template-columns: 1fr;
+    }
+}
