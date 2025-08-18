@@ -4,7 +4,7 @@ import DateSelect from "./DateSelect";
 import CategorySelect from "./CategorySelect";
 import ResetButton from "./ResetButton";
 import SearchButton from "./SearchButton";
-import "./FestivalSearch.css"; 
+import "../css/FestivalSearch.css"; 
 
 function FestivalSearch() {
     const [region, setRegion] = useState("");

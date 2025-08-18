@@ -1,10 +1,10 @@
-import categoryIcon from "./icons/category.png";
-import waterIcon from "./icons/water.png";
-import summerIcon from "./icons/summer.png";
-import familyIcon from "./icons/family.png";
-import nightIcon from "./icons/night.png";
-import artIcon from "./icons/art.png";
-import showIcon from "./icons/show.png";
+import categoryIcon from "../../public/icons/category.png";
+import waterIcon from "../../public/icons/water.png";
+import summerIcon from "../../public/icons/summer.png";
+import familyIcon from "../../public/icons/family.png";
+import nightIcon from "../../public/icons/night.png";
+import artIcon from "../../public/icons/art.png";
+import showIcon from "../../public/icons/show.png";
 import Select from "react-select";
 
 const PRIMARY = "#0d6efd";

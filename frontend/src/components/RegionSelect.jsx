@@ -1,4 +1,4 @@
-import regionIcon from "./icons/region.png";
+import regionIcon from "../../public/icons/region.png";
 import Select, { components } from "react-select";
 
 const PRIMARY = "#0d6efd";
