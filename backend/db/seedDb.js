@@ -9,7 +9,7 @@ const Festival = require("../src/models/Festival");
 const seedFestivals = [
   {
     name: "서울 불꽃 축제",
-    "short-description": "한강에서 펼쳐지는 화려한 불꽃쇼",
+    short_description: "한강에서 펼쳐지는 화려한 불꽃쇼",
     description:
       "서울의 밤하늘을 수놓는 대규모 불꽃놀이와 다양한 공연이 함께하는 축제입니다.",
     start_date: "2025-10-05",
@@ -26,11 +26,11 @@ const seedFestivals = [
       "/uploads/images/seoul_fireworks_2.jpg",
     ],
     region: "서울",
-    category: "예술문화",
+    category: "공연",
   },
   {
     name: "춘천 마임 축제",
-    "short-description": "몸짓으로 소통하는 예술의 장",
+    short_description: "몸짓으로 소통하는 예술의 장",
     description:
       "국내외 마임 아티스트들이 참여하는 공연과 체험 프로그램이 가득한 축제입니다.",
     start_date: "2025-05-23",
@@ -46,12 +46,12 @@ const seedFestivals = [
       "/uploads/images/chuncheon_mime_1.jpg",
       "/uploads/images/chuncheon_mime_2.jpg",
     ],
-    region: "강원",
-    category: "예술문화",
+    region: "강원특별자치도",
+    category: "공연",
   },
   {
     name: "전주 한옥마을 음식 축제",
-    "short-description": "전통과 현대가 어우러진 맛의 향연",
+    short_description: "전통과 현대가 어우러진 맛의 향연",
     description:
       "전주 한옥마을에서 다양한 전통 음식과 퓨전 요리를 즐길 수 있는 축제입니다.",
     start_date: "2025-09-10",
@@ -67,12 +67,12 @@ const seedFestivals = [
       "/uploads/images/jeonju_food_1.jpg",
       "/uploads/images/jeonju_food_2.jpg",
     ],
-    region: "전북",
-    category: "음식",
+    region: "전북특별자치도",
+    category: "가족과함께",
   },
   {
     name: "부산 바다 축제",
-    "short-description": "푸른 바다와 함께하는 여름의 축제",
+    short_description: "푸른 바다와 함께하는 여름의 축제",
     description:
       "해운대, 광안리 등 부산의 대표 해변에서 펼쳐지는 다양한 해양 스포츠와 공연이 있는 축제입니다.",
     start_date: "2025-08-01",
@@ -89,11 +89,11 @@ const seedFestivals = [
       "/uploads/images/busan_sea_2.jpg",
     ],
     region: "부산",
-    category: "자연경관",
+    category: "물놀이",
   },
   {
     name: "제주 들불 축제",
-    "short-description": "제주의 봄을 알리는 들불의 향연",
+    short_description: "제주의 봄을 알리는 들불의 향연",
     description:
       "제주 들판에서 펼쳐지는 전통 들불놀이와 다양한 체험 프로그램이 있는 축제입니다.",
     start_date: "2025-03-07",
@@ -109,8 +109,8 @@ const seedFestivals = [
       "/uploads/images/jeju_dulbul_1.jpg",
       "/uploads/images/jeju_dulbul_2.jpg",
     ],
-    region: "제주",
-    category: "전통문화",
+    region: "제주특별자치도",
+    category: "야행",
   },
 ];
 
