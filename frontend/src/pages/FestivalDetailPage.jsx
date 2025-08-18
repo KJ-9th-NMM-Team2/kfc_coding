@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.jsx';
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
 import FestivalDeatilCard from '../components/FestivalDetailCard.jsx';
-import FesivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
+import FestivalDetailSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
@@ -83,7 +83,7 @@ const FestivalDetailPage = () => {
             {/* Navigation Bar */}
             <Navbar bg="white" expand="lg" className="shadow-sm">
                 <Container>
-                    <Navbar.Brand className="fs-4 fw-bold text-primary">대한민국 구석구석</Navbar.Brand>
+                    <Navbar.Brand className="fs-4 fw-bold text-primary" href='/'>대한민국 구석구석</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
@@ -111,7 +111,7 @@ const FestivalDetailPage = () => {
                             <FestivalDeatilCard festival={festival}/>
 
                             {/* Social & Links Card */}
-                            <FestivalDeatilSocialLinkCard festival={festival}/>
+                            <FestivalDetailSocialLinkCard festival={festival}/>
 
                             {/* Contact Info Card */}
                             <FestivalContactInfoCard festival={festival}/>

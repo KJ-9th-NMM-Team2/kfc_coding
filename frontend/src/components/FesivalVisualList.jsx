@@ -2,19 +2,37 @@ import Card from "react-bootstrap/Card"
 import { Link } from "react-router-dom";
 
 function FestivalVisual(props) {
+  let festival = props;
+
+  const formatDate = (date_str) => {
+    if (!date_str) return '';
+    try {
+      const d = new Date(date_str);
+      if (Number.isNaN(d.getTime())) return String(date_str).slice(0, 10);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    } catch {
+      return String(date_str).slice(0, 10);
+    }
+  };
+
   return (
     <>
-      <Card as={Link} to={`/festivals/:${props.id}`}>
-        <Card.Img src={props.thumbnail_url} />
-        <Card.Body className="festival_visual_body">
-          <Card.Title>{props.name}</Card.Title>
-          <Card.Text>
-            <p>{props.start_date} ~ {props.end_date}</p>
-            <p>{props.region}</p>
-            <p>go</p>
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <li className="festival_visual_item" style={{ display: 'inline-block', margin: '1rem' }}>
+        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
+          <Card.Img src={festival.poster_url} />
+          <Card.Body className="festival_visual_body">
+            <Card.Title>{festival.name}</Card.Title>
+            <Card.Text>
+              <p>{formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}</p>
+              <p>{festival.region}</p>
+              <p>go</p>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </li>
     </>
   );
 }

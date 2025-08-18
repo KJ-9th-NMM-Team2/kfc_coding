@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import FestivalSearch from "../components/FestivalSearch";
 import FestivalVisualList from "../components/FesivalVisualList";
@@ -7,14 +7,33 @@ import FestivalContactInfoCard from "../components/FesitvalContactInfoCard";
 import { Stack } from "react-bootstrap";
 
 function FestivalListPage() {
+  const [festivals, setFestivals] = useState([]);
+
+  useEffect(() => {
+    const fetchFestivals = async () => {
+      try {
+        const res = await fetch("/api/festivals");
+        if (!res.ok) {
+          throw new Error(`API 요청 실패: ${res.status}`);
+        }
+        const data = await res.json();
+        // console.log("모든 축제 데이터:", data);
+        setFestivals(data);
+      } catch (error) {
+        console.error("모든 축제 데이터 가져오기 실패:", error);
+      }
+    };
+    fetchFestivals();
+  }, []);
+
   return (
     <div className="festival_list_page">
-      <a href="/festivals/:1">테스트용 : 1번 인덱스 상세페이지</a>
       <Stack gap={3}>
+        {/* <a href="/festivals/68a3165616876786b3a4b469">테스트용 : 상세페이지</a> */}
         <FestivalSearch />
-        <FestivalVisualList festivals={[] /* 추천 축제 세가지 */} />
-        <FestivalCardList festivals={[] /* 검색 결과축제 */} />
-        <FestivalContactInfoCard name="나만무 2팀" email="NMMteam2@jungle.com" phone="123-456-7890" />
+        <FestivalVisualList festivals={festivals.slice(0, 3) /* 임시-나중에 추천 축제 3가지를 넣어줘야 함. */} />
+        <FestivalCardList festivals={festivals} />
+        <FestivalContactInfoCard />
       </Stack>
     </div>
   );

@@ -3,20 +3,36 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link } from "react-router-dom";
 
 function FestivalCard(props) {
-  let festival = props;
+  let festival = props.festival;
+
+  const formatDate = (date_str) => {
+    if (!date_str) return '';
+    try {
+      const d = new Date(date_str);
+      if (Number.isNaN(d.getTime())) return String(date_str).slice(0, 10);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    } catch {
+      return String(date_str).slice(0, 10);
+    }
+  };
 
   return (
     <>
-      <Card as={Link} to={`/festivals/:${festival.id}`}>
-        <Card.Img src={festival.thumbnail_url} />
-        <Card.Body className="festival_card_body">
-          <Card.Title>{festival.name}</Card.Title>
-          <Card.Text>
-            <p>{festival.start_date} ~ {festival.end_date}</p>
-            <p>{festival.region}</p>
-          </Card.Text>
-        </Card.Body>
-      </Card>
+      <li className="festival_card_item" style={{ display: 'inline-block', margin: '1rem' }}>
+        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
+          <Card.Img src={festival.poster_url} />
+          <Card.Body className="festival_card_body">
+            <Card.Title>{festival.name}</Card.Title>
+            <Card.Text>
+              <p>{formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}</p>
+              <p>{festival.region}</p>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </li>
     </>
   );
 }
@@ -31,11 +47,13 @@ function FestivalCardList(props) {
         <Breadcrumb.Item href="#" as="span">거리순</Breadcrumb.Item>
         <Breadcrumb.Item href="#" as="span">인기순</Breadcrumb.Item>
       </Breadcrumb>
-      <ul className="festival_card_list">
-        {filteredFestivals.map(festival => (
-          <FestivalCard key={festival.id} {...festival} />
-        ))}
-      </ul>
+      <div className="festival_card_list_container">
+        <ul className="festival_card_list" >
+          {filteredFestivals.map((festival) => (
+            <FestivalCard key={festival.id} festival={festival} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
