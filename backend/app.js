@@ -8,11 +8,11 @@ const app = express();
 connectDB();
 
 // 미들웨어 
-app.use(cors()); 
+app.use(cors()); //서로다른 포트 연결
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+// localhost:5000/
 app.get('/', (req, res) => {
   res.json({ message: 'KFC Coding Backend API' });
 });
