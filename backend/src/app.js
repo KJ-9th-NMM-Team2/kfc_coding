@@ -16,6 +16,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 // e.g., json으로 전달받은 데이터
 app.use(express.json());
+// uploads 폴더를 정적 경로로 설정
+app.use("/uploads", express.static("uploads"));
+
 // /api/festivals 경로의 요청 처리하는 라우터 미들웨어
 app.use("/api/festivals", require("./routes/festivalRoutes.js"));
 
