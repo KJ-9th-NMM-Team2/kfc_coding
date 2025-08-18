@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./routes/AppRouter";
+import AppRouter from "./routes/AppRouter"; //AppRouter 임포트
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 

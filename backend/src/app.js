@@ -1,6 +1,5 @@
 // server/index.js
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const dbConnect = require("./config/dbConnect.js");
@@ -20,6 +19,7 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
 // /api/festivals 경로의 요청 처리하는 라우터 미들웨어
+// ===== /api/festivals/ 주소로 접근했을때만 festivalRoutes로 라우팅 =====
 app.use("/api/festivals", require("./routes/festivalRoutes.js"));
 
 // 3000번 포트에서 서버 실행.
