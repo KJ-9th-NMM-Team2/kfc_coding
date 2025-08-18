@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
 import FestivalDetailHeroSection from '../components/FestivalDetailHeroSection.jsx';
 import FestivalDetailDesc from '../components/FestivalDetailDesc.jsx';
-import FestivalDeatilCard from '../components/FestivalDetailCard.jsx';
-import FesivalDeatilSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
+import FestivalDetailCard from '../components/FestivalDetailCard.jsx';
+import FestivalDetailSocialLinkCard from '../components/FestivalDetailSocialLinkCard.jsx';
 import FestivalContactInfoCard from '../components/FesitvalContactInfoCard.jsx';
 import { Container, Nav, Navbar, Row, Col } from 'react-bootstrap';
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
@@ -108,10 +108,10 @@ const FestivalDetailPage = () => {
                     <Col md={4}>
                         <div className="d-grid gap-3">
                             {/* Festival Details Card */}
-                            <FestivalDeatilCard festival={festival}/>
+                            <FestivalDetailCard festival={festival}/>
 
                             {/* Social & Links Card */}
-                            <FestivalDeatilSocialLinkCard festival={festival}/>
+                            <FestivalDetailSocialLinkCard festival={festival}/>
 
                             {/* Contact Info Card */}
                             <FestivalContactInfoCard festival={festival}/>
