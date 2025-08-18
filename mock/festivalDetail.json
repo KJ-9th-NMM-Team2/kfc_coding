@@ -1,0 +1,65 @@
+[
+    {
+        "name": "군산 국가유산 야행",
+        "short-description": "한여름 밤, 빛과 소리, 예술과 이야기로 채워진 9夜(야) 테마 프로그램",
+        "description": "군산 국가유산 야행은 군산 원도심 국가유산 일원에서 총 4일간 진행하는 야간 국가유산 향유 행사입니다. 한여름 밤, 원도심 국가유산 일원에서 빛과 소리, 예술과 이야기로 채워진 9夜(야) 테마 프로그램이 진행됩니다.",
+        "start_date": "2025-08-22",
+        "end_date": "2025-08-30",
+        "location": "전북특별자치도 군산시 구영2길 43 (영화동) 군산 원도심 국가유산 일원",
+        "price": "무료",
+        "owner": "군산시",
+        "contact": "063-453-2447",
+        "website": "https://gsnightculture.com/",
+        "poster_url": "URL_TO_POSTER_IMAGE",
+        "thumbnail_url": "URL_TO_THUMBNAIL_IMAGE",
+        "images": [
+            "URL_TO_IMAGE_1",
+            "URL_TO_IMAGE_2",
+            "URL_TO_IMAGE_3"
+        ],
+        "region": "전북",
+        "category": "전통문화"
+    },
+    {
+        "name": "가평 자라섬 꽃정원",
+        "short-description": "가을, 꽃향기 가득한 자라섬으로!",
+        "description": "수도권 최대 규모의 꽃 정원에서 아름다운 추억을 만드세요.",
+        "start_date": "2024-09-15",
+        "end_date": "2024-10-15",
+        "location": "경기도 가평군 가평읍 자라섬",
+        "price": "유료 (성인 10,000원, 가평군민 5,000원)",
+        "owner": "가평군",
+        "contact": "1588-3331",
+        "website": "http://www.jarasum.kr/",
+        "poster_url": "URL_TO_POSTER_IMAGE_2",
+        "thumbnail_url": "URL_TO_THUMBNAIL_IMAGE_2",
+        "images": [
+            "URL_TO_IMAGE_4",
+            "URL_TO_IMAGE_5",
+            "URL_TO_IMAGE_6"
+        ],
+        "region": "경기",
+        "category": "자연"
+    },
+    {
+        "name": "보성 녹차밭 빛 축제",
+        "short-description": "겨울밤을 수놓는 녹차밭의 아름다운 불빛!",
+        "description": "보성 녹차밭에서 펼쳐지는 환상적인 빛의 향연에 여러분을 초대합니다.",
+        "start_date": "2024-12-13",
+        "end_date": "2025-02-02",
+        "location": "전라남도 보성군 보성읍 녹차로 775",
+        "price": "무료 (일부 체험 프로그램 유료)",
+        "owner": "보성군",
+        "contact": "061-852-0918",
+        "website": "http://www.boseong.go.kr/",
+        "poster_url": "URL_TO_POSTER_IMAGE_3",
+        "thumbnail_url": "URL_TO_THUMBNAIL_IMAGE_3",
+        "images": [
+            "URL_TO_IMAGE_7",
+            "URL_TO_IMAGE_8",
+            "URL_TO_IMAGE_9"
+        ],
+        "region": "전남",
+        "category": "자연"
+    }
+]
