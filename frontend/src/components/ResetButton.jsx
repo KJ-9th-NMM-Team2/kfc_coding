@@ -1,5 +1,3 @@
-import { FaSyncAlt } from "react-icons/fa";
-
 function ResetButton({ onClick }) {
     return (
         <button
