@@ -1,0 +1,88 @@
+.calendar-page {
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.calendar-page-container {
+  padding: 12px 16px;
+}
+
+.calendar-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.calendar-title {
+  color: #212529;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.calendar-subtitle {
+  margin-bottom: 0;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.calendar-nav-button {
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.calendar-nav-button.current {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  font-weight: 600;
+  min-width: 120px;
+}
+
+.calendar-section {
+  border-radius: 6px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.festival-list-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.festival-list-title {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  color: #495057;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.festival-list-indicator {
+  width: 4px;
+  height: 20px;
+  background-color: #28a745;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.festival-count-badge {
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.festival-list-content {
+  padding: 16px;
+}
