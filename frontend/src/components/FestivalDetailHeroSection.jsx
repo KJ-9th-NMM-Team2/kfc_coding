@@ -1,14 +1,7 @@
 import { Container, Badge } from 'react-bootstrap';
 
 export default function FestivalDetailHeroSection({festival, festivalDates}) {
-    const dateDiff = Date.parse(festival.end_date) - Date.now();
-    const calLeftDays = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
-    const leftDays = Date.parse(festival.start_date) > Date.now() 
-            ? `D-${calLeftDays}` 
-            : Date.parse(festival.end_date) < Date.now()
-            ? "축제 종료"
-            : "축제 진행 중"
-
+   
     return (
         <div 
             className="position-relative text-white py-5"
@@ -37,9 +30,7 @@ export default function FestivalDetailHeroSection({festival, festivalDates}) {
                     <h1 className="display-4 fw-bold mb-4">
                         {festival.name}
                     </h1>
-                    <Badge bg="danger" className="fs-6 fw-bold mb-4 px-3 py-2">
-                        {leftDays}
-                    </Badge>
+                   
                     <p className="fs-4 mb-0 text-light">
                         {festivalDates}
                     </p>

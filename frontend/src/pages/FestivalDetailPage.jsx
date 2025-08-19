@@ -45,20 +45,19 @@ const FestivalDetailPage = () => {
     fetchFestival();
   }, [id]);
 
-  // 날짜 YYYY--MM--DD 형식으로 변환하는  함수
-  const formatDate = (iso) => {
-    if (!iso) return "";
-    try {
-      const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return String(iso).slice(0, 10);
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      return `${yyyy}-${mm}-${dd}`;
-    } catch {
-      return String(iso).slice(0, 10);
-    }
-  };
+ // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
+ const formatDate = (iso) => {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
+  } catch {
+    return String(iso).slice(0, 10).replace(/-/g, ".");
+  }
+};
 
   // Festival 데이터가 있으면 시작일~종료일 배열 생성
   // 없으면 빈 배열 반환
@@ -97,15 +96,15 @@ const FestivalDetailPage = () => {
         <Row>
           {/* Hero Section */}
           <FestivalDetailHeroSection festival={festival} />
+
+          {/* ShortDescription 부분 */}
+          <FestivalDetailShortDesc festival={festival} />
         </Row>
-        
+
         <Row>
           <Col md={8}>
             {/* Festival 소개 */}
             <FestivalDetailDesc festival={festival} />
-
-            {/* ShortDescription 부분 */}
-            <FestivalDetailShortDesc festival={festival} />
           </Col>
           <Col md={4}>
             <div className="d-grid gap-3">

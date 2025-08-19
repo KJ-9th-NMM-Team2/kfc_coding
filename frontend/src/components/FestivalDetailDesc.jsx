@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 
-export default function FestivalDetailDesc() {
+export default function FestivalDetailDesc({festival}) {
     return (
         <div>
             <Card className="shadow overflow-hidden">
@@ -13,7 +13,7 @@ export default function FestivalDetailDesc() {
                 >
                     <div className="text-center">
                         <div className="display-1 mb-3">🏛️</div>
-                        <p className="fs-4 fw-bold">2025 군산 국가유산 야행</p>
+                        <p className="fs-4 fw-bold">2025 군산 국가유산 야행 </p>
                         <p className="fs-5">축제 포스터</p>
                     </div>
                 </div>

@@ -10,8 +10,10 @@ function App() {
   return (
     <>
       <Header />
+      
       {/* routes/AppRouter에 따라 페이지 라우팅 */}
       <AppRouter />
+
       <Footer />
     </>
   );
