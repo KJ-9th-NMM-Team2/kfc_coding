@@ -1,13 +1,17 @@
-function ResetButton({ onClick }) {
+function ResetButton() {
+    const handleReload = () => {
+        window.location.reload();
+    };
+
     return (
         <button
             type="button"
             className="btn btn-outline-secondary d-flex justify-content-center align-items-center"
-            onClick={onClick}
+            onClick={handleReload}
             style={{ width: "40px", height: "40px" }}
         >
             <img
-                src="/icons/reset.png"  // public/icons/reset.png 경로에 파일 위치
+                src="/icons/reset.png"
                 alt="Reset"
                 width="20"
                 height="20"
@@ -15,4 +19,5 @@ function ResetButton({ onClick }) {
         </button>
     );
 }
+
 export default ResetButton;
