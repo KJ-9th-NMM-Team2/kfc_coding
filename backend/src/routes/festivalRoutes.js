@@ -7,6 +7,7 @@ const {
   getFiveFestivals,
   getMonthFestivals,
   getThreeFestivals,
+  getDateFestivals,
 } = require("../controllers/festivalControllers.js");
 
 // 라우터 미들웨어
@@ -21,8 +22,13 @@ router.route("/").get(getAllFestivals);
 router.route("/top5").get(getFiveFestivals);
 
 // GET /api/festivals/month
-// month달의 축제정보 가져오기
+// 특정 달의 축제정보 가져오기
 router.route("/month").get(getMonthFestivals);
+
+// GET /api/festivals/date
+// 특정 날짜의 축제정보 가져오기
+router.route("/date").get(getDateFestivals);
+
 // GET /api/festivals/being3/:id
 // 진행 중 3개의 축제 가져오기
 router.route("/doing3/:id").get(getThreeFestivals);

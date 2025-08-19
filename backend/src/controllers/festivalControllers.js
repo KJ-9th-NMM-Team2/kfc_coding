@@ -86,29 +86,72 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
 // GET /api/festivals/month
 // 월별 축제 가져오기
 const getMonthFestivals = asyncHandler(async (req, res) => {
-  const year = req.params.year;
-  const month = req.params.month;
-  const firstDay = new Date(year, month - 1, 1); // 해당달의 첫날
-  const lastDay = new Date(year, month, 0); // 해당달의 마지막날
-  const daysInMonth = lastDay.getDate();
+  const { year, month } = req.query;
 
-  // 해당 달과 겹치는 모든 축제
-  const festivals = await Festival.find({
-    $or: [{ startDate: { $lte: lastDay }, endDate: { $gte: firstDay } }],
-  });
-
-  // 날짜별 축제개수
-  const dailyCounts = {};
-  for (let day = 1; day <= daysInMonth; day++) {
-    const currentDate = new Date(year, month - 1, day);
-    dailyCounts[day] = festivals.filter((festival) => {
-      return (
-        currentDate >= festival.startDate && currentDate <= festival.endDate
-      );
-    }).length;
+  if (!year || !month) {
+    return res.status(400).json({ error: "year와 month는 필수입니다" });
   }
 
-  return dailyCounts;
+  const yearNum = parseInt(year);
+  const monthNum = parseInt(month);
+  const daysInMonth = new Date(yearNum, monthNum, 0).getDate();
+
+  // 해당 월 축제 조회 후 JavaScript로 계산
+  const firstDay = new Date(yearNum, monthNum - 1, 1);
+  const lastDay = new Date(yearNum, monthNum, 0, 23, 59, 59);
+
+  const festivals = await Festival.find({
+    start_date: { $lte: lastDay },
+    end_date: { $gte: firstDay },
+  });
+
+  const dailyCounts = {};
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const currentDate = new Date(yearNum, monthNum - 1, day);
+
+    dailyCounts[day] = festivals.filter((festival) => {
+      const start = new Date(
+        festival.start_date.getFullYear(),
+        festival.start_date.getMonth(),
+        festival.start_date.getDate()
+      );
+      const end = new Date(
+        festival.end_date.getFullYear(),
+        festival.end_date.getMonth(),
+        festival.end_date.getDate()
+      );
+      const current = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+
+      return current >= start && current <= end;
+    }).length;
+  }
+  res.json(dailyCounts);
+});
+
+// GET /api/festivals/date
+// 한 날짜의 모든 축제 가져오기
+const getDateFestivals = asyncHandler(async (req, res) => {
+  const yearNum = parseInt(req.query.year);
+  const monthNum = parseInt(req.query.month);
+  const dayNum = parseInt(req.query.day);
+
+  const currentDate = new Date(yearNum, monthNum, dayNum);
+  const startOfDay = new Date(yearNum, monthNum, dayNum, 0, 0, 0);
+  const endOfDay = new Date(yearNum, monthNum, dayNum, 23, 59, 59);
+
+  const festivals = await Festival.find({
+    start_date: { $lte: endOfDay },
+    end_date: { $gte: startOfDay },
+  });
+
+  console.log(festivals);
+
+  res.json(festivals);
 });
 
 // GET /api/festivals/doing3/:id
@@ -136,5 +179,6 @@ module.exports = {
   getOneFestival,
   getFiveFestivals,
   getMonthFestivals,
+  getDateFestivals,
   getThreeFestivals,
 };

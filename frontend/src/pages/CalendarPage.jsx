@@ -1,15 +1,24 @@
 import React from "react";
 import Calendar from "../components/Calendar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
+import FestivalVisualList from "../components/FestivalVisualList";
+import { getDateFestivals } from "../api/api";
 
 export default function CalendarPage() {
   // 현재 날짜를 state로 관리
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [todayFestivals, setTodayFestivals] = useState([]);
 
-  // 연도, 월 정보 추출
+  // 현재 날짜의 축제 목록
+  useEffect(() => {
+    getDateFestivals(currentDate).then(setTodayFestivals);
+  }, [currentDate]);
+
+  // 연도, 월, 일 정보 추출
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
+  const day = currentDate.getDate();
 
   // 이전 월로 이동
   const toPrevMonth = () => {
@@ -22,6 +31,13 @@ export default function CalendarPage() {
   const toNextMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + 1);
+    setCurrentDate(newDate);
+  };
+
+  // 날짜 변경
+  const changeDay = (day) => {
+    const newDate = new Date(currentDate);
+    newDate.setDate(day);
     setCurrentDate(newDate);
   };
 
@@ -55,7 +71,17 @@ export default function CalendarPage() {
       </div>
       <button onClick={toPrevMonth}>이전</button>
       <button onClick={toNextMonth}>이후</button>
-      <Calendar dates={getCalendarDates()} year={year} month={month + 1} />
+      <Calendar
+        dates={getCalendarDates()}
+        year={year}
+        month={month + 1}
+        day={day}
+        onChangeDay={(day) => {
+          changeDay(day);
+        }}
+      />
+      <h2>축제 리스트</h2>
+      <FestivalVisualList festivals={todayFestivals} />
     </Container>
   );
 }

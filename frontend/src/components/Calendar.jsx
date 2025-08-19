@@ -4,13 +4,14 @@ import { getMonthFestivals } from "../api/api";
 export default function Calendar(props) {
   const dates = props.dates;
   const today = new Date();
+  const selectedDate = new Date(props.year, props.month - 1, props.day);
 
   // 일별 행사 개수
   const [monthInfo, setMonthInfo] = useState([]);
 
   // 렌더링될 때마다 일별 행사 개수를 긁어온다
   useEffect(() => {
-    getMonthFestivals(props.year, props.month - 1).then(setMonthInfo);
+    getMonthFestivals(props.year, props.month).then(setMonthInfo);
   }, [props.year, props.month]);
 
   // 달력 뷰
@@ -35,6 +36,10 @@ export default function Calendar(props) {
               .map((date, dayIndex) => {
                 const isMonth = date.getMonth() + 1 === props.month;
                 const isToday = date.toDateString() === today.toDateString();
+                const isSelected =
+                  date.toDateString() === selectedDate.toDateString();
+                console.log(date.toDateString(), selectedDate.toDateString());
+
                 let dateBox = <td></td>;
 
                 if (isMonth) {
@@ -43,12 +48,13 @@ export default function Calendar(props) {
                       key={weekIndex * 7 + dayIndex}
                       style={{
                         fontWeight: isToday ? "bold" : "normal",
-                        color: isMonth ? "black" : "grey",
+                        color: isSelected ? "blue" : "black",
                         textAlign: "center",
                         padding: "10px",
                       }}
+                      onClick={() => props.onChangeDay(date.getDate())}
                     >
-                      {date.getDate()}
+                      {date.getDate()} {monthInfo[date.getDate()]}
                     </td>
                   );
                 }
