@@ -42,11 +42,11 @@ function FestivalCardList(props) {
 
   return (
     <div className="festival_card_list_container">
-      <Breadcrumb className="festival_visual_list_order_btn">
+      {/* <Breadcrumb className="festival_visual_list_order_btn">
         <Breadcrumb.Item active as="span" style={{ textDecorationLine: 'none'}}>축제일순</Breadcrumb.Item>
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>거리순</Breadcrumb.Item>
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>인기순</Breadcrumb.Item>
-      </Breadcrumb>
+      </Breadcrumb> */}
       <div className="festival_card_list_container">
         <ul className="festival_card_list" style={{ alignContent: 'center' }}>
           {filteredFestivals.map((festival) => (
