@@ -23,6 +23,9 @@ const getAllFestivals = asyncHandler(async (req, res) => {
     filter.start_date = { $lte: now };
     filter.end_date = { $gte: now };
   }
+  else if (date === "개최예정") {
+    filter.start_date = { $gt: now };
+  }
   else if (date) {
     const month = parseInt(date.replace(/[^0-9]/g, ""), 10); // 문자열에서 숫자만 뽑기
     if (!isNaN(month) && month >= 1 && month <= 12) {

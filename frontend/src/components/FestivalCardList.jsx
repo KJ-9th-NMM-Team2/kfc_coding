@@ -27,8 +27,8 @@ function FestivalCard(props) {
           <Card.Body className="festival_card_body">
             <Card.Title>{festival.name}</Card.Title>
             <Card.Text>
-              <p>{formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}</p>
-              <p>{festival.region}</p>
+              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
+              {festival.region}
             </Card.Text>
           </Card.Body>
         </Card>
