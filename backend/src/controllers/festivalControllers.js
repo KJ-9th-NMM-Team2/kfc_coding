@@ -40,10 +40,7 @@ const getAllFestivals = asyncHandler(async (req, res) => {
     filter.category = category; // 카테고리가 지정되면 그 값만
   }
 
-  const festivals = await Festival.find(
-    filter,
-    "name start_date end_date region location thumbnail_url images"
-  )
+  const festivals = await Festival.find(filter)
     .sort({ start_date: 1, _id: 1 })
     .limit(limit);
 

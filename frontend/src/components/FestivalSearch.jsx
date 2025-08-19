@@ -4,8 +4,9 @@ import DateSelect from "./DateSelect";
 import CategorySelect from "./CategorySelect";
 import ResetButton from "./ResetButton";
 import SearchButton from "./SearchButton";
+import "../css/FestivalSearch.css";
 
-function FestivalSearch() {
+function FestivalSearch(props) {
   const [region, setRegion] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
@@ -25,6 +26,17 @@ function FestivalSearch() {
     const qs = buildQueryString({ region, date, category });
     const url = `/api/festivals${qs ? `?${qs}` : ""}`;
     console.log("검색 요청:", url);
+
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`API 요청 실패: ${res.status}`);
+      }
+      const data = await res.json();
+      props.onSearch(data);
+    } catch (error) {
+      console.error("검색 실패:", error);
+    }
   };
 
   const disabled = !region && !date && !category;
