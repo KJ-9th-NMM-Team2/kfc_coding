@@ -24,6 +24,7 @@ export default function CalendarPage() {
   const toPrevMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() - 1);
+    newDate.setDate(1);
     setCurrentDate(newDate);
   };
 
@@ -31,6 +32,7 @@ export default function CalendarPage() {
   const toNextMonth = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(newDate.getMonth() + 1);
+    newDate.setDate(1);
     setCurrentDate(newDate);
   };
 
