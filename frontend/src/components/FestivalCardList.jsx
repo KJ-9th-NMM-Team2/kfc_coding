@@ -23,7 +23,7 @@ function FestivalCard(props) {
     <>
       <li className="festival_card_item" style={{ display: 'inline-block', margin: '1rem' }}>
         <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
-          <Card.Img src={festival.poster_url} />
+          <Card.Img src={festival.thumbnail_url} />
           <Card.Body className="festival_card_body">
             <Card.Title>{festival.name}</Card.Title>
             <Card.Text>
@@ -50,7 +50,7 @@ function FestivalCardList(props) {
       <div className="festival_card_list_container">
         <ul className="festival_card_list" >
           {filteredFestivals.map((festival) => (
-            <FestivalCard key={festival.id} festival={festival} />
+            <FestivalCard key={festival._id} festival={festival} />
           ))}
         </ul>
       </div>
