@@ -22,17 +22,31 @@ export default function CalendarPage() {
 
   // 이전 월로 이동
   const toPrevMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(newDate.getMonth() - 1);
-    newDate.setDate(1);
+    let newMonth = currentDate.getMonth() - 1;
+    let newYear = currentDate.getFullYear();
+    if (newMonth < 0) {
+      newMonth = 11;
+      newYear -= 1;
+    }
+    const currentDay = currentDate.getDate();
+    const lastDayOfTargetMonth = new Date(newYear, newMonth + 1, 0).getDate();
+    const newDay = Math.min(currentDay, lastDayOfTargetMonth);
+    const newDate = new Date(newYear, newMonth, newDay);
     setCurrentDate(newDate);
   };
 
   // 다음 월로 이동
   const toNextMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(newDate.getMonth() + 1);
-    newDate.setDate(1);
+    let newMonth = currentDate.getMonth() + 1;
+    let newYear = currentDate.getFullYear();
+    if (newMonth > 11) {
+      newMonth = 0;
+      newYear += 1;
+    }
+    const currentDay = currentDate.getDate();
+    const lastDayOfTargetMonth = new Date(newYear, newMonth + 1, 0).getDate();
+    const newDay = Math.min(currentDay, lastDayOfTargetMonth);
+    const newDate = new Date(newYear, newMonth, newDay);
     setCurrentDate(newDate);
   };
 

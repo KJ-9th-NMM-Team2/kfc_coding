@@ -149,8 +149,6 @@ const getDateFestivals = asyncHandler(async (req, res) => {
     end_date: { $gte: startOfDay },
   });
 
-  console.log(festivals);
-
   res.json(festivals);
 });
 
