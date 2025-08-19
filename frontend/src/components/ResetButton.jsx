@@ -6,7 +6,12 @@ function ResetButton({ onClick }) {
             onClick={onClick}
             style={{ width: "40px", height: "40px" }}
         >
-            <FaSyncAlt />
+            <img
+                src="/icons/reset.png"  // public/icons/reset.png 경로에 파일 위치
+                alt="Reset"
+                width="20"
+                height="20"
+            />
         </button>
     );
 }

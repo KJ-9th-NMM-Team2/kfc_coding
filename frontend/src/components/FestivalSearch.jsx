@@ -1,4 +1,9 @@
 import { useState } from "react";
+import RegionSelect from "./RegionSelect";
+import DateSelect from "./DateSelect";
+import CategorySelect from "./CategorySelect";
+import ResetButton from "./ResetButton";
+import SearchButton from "./SearchButton";
 
 function FestivalSearch() {
   const [region, setRegion] = useState("");
@@ -26,42 +31,15 @@ function FestivalSearch() {
 
   return (
     <div className="filter-bar">
-      <div className="item">
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div>
-
-      <div className="item">
-        <select value={region} onChange={(e) => setRegion(e.target.value)}>
-          <option value="">지역 선택</option>
-          <option value="서울">서울</option>
-          <option value="부산">부산</option>
-          <option value="대구">대구</option>
-        </select>
-      </div>
-
-      <div className="item">
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">카테고리 선택</option>
-          <option value="음악">음악</option>
-          <option value="미술">미술</option>
-          <option value="전통">전통</option>
-        </select>
-      </div>
+      <div className="item"><DateSelect value={date} onChange={setDate} /></div>
+      <div className="item"><RegionSelect value={region} onChange={setRegion} /></div>
+      <div className="item"><CategorySelect value={category} onChange={setCategory} /></div>
 
       <div className="item-auto">
-        <button type="button" onClick={handleReset}>
-          <img src="/icons/reset.png" alt="리셋" width="16" height="16" />
-        </button>
+        <ResetButton onClick={handleReset} />
       </div>
-
       <div className="item-auto">
-        <button type="button" onClick={handleSearch} disabled={disabled}>
-          <img src="/icons/search.png" alt="검색" width="16" height="16" />
-        </button>
+        <SearchButton onClick={handleSearch} disabled={disabled} />
       </div>
     </div>
   );
