@@ -34,8 +34,8 @@ const styles = {
     backgroundColor: state.isSelected
       ? PRIMARY
       : state.isFocused
-      ? "rgba(13,110,253,.08)"
-      : "#fff",
+        ? "rgba(13,110,253,.08)"
+        : "#fff",
     ":active": {
       backgroundColor: state.isSelected ? PRIMARY : "rgba(13,110,253,.12)",
     },
