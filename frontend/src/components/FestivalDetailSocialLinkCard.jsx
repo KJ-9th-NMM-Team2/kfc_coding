@@ -1,6 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 
-export default function FestivalDeatilSocialLinkCard() {
+export default function FestivalDeatilSocialLinkCard({festival}) {
     return (
         <Card className="shadow">
             <Card.Body>
@@ -8,7 +8,7 @@ export default function FestivalDeatilSocialLinkCard() {
 
                 <div className="d-grid gap-2">
                     <a
-                        href="https://gsnightculture.com/"
+                        href={festival.website}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="d-flex align-items-center p-3 bg-primary bg-opacity-10 rounded text-decoration-none"
@@ -19,7 +19,8 @@ export default function FestivalDeatilSocialLinkCard() {
                         <span className="fs-4 me-3">🌐</span>
                         <div>
                             <div className="fw-semibold text-primary">공식 홈페이지</div>
-                            <div className="small text-primary">gsnightculture.com</div>
+                           
+     
                         </div>
                     </a>
 
@@ -27,7 +28,7 @@ export default function FestivalDeatilSocialLinkCard() {
                         <span className="fs-4 me-3">📸</span>
                         <div>
                             <div className="fw-semibold text-danger">인스타그램</div>
-                            <div className="small text-danger">@2025_gunsan_night_trip</div>
+                            <div className="small text-danger">@ssumday24</div>
                         </div>
                     </div>
 

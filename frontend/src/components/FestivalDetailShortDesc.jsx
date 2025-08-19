@@ -30,20 +30,20 @@ export default function FestivalDetailShortDesc({ festival }) {
   return (
     <Card className="mb-3">
       <Card.Body>
-        {/* 축제 - 간단설명 */}
+        {/* 축제간단설명 */}
         <Card.Title>{festival.short_description}</Card.Title>
 
-        {/*축제 - 이름 */}
+        {/*축제이름 */}
         <Card.Text>{festival.name}</Card.Text>
 
-        {/* 축제 - 기간 */}
+        {/* 축제기간 */}
         {festival.start_date && festival.end_date && (
           <Card.Text>
             {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
           </Card.Text>
         )}
 
-        {/* 축제 - 진행 중 or 종료 */}
+        {/* 축제 진행 중 or 축제 종료 */}
         <Badge bg="danger" className="fs-6 fw-bold mb-4 px-3 py-2">
           {leftDays}
         </Badge>

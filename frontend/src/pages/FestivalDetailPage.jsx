@@ -45,19 +45,19 @@ const FestivalDetailPage = () => {
     fetchFestival();
   }, [id]);
 
- // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
- const formatDate = (iso) => {
-  if (!iso) return "";
-  try {
-    const d = new Date(iso);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
-  } catch {
-    return String(iso).slice(0, 10).replace(/-/g, ".");
-  }
-};
+  // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
+  const formatDate = (iso) => {
+    if (!iso) return "";
+    try {
+      const d = new Date(iso);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
+    } catch {
+      return String(iso).slice(0, 10).replace(/-/g, ".");
+    }
+  };
 
   // Festival 데이터가 있으면 시작일~종료일 배열 생성
   // 없으면 빈 배열 반환
@@ -94,7 +94,7 @@ const FestivalDetailPage = () => {
       {/* Main Content */}
       <Container className="py-5">
         <Row>
-          {/* Hero Section */}
+          {/* Hero Section - 썸네일 렌더링 */}
           <FestivalDetailHeroSection festival={festival} />
 
           {/* ShortDescription 부분 */}
@@ -102,22 +102,19 @@ const FestivalDetailPage = () => {
         </Row>
 
         <Row>
-          <Col md={8}>
-            {/* Festival 소개 */}
-            <FestivalDetailDesc festival={festival} />
-          </Col>
-          <Col md={4}>
-            <div className="d-grid gap-3">
-              {/* Festival Details Card */}
-              <FestivalDetailCard festival={festival} />
+          {/* 축제 메인 포스터 렌더링 */}
+          <FestivalDetailDesc festival={festival} />
 
-              {/* Social & Links Card */}
-              <FestivalDetailSocialLinkCard festival={festival} />
+          <div className="d-grid gap-3">
+            {/* 위치,가격,주최,문의 */}
+            <FestivalDetailCard festival={festival} />
 
-              {/* Contact Info Card */}
-              <FestivalContactInfoCard festival={festival} />
-            </div>
-          </Col>
+            {/* 링크 & 소셜 */}
+            <FestivalDetailSocialLinkCard festival={festival} />
+
+            {/* Contact Info Card */}
+            <FestivalContactInfoCard festival={festival} />
+          </div>
         </Row>
       </Container>
     </>
