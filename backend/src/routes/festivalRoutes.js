@@ -18,9 +18,9 @@ router.route("/").get(getAllFestivals);
 // 첫 5개의 축제 가져오기
 router.route("/top5").get(getFiveFestivals);
 
-// GET /api/festivals/being3
+// GET /api/festivals/being3/:id
 // 진행 중 3개의 축제 가져오기
-router.route("/being3").get(getThreeFestivals);
+router.route("/doing3/:id").get(getThreeFestivals);
 
 // GET /api/festivals/:id
 // id에 해당하는 하나의 축제 가져오기

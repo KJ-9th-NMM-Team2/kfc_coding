@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { useParams } from 'react-router-dom';
 import FestivalDetailHeroSection from "../components/FestivalDetailHeroSection.jsx";
 import FestivalDetailDesc from "../components/FestivalDetailDesc.jsx";
@@ -6,15 +6,14 @@ import FestivalDetailCard from "../components/FestivalDetailCard.jsx";
 import FestivalDetailSocialLinkCard from "../components/FestivalDetailSocialLinkCard.jsx";
 import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
 import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
-import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
+import { Container, Row, Col } from "react-bootstrap";
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
     const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc
-    console.log("URL 에서 가져온 ID:", id);
-    // const { festival, loading, error } = useFestival(id);
 
     const [festival, setFestival] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -53,11 +52,13 @@ const FestivalDetailPage = () => {
             return String(iso).slice(0, 10);
         }
     };
+    
 
     const festivalDates = festival
         ? [`${formatDate(festival.start_date)} ~ ${formatDate(festival.end_date)}`]
         : [];
 
+    
     if (loading) {
         return (
             <Container
@@ -100,14 +101,16 @@ const FestivalDetailPage = () => {
                             <FestivalDetailSocialLinkCard festival={festival} />
                         </div>
                     </Col>
-                    <Col>
-                    <FestivalDetailOthers />
-                    </Col>
-                    <Col lg={11}>
+                </Row>
+                <Row>
+                    <FestivalDetailMap location={festival?.location}/>
+                </Row>
+                <Row>
+                    <FestivalDetailOthers id={festival?._id}/>
+                </Row>
+                <Row lg={11}>
                     {/* Contact Info Card */}
                     <FestivalContactInfoCard festival={festival} />
-                    </Col>
-                    
                 </Row>
             </Container>
         </>

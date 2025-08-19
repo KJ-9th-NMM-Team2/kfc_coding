@@ -45,14 +45,16 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
-// GET /api/festivals/being3
+// GET /api/festivals/doing3/:id
 // 진행 중 3개 축제 가져오기
 const getThreeFestivals = asyncHandler(async (req, res) => {
+  const current_id = req.params.id;
   const today = new Date();
   today.setDate(today.getDate() + 1); // 내일부터
 
   const festivals = await Festival.find({
-    start_date: { $gte: today },
+    _id: { $ne: current_id } ,    // 현재 축제 제외
+    start_date: { $gte: today },  // 내일부터 시작하는 것
   })
     .limit(3)
     .select(
