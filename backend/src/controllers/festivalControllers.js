@@ -19,6 +19,7 @@ const getOneFestival = asyncHandler(async (req, res) => {
   // 라우트 파라미터(:id)로 전달된 ID 값을 req.params.id로 가져옵니다.
   const festivalId = req.params.id;
   //console.log(Festival);
+  // _Id 필드를 기준으로 찾기
   const festival = await Festival.findById(festivalId);
 
   if (!festival) {
