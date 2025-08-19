@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   getOneFestival,
   getAllFestivals,
   getFiveFestivals,
   getMonthFestivals,
+  getThreeFestivals,
 } = require("../controllers/festivalControllers.js");
 
 // 라우터 미들웨어
@@ -21,6 +23,9 @@ router.route("/top5").get(getFiveFestivals);
 // GET /api/festivals/month
 // month달의 축제정보 가져오기
 router.route("/month").get(getMonthFestivals);
+// GET /api/festivals/being3/:id
+// 진행 중 3개의 축제 가져오기
+router.route("/doing3/:id").get(getThreeFestivals);
 
 // GET /api/festivals/:id
 // id에 해당하는 하나의 축제 가져오기

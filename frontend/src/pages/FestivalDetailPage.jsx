@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 // import { useParams } from 'react-router-dom';
 import FestivalDetailHeroSection from "../components/FestivalDetailHeroSection.jsx";
 import FestivalDetailDesc from "../components/FestivalDetailDesc.jsx";
 import FestivalDetailCard from "../components/FestivalDetailCard.jsx";
 import FestivalDetailSocialLinkCard from "../components/FestivalDetailSocialLinkCard.jsx";
 import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
-import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
+import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
+import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
+import { Container, Row, Col } from "react-bootstrap";
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
+
+//[08.19] 컴포넌트 추가
+import FestivalDetailShortDesc from "../components/FestivalDetailShortDesc.jsx";
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
   const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc
-  console.log("URL 에서 가져온 ID:", id);
-  // const { festival, loading, error } = useFestival(id);
 
   const [festival, setFestival] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -39,24 +42,19 @@ const FestivalDetailPage = () => {
     fetchFestival();
   }, [id]);
 
+  // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
   const formatDate = (iso) => {
     if (!iso) return "";
     try {
       const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return String(iso).slice(0, 10);
       const yyyy = d.getFullYear();
       const mm = String(d.getMonth() + 1).padStart(2, "0");
       const dd = String(d.getDate()).padStart(2, "0");
-      return `${yyyy}-${mm}-${dd}`;
+      return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
     } catch {
-      return String(iso).slice(0, 10);
+      return String(iso).slice(0, 10).replace(/-/g, ".");
     }
   };
-
-  const festivalDates = festival
-    ? [`${formatDate(festival.start_date)} ~ ${formatDate(festival.end_date)}`]
-    : [];
-
   if (loading) {
     return (
       <Container
@@ -68,6 +66,13 @@ const FestivalDetailPage = () => {
     );
   }
 
+  // Festival 데이터가 있으면 시작일~종료일 배열 생성
+  // 없으면 빈 배열 반환
+  const festivalDates = festival
+    ? [`${formatDate(festival.start_date)} ~ ${formatDate(festival.end_date)}`]
+    : [];
+
+  // 에러처리
   if (error) {
     return (
       <Container
@@ -84,25 +89,34 @@ const FestivalDetailPage = () => {
       {/* Main Content */}
       <Container className="py-5">
         <Row>
-          <Col md={8}>
-            {/* Festival 소개 */}
-            <FestivalDetailDesc festival={festival} />
-          </Col>
-          <Col md={4}>
-            <div className="d-grid gap-3">
-              {/* Festival Details Card */}
-              <FestivalDetailCard festival={festival} />
+          {/* Hero Section - 썸네일 렌더링 */}
+          <FestivalDetailHeroSection festival={festival} />
 
-              {/* Social & Links Card */}
-              <FestivalDetailSocialLinkCard festival={festival} />
+          {/* ShortDescription 부분 */}
+          <FestivalDetailShortDesc festival={festival} />
+        </Row>
 
-              {/* Social & Links Card */}
-              <FestivalDetailSocialLinkCard festival={festival} />
+        <Row>
+          {/* 축제 메인 포스터 렌더링 */}
+          <FestivalDetailDesc festival={festival} />
 
-              {/* Contact Info Card */}
-              <FestivalContactInfoCard festival={festival} />
-            </div>
-          </Col>
+          <div className="d-grid gap-3">
+            {/* 위치,가격,주최,문의 */}
+            <FestivalDetailCard festival={festival} />
+          </div>
+        </Row>
+
+        <Row>
+          {/* 길찾기 부분 - API Key사용 */}
+          <FestivalDetailMap location={festival?.location} />
+        </Row>
+        <Row>
+          {/* 이런 축제는 어때요? 부분 */}
+          <FestivalDetailOthers id={festival?._id} />
+        </Row>
+        <Row lg={11}>
+          {/* Contact Info Card */}
+          <FestivalContactInfoCard festival={festival} />
         </Row>
       </Container>
     </>
