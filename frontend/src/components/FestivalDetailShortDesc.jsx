@@ -31,35 +31,33 @@ export default function FestivalDetailShortDesc({ festival }) {
     <Card className="mb-3">
       <Card.Body>
         {/* 축제간단설명 */}
-        <Card.Title>{festival.short_description}</Card.Title>
+        <Card.Title className="fs-4 fw-bold">
+          {festival.short_description}
+        </Card.Title>
 
         {/*축제이름 */}
-        <Card.Text>{festival.name}</Card.Text>
-
-        {/* 축제기간 */}
-        {festival.start_date && festival.end_date && (
-          <Card.Text>
-            {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
-          </Card.Text>
-        )}
+        <Card.Text className="fs-2 fw-bold">{festival.name}</Card.Text>
 
         {/* 축제 진행 중 or 축제 종료 */}
         <Badge bg="danger" className="fs-6 fw-bold mb-4 px-3 py-2">
           {leftDays}
         </Badge>
 
+        {/* 축제기간 */}
+        {festival.start_date && festival.end_date && (
+          <Card.Text className="fw-bold">
+            {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
+          </Card.Text>
+        )}
+
         {/* 좋아요, 공유, 조회수*/}
-        <Card.Text>
+        <Card.Text className="fw-bold">
           좋아요: {festival.likes || 0} | 공유: {festival.shares || 0} | 조회수:{" "}
           {festival.views || 0}
         </Card.Text>
 
         {/* 행사 내용 */}
-        <Card.Text>{festival.description}</Card.Text>
-
-        
-
-
+        <Card.Text >{festival.description}</Card.Text>
       </Card.Body>
     </Card>
   );

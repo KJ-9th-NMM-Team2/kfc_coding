@@ -7,7 +7,7 @@ import FestivalDetailSocialLinkCard from "../components/FestivalDetailSocialLink
 import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
 import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
 import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
-import { Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
 
@@ -16,58 +16,56 @@ import FestivalDetailShortDesc from "../components/FestivalDetailShortDesc.jsx";
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
-    const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc
+  const { id } = useParams(); // /festivals/abc 로 접속 -> id =abc
 
-    const [festival, setFestival] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchFestival = async () => {
-            try {
-                const endpoint = id ? `/api/festivals/${id}` : `/api/festivals`;
-                const res = await fetch(endpoint);
-                if (!res.ok) {
-                    throw new Error(`API 요청 실패: ${res.status}`);
-                }
-                const data = await res.json();
-                // id가 없을 때는 목록에서 첫 번째 항목을 사용
-                setFestival(id ? data : Array.isArray(data) ? data[0] : null);
-            } catch (e) {
-                setError(e.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchFestival();
-    }, [id]);
+  const [festival, setFestival] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
 
-
-    // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
-    const formatDate = (iso) => {
-        if (!iso) return "";
-        try {
-            const d = new Date(iso);
-            const yyyy = d.getFullYear();
-            const mm = String(d.getMonth() + 1).padStart(2, "0");
-            const dd = String(d.getDate()).padStart(2, "0");
-            return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
-        } catch {
-            return String(iso).slice(0, 10).replace(/-/g, ".");
+  useEffect(() => {
+    const fetchFestival = async () => {
+      try {
+        const endpoint = id ? `/api/festivals/${id}` : `/api/festivals`;
+        const res = await fetch(endpoint);
+        if (!res.ok) {
+          throw new Error(`API 요청 실패: ${res.status}`);
         }
-    }
+        const data = await res.json();
+        // id가 없을 때는 목록에서 첫 번째 항목을 사용
+        setFestival(id ? data : Array.isArray(data) ? data[0] : null);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFestival();
+  }, [id]);
 
-    if (loading) {
-        return (
-            <Container
-                fluid
-                className="min-vh-100 bg-light d-flex align-items-center justify-content-center"
-            >
-                <div>불러오는 중...</div>
-            </Container>
-        );
+  // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
+  const formatDate = (iso) => {
+    if (!iso) return "";
+    try {
+      const d = new Date(iso);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}.${mm}.${dd}`; // 여기서 . 으로 구분
+    } catch {
+      return String(iso).slice(0, 10).replace(/-/g, ".");
     }
+  };
+  if (loading) {
+    return (
+      <Container
+        fluid
+        className="min-vh-100 bg-light d-flex align-items-center justify-content-center"
+      >
+        <div>불러오는 중...</div>
+      </Container>
+    );
+  }
 
     // Festival 데이터가 있으면 시작일~종료일 배열 생성
     // 없으면 빈 배열 반환
@@ -124,6 +122,7 @@ const FestivalDetailPage = () => {
             </Container>
         </>
     );
+  }
 };
 
 export default FestivalDetailPage;

@@ -4,12 +4,14 @@ import FestivalListPage from "../pages/FestivalListPage";
 import FestivalDetailPage from "../pages/FestivalDetailPage";
 import AdminPage from "../pages/AdminPage";
 import AdminCreateFestivalPage from "../pages/AdminCreateFestivalPage";
+import CalendarPage from "../pages/CalendarPage";
 
 function AppRouter() {
   return (
     <Routes>
       {/* 해당 경로가 입력되면, pages의 해당 페이지 컴포넌트를 렌더링함. */}
       <Route path="/" element={<HomePage />} />
+      <Route path="/calendar" element={<CalendarPage />}></Route>
       <Route path="/festivals" element={<FestivalListPage />} />
       <Route path="/festivals/:id" element={<FestivalDetailPage />} />
       <Route path="/admin" element={<AdminPage />} />
