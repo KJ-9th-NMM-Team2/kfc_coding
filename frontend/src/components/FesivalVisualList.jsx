@@ -26,9 +26,9 @@ function FestivalVisual(props) {
           <Card.Body className="festival_visual_body">
             <Card.Title>{festival.name}</Card.Title>
             <Card.Text>
-              <p>{formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}</p>
-              <p>{festival.region}</p>
-              <p>go</p>
+              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
+              {festival.region}
+              go
             </Card.Text>
           </Card.Body>
         </Card>
