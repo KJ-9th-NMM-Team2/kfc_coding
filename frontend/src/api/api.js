@@ -29,7 +29,7 @@ export async function getMonthFestivals(year, month) {
 export async function getDateFestivals(date) {
   try {
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDate();
     console.log(year, month, day);
     const res = await axios.get(`${API_URL}/festivals/date`, {
