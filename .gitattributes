@@ -2,9 +2,11 @@
 * text=auto eol=lf
 
 # 바이너리 파일은 변환하지 않고 그대로 저장
-*.jpg binary
-*.jpeg binary
-*.png binary
-*.gif binary
-*.mp4 binary
-*.zip binary
+*.jpg binary -text -eol
+*.jpeg binary -text -eol
+*.png binary -text -eol
+*.gif binary -text -eol
+*.mp4 binary -text -eol
+*.zip binary -text -eol
+*.ico binary -text -eol
+*.pdf binary -text -eol

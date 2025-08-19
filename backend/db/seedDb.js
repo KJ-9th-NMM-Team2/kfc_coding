@@ -33,8 +33,8 @@ const seedFestivals = [
     short_description: "몸짓으로 소통하는 예술의 장",
     description:
       "국내외 마임 아티스트들이 참여하는 공연과 체험 프로그램이 가득한 축제입니다.",
-    start_date: "2025-05-23",
-    end_date: "2025-05-27",
+    start_date: "2025-08-23",
+    end_date: "2025-08-27",
     location: "춘천시 일대",
     price: "일부 유료",
     owner: "춘천마임축제조직위원회",
@@ -75,8 +75,8 @@ const seedFestivals = [
     short_description: "푸른 바다와 함께하는 여름의 축제",
     description:
       "해운대, 광안리 등 부산의 대표 해변에서 펼쳐지는 다양한 해양 스포츠와 공연이 있는 축제입니다.",
-    start_date: "2025-08-01",
-    end_date: "2025-08-07",
+    start_date: "2025-09-01",
+    end_date: "2025-09-07",
     location: "부산 해운대, 광안리",
     price: "무료",
     owner: "부산광역시",
@@ -96,8 +96,8 @@ const seedFestivals = [
     short_description: "제주의 봄을 알리는 들불의 향연",
     description:
       "제주 들판에서 펼쳐지는 전통 들불놀이와 다양한 체험 프로그램이 있는 축제입니다.",
-    start_date: "2025-03-07",
-    end_date: "2025-03-09",
+    start_date: "2025-08-25",
+    end_date: "2025-08-31",
     location: "제주시 애월읍",
     price: "무료",
     owner: "제주특별자치도",

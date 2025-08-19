@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Card } from "react-bootstrap"; // 카드 컴포넌트 import
 
 // 메인 포스터렌더링
 export default function FestivalDetailDesc({ festival }) {
@@ -7,24 +7,15 @@ export default function FestivalDetailDesc({ festival }) {
     return <div>축제 이미지를 불러올 수 없습니다.</div>;
   }
 
-  const backgroundStyle = {
-    height: "400px",
-    background: "linear-gradient(135deg, #1e3a8a 0%, #7c3aed 100%)",
-
-    backgroundImage: `url(${festival.poster_url})`, // poster_url 적용
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-
-  };
-
+  
   return (
-    <div>
-      <Card className="shadow overflow-hidden">
-        <div
-          className="d-flex align-items-center justify-content-center text-white"
-          style={backgroundStyle} // 위의 backgroundStyle 적용
-        ></div>
+    <div className="w-50 mx-auto">
+      <Card className="shadow overflow-hidden" >
+       
+        <img src={festival.poster_url}/>
+        
       </Card>
     </div>
   );
 }
+
