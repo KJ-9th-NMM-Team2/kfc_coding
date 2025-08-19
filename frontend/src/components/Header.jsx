@@ -19,7 +19,14 @@ export default function Header() {
           to="/festivals"
           className="d-flex align-items-center fw-bold"
         >
-          행사 찾기
+          전국축제
+        </Nav.Link>
+        <Nav.Link
+          as={Link}
+          to="/calendar"
+          className="d-flex align-items-center fw-bold"
+        >
+          축제달력
         </Nav.Link>
       </Nav>
     </Navbar>
