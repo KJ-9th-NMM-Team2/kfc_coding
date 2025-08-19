@@ -7,7 +7,7 @@ import FestivalDetailSocialLinkCard from "../components/FestivalDetailSocialLink
 import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
 import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
 import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
-import { Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col } from "react-bootstrap";
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 import { useParams } from "react-router-dom";
 
@@ -88,36 +88,46 @@ const FestivalDetailPage = () => {
     <>
       {/* Main Content */}
       <Container className="py-5">
-        <Row>
-          {/* Hero Section - 썸네일 렌더링 */}
-          <FestivalDetailHeroSection festival={festival} />
+        <Card className="shadow overflow-hidden">
+          <Card.Body>
+            <Row>
+              {/* Hero Section - 썸네일 렌더링 */}
+              <FestivalDetailHeroSection festival={festival} />
 
-          {/* ShortDescription 부분 */}
-          <FestivalDetailShortDesc festival={festival} />
-        </Row>
+              {/* ShortDescription 부분 */}
+              <FestivalDetailShortDesc festival={festival} />
+            </Row>
 
-        <Row>
-          {/* 축제 메인 포스터 렌더링 */}
-          <FestivalDetailDesc festival={festival} />
+            <Row>
+              <Col>
+                <div className="d-grid gap-3">
+                  {/* 축제 메인 포스터 렌더링 */}
+                  <FestivalDetailDesc festival={festival} />
+                </div>
+              </Col>
 
-          <div className="d-grid gap-3">
-            {/* 위치,가격,주최,문의 */}
-            <FestivalDetailCard festival={festival} />
-          </div>
-        </Row>
+              <Col>
+                <div className="d-grid gap-3">
+                  {/* 위치,가격,주최,문의 */}
+                  <FestivalDetailCard festival={festival} />
+                </div>
+              </Col>
+            </Row>
 
-        <Row>
-          {/* 길찾기 부분 - API Key사용 */}
-          <FestivalDetailMap location={festival?.location} />
-        </Row>
-        <Row>
-          {/* 이런 축제는 어때요? 부분 */}
-          <FestivalDetailOthers id={festival?._id} />
-        </Row>
-        <Row lg={11}>
-          {/* Contact Info Card */}
-          <FestivalContactInfoCard festival={festival} />
-        </Row>
+            <Row>
+              {/* 길찾기 부분 - API Key사용 */}
+              <FestivalDetailMap location={festival?.location} />
+            </Row>
+            <Row>
+              {/* 이런 축제는 어때요? 부분 */}
+              <FestivalDetailOthers id={festival?._id} />
+            </Row>
+            <Row lg={11}>
+              {/* Contact Info Card */}
+              <FestivalContactInfoCard festival={festival} />
+            </Row>
+          </Card.Body>
+        </Card>
       </Container>
     </>
   );
