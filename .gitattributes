@@ -1,1 +1,10 @@
-* text eol=lf
+# 텍스트 파일은 자동으로 LF 변환
+* text=auto eol=lf
+
+# 바이너리 파일은 변환하지 않고 그대로 저장
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.mp4 binary
+*.zip binary

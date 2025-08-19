@@ -1,30 +1,20 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
-// ===== 추가 부분 =====
-import { Routes, Route } from 'react-router-dom';
-
-// 보여줄 페이지 컴포넌트
-import HomePage from './pages/HomePage'; // 메인 페이지
-// import Festival
-import FestivalDetailPage from './pages/FestivalDetailPage'; // 상세 페이지
-import AppRouter from './routes/AppRouter';
-// =====================
+import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./routes/AppRouter";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <AppRouter />
-    // <Routes>
-    //   <Route path="/" element={<HomePage />} />
-    //   <Route path="/festivals" element={<Festival />} />
-    //   <Route path="/festivals/:id" element={<FestivalDetailPage />} />
-    // </Routes>
-
-  )
+    <>
+      <Header />
+      {/* routes/AppRouter에 따라 페이지 라우팅 */}
+      <AppRouter />
+      <Footer />
+    </>
+  );
 }
 
-export default App
+export default App;
