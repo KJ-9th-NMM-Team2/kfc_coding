@@ -23,7 +23,7 @@ export default function AdminPage() {
             // 2. 이후 요청에 자동으로 토큰을 포함시키기 위해 axios 기본 헤더 설정
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            navigate("/admin/postCreate", { replace: true });
+            navigate("/admin/createFestival", { replace: true });
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 alert("아이디 혹은 비밀번호가 일치하지 않습니다.");

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { authAdminToken } from '../api/api';
+import { initialFestivalData } from '../components/InitialFestivalData.jsx';
 
-
-export default function AdminPostCreatePage() {
+export default function AdminCreateFestivalPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,45 +17,15 @@ export default function AdminPostCreatePage() {
                 navigate("/admin", { replace: true });
                 return;
             }
-            try {
-                // 2. 요청 시 Authorization 헤더에 토큰을 수동으로 추가합니다.
-                const res = await axios.post('/api/admin/authToken', {}, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
 
-                // Strict mode 때문에 2번 실행된다는거 같음.
-                if (res.status === 200) {
-                    alert("admin 환영합니다.");
-                }
-
-            } catch (error) {
-                // 인증 실패 (401 또는 403) 시 로그인 페이지로 리디렉션
-                alert("인증에 실패했습니다. 다시 로그인해주세요.");
+            if (!await authAdminToken(token)) {
                 navigate("/admin", { replace: true });
             }
         }
         adminAuthToken();
     }, []);
 
-    const [festivalData, setFestivalData] = useState({
-        name: '',
-        short_description: '',
-        description: '',
-        start_date: '',
-        end_date: '',
-        location: '',
-        price: '',
-        owner: '',
-        contact: '',
-        website: '',
-        poster_url: '',
-        thumbnail_url: '',
-        images: [], // 이미지 URL 배열
-        region: '',
-        category: [], // 카테고리 배열
-    });
+    const [festivalData, setFestivalData] = useState(initialFestivalData);
 
     const regions = [
         "서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종특별자치시",
@@ -98,13 +69,13 @@ export default function AdminPostCreatePage() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // 여기에서 API 호출 로직을 구현합니다.
         // festivalData 객체를 백엔드에 전송
-        console.log(festivalData);
-        alert('폼 데이터가 콘솔에 출력되었습니다.');
-        // axios.post('/api/festivals', festivalData);
+        const res = await axios.post('/api/admin/createFestival', festivalData);
+        setFestivalData(initialFestivalData);
+        alert(res.data.message);
     };
     return (
         <Container className="my-5">
@@ -165,11 +136,11 @@ export default function AdminPostCreatePage() {
                 <Row className="mb-3">
                     <Form.Group as={Col} controlId="formPosterUrl">
                         <Form.Label>포스터 URL</Form.Label>
-                        <Form.Control type="url" name="poster_url" value={festivalData.poster_url} onChange={handleInputChange} />
+                        <Form.Control type="path" name="poster_url" value={festivalData.poster_url} onChange={handleInputChange} />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formThumbnailUrl">
                         <Form.Label>썸네일 URL</Form.Label>
-                        <Form.Control type="url" name="thumbnail_url" value={festivalData.thumbnail_url} onChange={handleInputChange} />
+                        <Form.Control type="path" name="thumbnail_url" value={festivalData.thumbnail_url} onChange={handleInputChange} />
                     </Form.Group>
                 </Row>
 
@@ -178,7 +149,7 @@ export default function AdminPostCreatePage() {
                     {festivalData.images.map((image, index) => (
                         <div key={index} className="mb-2">
                             <Form.Control
-                                type="url"
+                                type="path"
                                 value={image}
                                 onChange={(e) => handleImageChange(e, index)}
                             />
@@ -205,7 +176,7 @@ export default function AdminPostCreatePage() {
                         {categories.map((category) => (
                             <Form.Check
                                 key={category}
-                                type="checkbox"
+                                type="radio"
                                 id={`category-${category}`}
                                 label={category}
                                 value={category}

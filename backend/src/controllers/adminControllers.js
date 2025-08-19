@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const express = require('express');
 const Admin = require("../models/Admin.js");
+const Festival = require("../models/Festival.js");
 const bcrypt = require('bcrypt');
 const app = express();
 const jwt = require('jsonwebtoken');
@@ -58,7 +59,66 @@ const authAdminToken = asyncHandler(async (req, res) => {
 });
 
 
+// POST /api/admin/
+// 새로운 축제 생성
+const createFestival = asyncHandler(async (req, res) => {
+    console.log("createFestival 접근 성공");
+
+    const { 
+        name, short_description, description, start_date, end_date, location, 
+        price, owner, contact, website, poster_url, thumbnail_url, images, 
+        region, category 
+    } = req.body;
+
+    // category 배열을 쉼표로 구분된 문자열로 변환
+
+    // 2. 필수 필드 유효성 검사
+    if (!name || !location || !region || !category.toString()) {
+        return res.status(400).json({ 
+            message: "필수 필드(축제명, 개최 장소, 지역, 카테고리)를 모두 입력해주세요." 
+        });
+    }
+
+    // 3. 날짜 데이터를 명시적으로 Date 객체로 변환
+    const newStartDate = start_date ? new Date(start_date) : null;
+    const newEndDate = end_date ? new Date(end_date) : null;
+
+    try {
+        // 4. Mongoose를 사용하여 데이터베이스에 새로운 축제 도큐먼트 생성
+        const newFestival = await Festival.create({
+            name,
+            short_description,
+            description,
+            start_date: newStartDate,
+            end_date: newEndDate,
+            location,
+            price,
+            owner,
+            contact,
+            website,
+            poster_url,
+            thumbnail_url,
+            images,
+            region,
+            category: category.toString(),
+        });
+
+        res.status(201).json({ 
+            message: "새로운 축제가 성공적으로 등록되었습니다.",
+            festival: newFestival,
+        });
+        
+    } catch (error) {
+        console.error("축제 데이터 생성 중 오류 발생:", error);
+        res.status(500).json({ 
+            message: "서버 오류: 축제 데이터를 생성하지 못했습니다.",
+            error: error.message
+        });
+    }
+});
+
 module.exports = { 
     getAdminLogin,
     authAdminToken,
+    createFestival,
 }

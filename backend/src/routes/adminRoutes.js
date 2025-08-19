@@ -4,14 +4,19 @@ const router = express.Router();
 const {
   getAdminLogin,
   authAdminToken,
+  createFestival,
 } = require("../controllers/adminControllers.js");
 
 // post /api/admin
-// admin 정보 확인
+// Admin 정보 확인
 router.route('/login').post(getAdminLogin);
 
 // post /api/admin
-// admin 토큰 검증
+// Admin 토큰 검증
 router.route('/authToken').post(authAdminToken);
+
+// post /api/admin
+// Admin Create Festival
+router.route('/createFestival').post(createFestival);
 
 module.exports = router;
