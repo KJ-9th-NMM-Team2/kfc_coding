@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import FestivalSearch from "../components/FestivalSearch";
-import FestivalVisualList from "../components/FesivalVisualList";
+import FestivalVisualList from "../components/FestivalVisualList";
 import FestivalCardList from "../components/FestivalCardList";
 import FestivalContactInfoCard from "../components/FesitvalContactInfoCard";
 import { Stack } from "react-bootstrap";
@@ -31,7 +31,14 @@ function FestivalListPage() {
       <Stack gap={3}>
         {/* <a href="/festivals/68a3165616876786b3a4b469">테스트용 : 상세페이지</a> */}
         <FestivalSearch />
-        <FestivalVisualList festivals={festivals.slice(0, 3) /* 임시-나중에 추천 축제 3가지를 넣어줘야 함. */} />
+        <FestivalVisualList
+          festivals={
+            festivals.slice(
+              0,
+              3
+            ) /* 임시-나중에 추천 축제 3가지를 넣어줘야 함. */
+          }
+        />
         <FestivalCardList festivals={festivals} />
         <FestivalContactInfoCard />
       </Stack>
