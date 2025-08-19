@@ -22,7 +22,7 @@ function FestivalVisual(props) {
     <>
       <li className="festival_visual_item" style={{ display: 'inline-block', margin: '1rem' }}>
         <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
-          <Card.Img src={festival.poster_url} />
+          <Card.Img src={festival.thumbnail_url} />
           <Card.Body className="festival_visual_body">
             <Card.Title>{festival.name}</Card.Title>
             <Card.Text>
@@ -47,7 +47,7 @@ function FestivalVisualList(props) {
                 <FestivalVisual key={featuredFestivals[1].id} {...featuredFestivals[1]} />
                 <FestivalVisual key={featuredFestivals[2].id} {...featuredFestivals[2]} /> */}
         {featuredFestivals.map(festival => (
-          <FestivalVisual key={festival.id} {...festival} />
+          <FestivalVisual key={festival._id} {...festival} />
         ))}
       </ul>
     </div>
