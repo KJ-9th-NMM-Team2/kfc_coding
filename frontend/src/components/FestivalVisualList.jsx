@@ -21,14 +21,13 @@ function FestivalVisual(props) {
   return (
     <>
       <li className="festival_visual_item" style={{ display: 'inline-block', margin: '1rem' }}>
-        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
-          <Card.Img src={festival.thumbnail_url} />
-          <Card.Body className="festival_visual_body">
-            <Card.Title>{festival.name}</Card.Title>
-            <Card.Text>
-              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}
+        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '15rem', height: '30rem', border: 'none', position: 'relative', textDecorationLine: 'none' }}>
+          <Card.Img src={festival.thumbnail_url} style={{ height: '100%', overflowClipMargin: 'content-box', overflow: 'hidden', objectFit: 'cover' }} />
+          <Card.Body className="festival_visual_body" style={{ position: 'absolute', top: '50%', bottom: 0, left: 0, right: 0, color: 'white', textShadow: '1px 1px 0px rgba(0, 0, 0, 0.6)', borderRadius: '0.5rem', background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0))' }}>
+            <Card.Title className="festival_visual_title" style={{ fontWeight: 'bold' }}>{festival.name}</Card.Title>
+            <Card.Text style={{ fontWeight: 'bold' }}>
+              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}<br />
               {festival.region}
-              go
             </Card.Text>
           </Card.Body>
         </Card>
@@ -42,10 +41,7 @@ function FestivalVisualList(props) {
 
   return (
     <div className="festival_visual_list_container">
-      <ul className="festival_visual_list">
-        {/* <FestivalVisual key={featuredFestivals[0].id} {...featuredFestivals[0]} />
-                <FestivalVisual key={featuredFestivals[1].id} {...featuredFestivals[1]} />
-                <FestivalVisual key={featuredFestivals[2].id} {...featuredFestivals[2]} /> */}
+      <ul className="festival_visual_list" style={{ paddingLeft: '0' }}>
         {featuredFestivals.map(festival => (
           <FestivalVisual key={festival._id} {...festival} />
         ))}

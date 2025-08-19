@@ -60,6 +60,7 @@ const getOneFestival = asyncHandler(async (req, res) => {
   // 라우트 파라미터(:id)로 전달된 ID 값을 req.params.id로 가져옵니다.
   const festivalId = req.params.id;
   //console.log(Festival);
+  // _Id 필드를 기준으로 찾기
   const festival = await Festival.findById(festivalId);
 
   if (!festival) {
@@ -86,8 +87,29 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
+// GET /api/festivals/doing3/:id
+// 진행 중 3개 축제 가져오기
+const getThreeFestivals = asyncHandler(async (req, res) => {
+  const current_id = req.params.id;
+  const today = new Date();
+  today.setDate(today.getDate() + 1); // 내일부터
+
+  const festivals = await Festival.find({
+    _id: { $ne: current_id } ,    // 현재 축제 제외
+    start_date: { $gte: today },  // 내일부터 시작하는 것
+  })
+    .limit(3)
+    .select(
+      "name short_description start_date end_date location thumbnail_url poster_url"
+    )
+    .sort({ start_date: 1 });
+
+  res.json(festivals);
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
   getFiveFestivals,
+  getThreeFestivals,
 };
