@@ -21,16 +21,9 @@ function FestivalCard(props) {
 
   return (
     <>
-      <li
-        className="festival_card_item"
-        style={{ display: "inline-block", margin: "1rem" }}
-      >
-        <Card
-          as={Link}
-          to={`/festivals/${festival._id}`}
-          style={{ width: "20rem" }}
-        >
-          <Card.Img src={festival.poster_url} />
+      <li className="festival_card_item" style={{ display: 'inline-block', margin: '1rem' }}>
+        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem' }}>
+          <Card.Img src={festival.thumbnail_url} />
           <Card.Body className="festival_card_body">
             <Card.Title>{festival.name}</Card.Title>
             <Card.Text>
