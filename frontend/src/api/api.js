@@ -11,3 +11,16 @@ export async function getFiveFestivals() {
     return null;
   }
 }
+
+// GET /api/festivals/month 요청을 보냄.
+export async function getMonthFestivals(month, year) {
+  try {
+    const res = await axios.get(`${API_URL}/festivals/month`, {
+      params: { month, year },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}

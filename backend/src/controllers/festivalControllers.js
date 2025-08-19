@@ -7,7 +7,9 @@ const getAllFestivals = asyncHandler(async (req, res) => {
   const festivals = await Festival.find();
 
   if (!festivals || festivals.length === 0) {
-    return res.status(404).json({ message: '모든 축제를 불러오는 중 문제가 발생했습니다.' });
+    return res
+      .status(404)
+      .json({ message: "모든 축제를 불러오는 중 문제가 발생했습니다." });
   }
 
   res.status(200).json(festivals);
@@ -22,7 +24,7 @@ const getOneFestival = asyncHandler(async (req, res) => {
   const festival = await Festival.findById(festivalId);
 
   if (!festival) {
-    return res.status(404).json({ message: '해당 축제를 찾을 수 없습니다.' });
+    return res.status(404).json({ message: "해당 축제를 찾을 수 없습니다." });
   }
 
   // "특정" festival 반환
@@ -45,8 +47,37 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
+// GET /api/festivals/month
+// 월별 축제 가져오기
+const getMonthFestivals = asyncHandler(async (req, res) => {
+  const year = req.params.year;
+  const month = req.params.month;
+  const firstDay = new Date(year, month - 1, 1); // 해당달의 첫날
+  const lastDay = new Date(year, month, 0); // 해당달의 마지막날
+  const daysInMonth = lastDay.getDate();
+
+  // 해당 달과 겹치는 모든 축제
+  const festivals = await Festival.find({
+    $or: [{ startDate: { $lte: lastDay }, endDate: { $gte: firstDay } }],
+  });
+
+  // 날짜별 축제개수
+  const dailyCounts = {};
+  for (let day = 1; day <= daysInMonth; day++) {
+    const currentDate = new Date(year, month - 1, day);
+    dailyCounts[day] = festivals.filter((festival) => {
+      return (
+        currentDate >= festival.startDate && currentDate <= festival.endDate
+      );
+    }).length;
+  }
+
+  return dailyCounts;
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
   getFiveFestivals,
+  getMonthFestivals,
 };
