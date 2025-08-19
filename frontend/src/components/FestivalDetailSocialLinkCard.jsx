@@ -32,14 +32,7 @@ export default function FestivalDeatilSocialLinkCard({festival}) {
                         </div>
                     </div>
 
-                    <Button
-                        variant="warning"
-                        className="d-flex align-items-center justify-content-center p-3"
-                        onClick={() => window.open('https://map.kakao.com/link/to/군산 국가유산 야행,35.99019795680884,126.70986638828877', '_blank')}
-                    >
-                        <span className="fs-4 me-3">🗺️</span>
-                        <span className="fw-semibold">길찾기</span>
-                    </Button>
+
                 </div>
             </Card.Body>
         </Card>

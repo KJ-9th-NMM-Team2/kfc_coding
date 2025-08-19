@@ -73,6 +73,22 @@ export default function FestivalDeatilCard({ festival }) {
             </div>
             <p className="ms-5 text-muted mb-0">{festival.contact}</p>
           </div>
+
+          <div>
+            <div className="d-flex align-items-center mb-2">
+              <span className="fs-4 me-2">🌐</span>
+              <span className="fw-semibold text-dark">공식 홈페이지</span>
+            </div>
+            <a href={festival.website} className="ms-5 text-muted mb-0"  >{festival.website}</a>
+          </div>
+
+          <div>
+            <div className="d-flex align-items-center mb-2">
+              <span className="fs-4 me-2">📸</span>
+              <span className="fw-semibold text-dark">인스타그램</span>
+            </div>
+            <p className="ms-5 text-muted mb-0">@ssumday24</p>
+          </div>
         </div>
       </Card.Body>
     </Card>
