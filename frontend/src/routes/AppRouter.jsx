@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import FestivalListPage from "../pages/FestivalListPage";
 import FestivalDetailPage from "../pages/FestivalDetailPage";
+import AdminPage from "../pages/AdminPage";
+import AdminPostCreatePage from "../pages/AdminPostCreatePage";
 
 function AppRouter() {
   return (
@@ -10,6 +12,8 @@ function AppRouter() {
       <Route path="/" element={<HomePage />} />
       <Route path="/festivals" element={<FestivalListPage />} />
       <Route path="/festivals/:id" element={<FestivalDetailPage />} />
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/postCreate" element={<AdminPostCreatePage />} />
       {/* 경로가 없는 경우 홈페이지로 이동*/}
       <Route path="*" element={<HomePage />} />
     </Routes>
