@@ -68,6 +68,14 @@ export default function FestivalDeatilCard({ festival }) {
 
           <div>
             <div className="d-flex align-items-center mb-2">
+              <span className="fs-4 me-2">🎇</span>
+              <span className="fw-semibold text-dark">카테고리</span>
+            </div>
+            <p className="ms-5 text-muted mb-0">{festival.category}</p>
+          </div>
+
+          <div>
+            <div className="d-flex align-items-center mb-2">
               <span className="fs-4 me-2">📞</span>
               <span className="fw-semibold text-dark">문의</span>
             </div>
