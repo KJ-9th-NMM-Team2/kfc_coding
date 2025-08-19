@@ -39,7 +39,6 @@ export default function Calendar(props) {
                 const isSelected =
                   date.toDateString() === selectedDate.toDateString();
                 console.log(date.toDateString(), selectedDate.toDateString());
-
                 let dateBox = <td></td>;
 
                 if (isMonth) {
