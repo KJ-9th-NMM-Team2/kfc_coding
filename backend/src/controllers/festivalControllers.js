@@ -4,14 +4,51 @@ const Festival = require("../models/Festival.js");
 // GET /api/festivals
 // 모든 축제 가져오기
 const getAllFestivals = asyncHandler(async (req, res) => {
+
+  // 현재 시간 받아오기
   const now = new Date();
+  // 페이지 크기 계산(기본 20개)
   const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
+  const filter = {
+    end_date: { $gte: now },   // 기본 조건: 이미 끝난 축제 제외
+  };
+
+  let {
+    region,
+    category,
+    date
+  } = req.query;
+
+  if (date === "개최중") {
+    filter.start_date = { $lte: now };
+    filter.end_date = { $gte: now };
+  }
+  else if (date) {
+    const month = parseInt(date.replace(/[^0-9]/g, ""), 10); // 문자열에서 숫자만 뽑기
+    if (!isNaN(month) && month >= 1 && month <= 12) {
+      const year = now.getFullYear();
+      const startOfMonth = new Date(year, month - 1, 1); // 해당 x월 1일 00:00:00 
+      const endOfMonth = new Date(year, month, 0, 23, 59, 59); // 해당 x월 31일 23:59:59
+
+      filter.$and = [
+        { start_date: { $lte: endOfMonth } },
+        { end_date: { $gte: startOfMonth } },
+      ];
+    }
+  }
+
+  if (region) {
+    filter.region = region;       // 지역이 지정되면 그 값만
+  }
+  if (category) {
+    filter.category = category;   // 카테고리가 지정되면 그 값만
+  }
 
   const festivals = await Festival.find(
-    { end_date: { $gte: now } }, // 이미 끝난 축제 제외
-    "name start_date end_date region location thumbnail_url" // 필요한 필드만
+    filter,
+    "name start_date end_date region location thumbnail_url images"
   )
-    .sort({ start_date: 1, _id: 1 }) // 시작일 오름차순(보조정렬 _id)
+    .sort({ start_date: 1, _id: 1 })
     .limit(limit);
 
   res.status(200).json(festivals);
