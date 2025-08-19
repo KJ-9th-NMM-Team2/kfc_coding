@@ -22,11 +22,11 @@ function FestivalCard(props) {
   return (
     <>
       <li className="festival_card_item" style={{ display: 'inline-block', margin: '1rem' }}>
-        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem', height: '20rem', textDecorationLine: 'none' }}>
+        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem', height: '20rem', border: 'none', textDecorationLine: 'none' }}>
           <Card.Img src={festival.thumbnail_url} style={{ overflowClipMargin: 'content-box', overflow: 'hidden', objectFit: 'cover', height: '15rem' }} />
           <Card.Body className="festival_card_body">
-            <Card.Title>{festival.name}</Card.Title>
-            <Card.Text>
+            <Card.Title style={{ fontWeight: 'bold' }}>{festival.name}</Card.Title>
+            <Card.Text style={{ fontSize: '0.9rem', color: '#555' }}>
               {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}<br />
               {festival.region}
             </Card.Text>
@@ -47,13 +47,11 @@ function FestivalCardList(props) {
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>거리순</Breadcrumb.Item>
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>인기순</Breadcrumb.Item>
       </Breadcrumb> */}
-      <div className="festival_card_list_container">
-        <ul className="festival_card_list" style={{ alignContent: 'center' }}>
-          {filteredFestivals.map((festival) => (
-            <FestivalCard key={festival._id} festival={festival} />
-          ))}
-        </ul>
-      </div>
+      <ul className="festival_card_list" style={{ paddingLeft: '0', width: 'fit-content' }}>
+        {filteredFestivals.map((festival) => (
+          <FestivalCard key={festival._id} festival={festival} />
+        ))}
+      </ul>
     </div>
   );
 }
