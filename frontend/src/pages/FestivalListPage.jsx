@@ -31,6 +31,7 @@ function FestivalListPage() {
     fetchFestivals();
   }, []);
 
+  // 축제 목록이 변경되고 스크롤 플래그가 설정된 경우에만 스크롤
   useEffect(() => {
     if (shouldScroll.current) {
       scrollTo(festivalCardListRef);

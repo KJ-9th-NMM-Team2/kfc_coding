@@ -5,6 +5,7 @@ import { CarouselPic, MiniCarouselPic } from "../components/CarouselPic";
 import Carousel from "react-bootstrap/Carousel";
 import "./HomePage.css";
 import { getFiveFestivals } from "../api/api.js";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   // 담벼락 carousel에 띄울 행사 정보
@@ -23,7 +24,7 @@ export default function HomePage() {
       <div className="d-none d-md-block">
         <Carousel>
           {slides.map((slide, idx) => (
-            <Carousel.Item key={idx}>
+            <Carousel.Item key={idx} as={Link} to={`festivals/${slide._id}`}>
               <CarouselPic slide={slide} />
             </Carousel.Item>
           ))}

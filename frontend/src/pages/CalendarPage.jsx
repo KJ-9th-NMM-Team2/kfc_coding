@@ -130,10 +130,7 @@ export default function CalendarPage() {
         {/* Calendar Section */}
         <Row className="mb-4">
           <Col>
-            <div
-              className="calendar-section calendar-calendar-section"
-              // ref={festivalListRef}
-            >
+            <div className="calendar-section calendar-calendar-section">
               <Calendar
                 dates={getCalendarDates()}
                 year={year}
