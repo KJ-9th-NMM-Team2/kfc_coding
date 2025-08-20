@@ -84,7 +84,6 @@ const getOneFestival = asyncHandler(async (req, res) => {
 // 아직 끝나지 않은 축제 5개 가져오기
 const getFiveFestivals = asyncHandler(async (req, res) => {
   const today = getCurrentTime();
-  console.log(today);
   const festivals = await Festival.find({
     end_date: { $gte: today }, // 아직 끝나지 않은 축제
   })
