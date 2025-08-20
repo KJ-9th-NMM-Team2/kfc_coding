@@ -9,7 +9,6 @@ import "./index.css";
 //CSS import
 import "./index.css";
 
-
 // APP 에서 Router 리턴
 createRoot(document.getElementById("root")).render(
   <StrictMode>

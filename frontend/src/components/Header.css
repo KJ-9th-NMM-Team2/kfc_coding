@@ -1,3 +1,8 @@
 .mainLogo {
   max-width: 130px;
 }
+
+.Header {
+  max-width: 1000px;
+  margin: auto;
+}
