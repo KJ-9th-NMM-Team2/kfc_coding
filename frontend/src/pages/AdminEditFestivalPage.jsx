@@ -7,7 +7,6 @@ import { initialFestivalData } from "../components/InitialFestivalData.jsx";
 import { AdminCreateForm } from "../components/admin/AdminCreateForm.jsx";
 import Handlers from "../components/handler/AdminHandler.jsx";
 
-
 const toDateInput = (v) => {
     if (!v) return "";
     const d = new Date(v);
@@ -36,14 +35,14 @@ export default function AdminEditFestivalPage() {
                 navigate("/admin", { replace: true });
                 return;
             }
-            if (!(await authAdminToken(token))) {
+            const ok = await authAdminToken(token);
+            if (!ok) {
                 navigate("/admin", { replace: true });
                 return;
             }
             axios.defaults.headers.common.Authorization = `Bearer ${token}`;
         };
         bootstrap();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // 수정 대상 로딩
@@ -75,35 +74,55 @@ export default function AdminEditFestivalPage() {
         fetchFestival();
     }, [editId, navigate]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            // 서버 규약에 맞게 엔드포인트 선택
-            // 1) 권장 REST: PUT /api/admin/festivals/:id
-            await axios.put(`/api/admin/festivals/${editId}`, festivalData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+    // 필수 필드 간단 검증
+    const required = (v) => v && String(v).trim().length > 0;
+    const isDateInput = (s) => !s || /^\d{4}-\d{2}-\d{2}$/.test(s);
 
-            // 2) 만약 기존에 /api/admin/updateFestival 형태라면 아래로 교체
-            // await axios.post(`/api/admin/updateFestival`, { id: editId, ...festivalData }, {
-            //   headers: { Authorization: `Bearer ${token}` },
-            // });
-
-            alert("수정이 완료되었습니다.");
-            navigate("/admin/mainpage", { replace: true });
-        } catch (e) {
-            const msg = e?.response?.data?.message || "수정 중 오류가 발생했습니다.";
-            alert(msg);
-        }
+    const validate = () => {
+        const errs = [];
+        if (!required(festivalData.name)) errs.push("축제명은 필수입니다.");
+        if (!required(festivalData.location)) errs.push("개최 장소는 필수입니다.");
+        if (!isDateInput(festivalData.start_date)) errs.push("시작일 형식이 올바르지 않습니다(YYYY-MM-DD).");
+        if (!isDateInput(festivalData.end_date)) errs.push("종료일 형식이 올바르지 않습니다(YYYY-MM-DD).");
+        return errs;
     };
 
-    if (loading) {
-        return (
-            <Container className="py-5 d-flex justify-content-center">
-                <Spinner animation="border" />
-            </Container>
-        );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const errs = validate();
+        if (errs.length) {
+            alert(errs.join("\n"));
+            return;
+        }
+
+        // 서버는 body.id를 읽음
+        const payloadForSubmit = { id: editId, ...festivalData };
+
+        try {
+            await axios.post("/api/admin/editfestivalpage", payloadForSubmit, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            alert("수정이 완료되었습니다.");
+            navigate("/admin/mainpage", { replace: true });
+        } catch (err) {
+            console.error("UPDATE ERROR(editfestivalpage):", {
+                status: err?.response?.status,
+                data: err?.response?.data,
+                message: err?.message,
+                requestUrl: "/api/admin/editfestivalpage",
+                payload: payloadForSubmit, // ← 존재하는 변수만 참조
+            });
+            const msg =
+                err?.response?.data?.message ||
+                err?.response?.data?.error ||
+                (typeof err?.response?.data === "string" ? err.response.data : "") ||
+                err?.message ||
+                "수정 중 오류가 발생했습니다.";
+            alert(msg);
+        }
     }
+
     return (
         <Container className="my-5">
             <h2 className="mb-4">축제 정보 수정</h2>
@@ -115,7 +134,7 @@ export default function AdminEditFestivalPage() {
                         name="name"
                         onChange={handlers.inputChange}
                         value={festivalData.name}
-                        requiredStatus={true}
+                        requiredStatus
                     />
                     <AdminCreateForm
                         controlId="formGridLocation"
@@ -123,7 +142,7 @@ export default function AdminEditFestivalPage() {
                         name="location"
                         onChange={handlers.inputChange}
                         value={festivalData.location}
-                        requiredStatus={true}
+                        requiredStatus
                     />
                 </Row>
 
@@ -140,7 +159,7 @@ export default function AdminEditFestivalPage() {
                     name="description"
                     onChange={handlers.inputChange}
                     value={festivalData.description}
-                    type={"textarea"}
+                    type="textarea"
                 />
 
                 <Row className="mb-3">
@@ -150,7 +169,7 @@ export default function AdminEditFestivalPage() {
                         name="start_date"
                         onChange={handlers.inputChange}
                         value={festivalData.start_date}
-                        type={"date"}
+                        type="date"
                     />
                     <AdminCreateForm
                         controlId="formEndDate"
@@ -158,7 +177,7 @@ export default function AdminEditFestivalPage() {
                         name="end_date"
                         onChange={handlers.inputChange}
                         value={festivalData.end_date}
-                        type={"date"}
+                        type="date"
                     />
                 </Row>
 
@@ -222,7 +241,7 @@ export default function AdminEditFestivalPage() {
                             />
                         </div>
                     ))}
-                    <Button variant="outline-secondary" onClick={handlers.addImageField}>
+                    <Button type="button" variant="outline-secondary" onClick={handlers.addImageField}>
                         이미지 필드 추가
                     </Button>
                 </Form.Group>
