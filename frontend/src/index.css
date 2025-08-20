@@ -39,11 +39,10 @@ a:hover {
 }
 
 body {
-  min-width: 320px;
+  max-width: 1000px;
   min-height: 100vh;
+  margin: auto;
 
-  display: flex;
-  justify-content: center;
   /* 가로 가운데 */
   align-items: flex-start;
   /* 원하는 만큼 내려줌 */
