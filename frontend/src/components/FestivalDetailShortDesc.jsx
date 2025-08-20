@@ -1,6 +1,6 @@
 import { Card, Container, Badge, Button } from "react-bootstrap";
-
-import { HeartFill } from "react-bootstrap-icons";
+import { HeartFill, ShareFill } from "react-bootstrap-icons";
+import { useState } from "react";
 
 export default function FestivalDetailShortDesc({ festival }) {
   // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
@@ -35,6 +35,44 @@ export default function FestivalDetailShortDesc({ festival }) {
       ? "축제 종료"
       : "축제 진행 중";
 
+  ////////////////////////////////////////////////////////////////
+  // 좋아요 수 관리할 State
+  const [likes, setLikes] = useState(festival.likes || 0);
+
+  const handleLikeClick = async() => {
+  // 0. 현재 좋아요 수를 백업
+  const previousLikes = likes;
+
+    // 1. 서버 기다리지 않고 UI 즉시 업데이트 
+    setLikes(likes + 1); 
+
+    try{
+    // 2. fetch 로 서버에 POST 요청
+    const response= await fetch(`/api/festivals/${festival._id}/like`,{
+      method : 'POST', 
+      headers:{
+        'Content-Type' : 'application/json',
+      },
+    });
+
+    // 3. 서버 응답 상태 확인
+    if (!response.ok){
+      throw new Error(`API 요성실패 : ${response.status}`);
+    }
+
+    // 4. 성공시 응답 처리
+    const result = await response.json();
+
+    // 5. 최종 결과를 STATE 에 업데이트
+    setLikes(result.likes); 
+
+  } catch(error){
+    // 6. API 요청 실패시 되돌림
+    console.error("좋아요 처리 중 에러 발생:", error);
+    setLikes(previousLikes); // 백업해둔 값으로 복원
+  }
+  };
+
   return (
     <Card className="mb-3">
       <Card.Body className="lh-lg fw-bold">
@@ -61,13 +99,18 @@ export default function FestivalDetailShortDesc({ festival }) {
         {/* 좋아요, 공유, 조회수*/}
         <Card.Text className="fw-bold">
           <div className="d-flex align-items-center">
-            <Button variant="outline-danger" size="md" className="me-3">
-              <HeartFill className="me-1" /> {/* 아이콘 */}
-              {festival.likes || 0}
+            <Button variant="outline-danger" size="md" className="me-3" onClick={handleLikeClick}>
+              {/* 하트 아이콘 컴포넌트 */}
+              <HeartFill className="me-2" /> 
+              {likes} 
             </Button>
 
-            <span className="text-muted me-3">
-              공유: {festival.shares || 0}
+            <span className="me-3">
+              <Button variant="outline-dark">
+                <ShareFill className="me-2 "></ShareFill>
+
+                {festival.shares || 0}
+              </Button>
             </span>
 
             <span className="text-muted">조회수: {festival.views || 0}</span>

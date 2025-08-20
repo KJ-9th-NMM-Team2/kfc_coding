@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Festival = require("../models/Festival.js");
+const { response } = require("express");
 
 const getCurrentTime = () => {
   const originalTime = new Date();
@@ -185,6 +186,27 @@ const getThreeFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
+// POST /api/festivals/:id/like
+// 좋아요 수 1 증가시키기
+const handleLikeFestival = asyncHandler(async(req,res)=>{
+  const festivalId = req.params.id;
+
+  // DB 조회 후 Like 수 업데이트 처리
+  const updatedFestival = await Festival.findByIdAndUpdate(
+    festivalId,
+    { $inc: {likes : 1}},
+    { new : true} // true 설정 -> 업데이트 후의 문서 반환
+  );
+
+  // ID에 해당하는 축제가 없을때
+  if (!updatedFestival){
+    return response.status(404).json({message: "축제 못찾음"});
+  }
+
+  // 성공시 json 응답
+  res.status(200).json(updatedFestival);
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
@@ -192,4 +214,5 @@ module.exports = {
   getMonthFestivals,
   getDateFestivals,
   getThreeFestivals,
+  handleLikeFestival
 };

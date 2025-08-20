@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import FestivalDetailHeroSection from "../components/FestivalDetailHeroSection.jsx";
 import FestivalDetailDesc from "../components/FestivalDetailDesc.jsx";
 import FestivalDetailCard from "../components/FestivalDetailCard.jsx";
@@ -8,11 +8,8 @@ import FestivalContactInfoCard from "../components/FesitvalContactInfoCard.jsx";
 import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
 import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
 import { Card, Container, Row, Col } from "react-bootstrap";
-// import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
-import { useParams } from "react-router-dom";
-
-//[08.19] 컴포넌트 추가
 import FestivalDetailShortDesc from "../components/FestivalDetailShortDesc.jsx";
+// import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 
 // 실제 API 데이터를 사용
 const FestivalDetailPage = () => {
@@ -98,25 +95,29 @@ const FestivalDetailPage = () => {
         </Row>
 
         <Row>
-          {/* 축제 메인 포스터 렌더링 */}
-          <FestivalDetailDesc festival={festival} />
+          <Col md={6}>
+            {/* 축제 메인 포스터 렌더링 */}
+            <FestivalDetailDesc festival={festival} />
+          </Col>
 
-          <div className="d-grid gap-3">
-            {/* 위치,가격,주최,문의 */}
+          <Col md={6} className="d-grid gap-3">
+            {/* 날짜,위치,가격,주최,문의,홈페이지 */}
             <FestivalDetailCard festival={festival} />
-          </div>
+          </Col>
         </Row>
 
-        {/* 이 부분에 새로운 클래스를 추가합니다. */}
+        {/* 길찾기 부분 */}
         <Row className="mt-4">
           <FestivalDetailMap location={festival?.location} />
         </Row>
         <Row>
           <FestivalDetailOthers id={festival?._id} />
         </Row>
-        <Row lg={11}>
-          {/* Contact Info Card */}
-          <FestivalContactInfoCard festival={festival} />
+        <Row>
+          <Col lg={11}>
+            {/* Contact Info Card */}
+            <FestivalContactInfoCard festival={festival} />
+          </Col>
         </Row>
       </Container>
     </>
