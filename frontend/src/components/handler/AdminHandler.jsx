@@ -1,10 +1,10 @@
 import axios from "axios";
 import { initialFestivalData } from "../InitialFestivalData.jsx";
 
-export default function Handlers(setFestivalData) {
+export default function Handlers(setData) {
     const inputChange = (e) => {
         const { name, value } = e.target;
-        setFestivalData((prevData) => ({
+        setData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
@@ -13,7 +13,7 @@ export default function Handlers(setFestivalData) {
     const categoryChange = (e) => {
         // radio용
         const { value } = e.target;
-        setFestivalData((prevData) => ({
+        setData((prevData) => ({
             ...prevData,
             category: value,
         }));
@@ -31,14 +31,14 @@ export default function Handlers(setFestivalData) {
     const imageChange = (e, index, festivalData) => {
         const newImages = [...festivalData.images];
         newImages[index] = e.target.value;
-        setFestivalData((prevData) => ({
+        setData((prevData) => ({
         ...prevData,
         images: newImages,
         }));
     };
 
     const addImageField = () => {
-        setFestivalData((prevData) => ({
+        setData((prevData) => ({
             ...prevData,
             images: [...prevData.images, ""],
         }));
@@ -49,8 +49,35 @@ export default function Handlers(setFestivalData) {
         // 여기에서 API 호출 로직을 구현합니다.
         // festivalData 객체를 백엔드에 전송
         const res = await axios.post("/api/admin/createFestival", festivalData);
-        setFestivalData(initialFestivalData);
+        setData(initialFestivalData);
         alert(res.data.message);
+    };
+
+    const loginButtonSubmit = async (e, id, password) => {
+        e.preventDefault();
+        // TODO: 여기에 실제 로그인 처리 로직을 추가합니다.
+        // 예: API 호출, 상태 업데이트 등
+        
+        try {
+            const res = await axios.post('/api/admin/login', {
+                id, password
+            });
+            const token = res.data.token;
+            // 1. 웹 브라우저의 로컬 스토리지에 저장
+            localStorage.setItem('admin', token);
+
+            // 2. 이후 요청에 자동으로 토큰을 포함시키기 위해 axios 기본 헤더 설정
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            return true;
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+            } else {
+                alert("로그인 중 오류가 발생했습니다.");
+            }
+
+            return false;
+        }
     };
 
     return {
@@ -59,5 +86,6 @@ export default function Handlers(setFestivalData) {
         imageChange,
         addImageField,
         submit,
+        loginButtonSubmit,
     }
 }

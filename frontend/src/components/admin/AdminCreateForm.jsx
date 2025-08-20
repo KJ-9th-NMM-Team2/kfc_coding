@@ -1,6 +1,7 @@
 import { Form, Col } from 'react-bootstrap';
+import Handlers from '../handler/AdminHandler';
 
-export const AdminCreateForm = ({ controlId, title, name, handleInputChange, handleCategoryChange, value, requiredStatus, festivalData}) => {
+export const AdminCreateForm = ({ controlId, title, name, type, onChange, value, requiredStatus, festivalData}) => {
     const regions = [
         "서울",
         "인천",
@@ -33,46 +34,15 @@ export const AdminCreateForm = ({ controlId, title, name, handleInputChange, han
     if (name === "description") {
         return (
             <Form.Group as={Col} controlId={controlId}>
-
                 <Form.Label>
                     {title}
                 </Form.Label>
                 <Form.Control
-                    as="textarea"
+                    as={type}
                     rows={3}
                     name={name}
                     value={value}
-                    onChange={handleInputChange}
-                />
-            </Form.Group>
-        )
-    } else if (name.split("_")[1] === "date") {
-        return (
-            <Form.Group as={Col} controlId={controlId}>
-
-                <Form.Label>
-                    {title}
-                </Form.Label>
-                <Form.Control
-                    type="date"
-                    name={name}
-                    value={value}
-                    onChange={handleInputChange}
-                />
-            </Form.Group>
-        )
-    } else if (name === "website") {
-        return (
-            <Form.Group as={Col} controlId={controlId}>
-
-                <Form.Label>
-                    {title}
-                </Form.Label>
-                <Form.Control
-                    type="url"
-                    name={name}
-                    value={value}
-                    onChange={handleInputChange}
+                    onChange={onChange}
                 />
             </Form.Group>
         )
@@ -85,7 +55,7 @@ export const AdminCreateForm = ({ controlId, title, name, handleInputChange, han
             <Form.Select
                 name={name}
                 value={value}
-                onChange={handleInputChange}
+                onChange={onChange}
                 required={requiredStatus ? true : false}
             >
                 <option value="">지역 선택</option>
@@ -106,11 +76,11 @@ export const AdminCreateForm = ({ controlId, title, name, handleInputChange, han
             {categories.map((category) => (
                 <Form.Check
                     key={category}
-                    type="radio"
+                    type={type}
                     id={`category-${category}`}
                     label={category}
                     value={category}
-                    onChange={handleCategoryChange}
+                    onChange={onChange}
                     checked={festivalData.category.includes(category)}
                 />
             ))}
@@ -118,15 +88,15 @@ export const AdminCreateForm = ({ controlId, title, name, handleInputChange, han
         )
     } else {
         return (
-        <Form.Group as={Col} controlId={controlId}>
+        <Form.Group as={Col} controlId={controlId} className="mb-4">
             <Form.Label>
                 {title} {requiredStatus ? <span className="text-danger">*</span> : ""}
             </Form.Label>
             <Form.Control
-                type="text"
+                type={type}
                 name={name}
                 value={value}
-                onChange={handleInputChange}
+                onChange={onChange}
                 required={requiredStatus ? true : false}
             />
         </Form.Group>
