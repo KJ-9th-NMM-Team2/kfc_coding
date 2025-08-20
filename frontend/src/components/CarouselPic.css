@@ -1,17 +1,19 @@
 .carousel-poster-center {
+  aspect-ratio: 3 / 4;
   position: absolute;
   top: 50%;
-  left: 30%; /* 12칸 기준 3~5 위치로 더 왼쪽 */
+  left: 28%; /* 12칸 기준 3~5 위치로 더 왼쪽 */
   transform: translate(-50%, -50%);
   z-index: 1;
-  max-height: 400px;
-  max-width: 400px;
+  max-height: 330px;
+  max-width: 440px;
   object-fit: cover;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
 }
 
 .carousel-info-right {
+  max-width: 450px;
   position: absolute;
   top: 50%;
   left: 45%; /* 12칸 기준 5 위치로 이동 */

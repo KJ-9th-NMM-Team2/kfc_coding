@@ -24,13 +24,13 @@ function FestivalCard(props) {
     <>
       <li
         className="festival_card_item"
-        style={{ display: "inline-block", margin: "1rem" }}
+        style={{ display: "inline-block", margin: "0.5rem" }}
       >
         <Card
           as={Link}
           to={`/festivals/${festival._id}`}
           style={{
-            width: "20rem",
+            width: "18rem",
             height: "20rem",
             border: "none",
             textDecorationLine: "none",
