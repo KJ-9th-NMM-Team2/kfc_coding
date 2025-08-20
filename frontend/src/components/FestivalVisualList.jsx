@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import "./FestivalVisualList.css";
@@ -60,7 +60,14 @@ function FestivalVisual(props) {
 
 function FestivalVisualList(props) {
   let featuredFestivals = props.festivals;
-  const [selected, setSelected] = useState(featuredFestivals.length > 0 ? featuredFestivals[0]._id : null);
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const handlePropsChange = () => {
+      setSelected(featuredFestivals.length > 0 ? featuredFestivals[0]._id : null);
+    };
+    handlePropsChange();
+  }, [featuredFestivals]);
 
   return (
     <>
