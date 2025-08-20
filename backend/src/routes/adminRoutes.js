@@ -6,6 +6,7 @@ const {
   authAdminToken,
   createFestival,
   deleateFestival,
+  editFestival,
 } = require("../controllers/adminControllers.js");
 
 // post /api/admin
@@ -20,7 +21,10 @@ router.route('/authToken').post(authAdminToken);
 // Admin Create Festival
 router.route('/createFestival').post(createFestival);
 
-//축제 삭제
+// 축제 삭제
 router.route('/deleateFestival').post(deleateFestival);
+
+// 축제 수정
+router.route('/editfestivalpage').post(editFestival);
 
 module.exports = router;

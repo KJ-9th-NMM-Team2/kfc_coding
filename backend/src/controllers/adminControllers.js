@@ -133,10 +133,55 @@ const deleateFestival = asyncHandler(async (req, res) => {
     res.status(200).json({ message: '삭제되었습니다.', id });
 });
 
+const editFestival = asyncHandler(async (req, res) => {
+    const id = req.body?.id || req.params?.id;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: '유효하지 않은 축제 ID입니다.' });
+    }
+
+    const updateData = { ...req.body };
+    delete updateData.id;       // id는 업데이트 대상에서 제외
+    delete updateData._id;
+
+    // 날짜 보정
+    if (typeof updateData.start_date === 'string' && updateData.start_date.trim()) {
+        updateData.start_date = new Date(updateData.start_date);
+    } else {
+        delete updateData.start_date;
+    }
+    if (typeof updateData.end_date === 'string' && updateData.end_date.trim()) {
+        updateData.end_date = new Date(updateData.end_date);
+    } else {
+        delete updateData.end_date;
+    }
+
+    // 스키마가 문자열이라면 배열 → 문자열로
+    if (Array.isArray(updateData.category)) {
+        updateData.category = updateData.category.toString();
+    }
+
+    const updated = await Festival.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true,
+    });
+
+    if (!updated) {
+        return res.status(404).json({ message: "해당 ID의 축제를 찾을 수 없습니다." });
+    }
+
+    res.status(200).json({
+        message: "축제 정보가 성공적으로 수정되었습니다.",
+        festival: updated,
+    });
+});
+
+
 
 module.exports = {
     getAdminLogin,
     authAdminToken,
     createFestival,
     deleateFestival,
+    editFestival,
 };
