@@ -32,24 +32,101 @@ export default function Handlers(setData) {
         const newImages = [...festivalData.images];
         newImages[index] = e.target.value;
         setData((prevData) => ({
-        ...prevData,
-        images: newImages,
+            ...prevData,
+            images: newImages,
         }));
     };
 
-    const addImageField = () => {
+    const addImageField = (e, setImages) => {
+        // 1. 선택된 파일 객체 가져오기
+        const file = e.target.files[0];
+        // 파일이 선택되었을 때만 로직 실행
+        if (file) {
+            // 2. setData를 사용하여 새로운 필드를 추가하고 파일명 할당
+            setData((prevData) => ({
+                ...prevData,
+                images: [...prevData.images, file],
+            }));
+            setImages([...images, file]);
+        }
+    };
+
+    const addUrlField = () => {
         setData((prevData) => ({
             ...prevData,
-            images: [...prevData.images, ""],
+            images: [...prevData.images, ""] // 빈 문자열 필드 추가
         }));
     };
 
-    const submit = async (e, festivalData) => {
+
+    const submit = async (e, festivalData, postFile, thumbnailFile, images, setPostFile, setThumbnailFile, setImages) => {
         e.preventDefault();
         // 여기에서 API 호출 로직을 구현합니다.
         // festivalData 객체를 백엔드에 전송
-        const res = await axios.post("/api/admin/createFestival", festivalData);
+        
+        // console.log(festivalData);
+        // const inputFlag = false;
+        // if (postFile && thumbnailFile && images ) {
+        //     inputFlag = true;
+        // }
+        const formData = new FormData();
+        // 1. festivalData의 일반 데이터 추가
+
+        // festivalData.forEach((key, value) => {
+        //     console.log("key: ", key);
+        //     console.log("value: ", value);
+        //     formData.append(key, value);
+        // })
+        for (const key in festivalData) {
+            formData.append(key, festivalData[key]);
+        }
+
+        // 2. 파일 객체들 확인 및 추가
+        console.log('파일 처리 시작...');
+        
+        // 포스터 파일 처리
+        if (postFile && postFile instanceof File) {
+            console.log('포스터 파일 추가:', postFile.name);
+            formData.append('posterFile', postFile);
+        } else {
+            console.warn('포스터 파일이 File 객체가 아닙니다:', typeof postFile, postFile);
+        }
+
+        // 썸네일 파일 처리
+        if (thumbnailFile && thumbnailFile instanceof File) {
+            console.log('썸네일 파일 추가:', thumbnailFile.name);
+            formData.append('thumbnailFile', thumbnailFile);
+        } else {
+            console.warn('썸네일 파일이 File 객체가 아닙니다:', typeof thumbnailFile, thumbnailFile);
+        }
+        
+        // 4. 이미지 배열 처리 (파일과 URL 모두 처리)
+        if (festivalData.images && Array.isArray(festivalData.images)) {
+            festivalData.images.forEach((item) => {
+                if (item instanceof File) {
+                    formData.append('imageFiles', item); // 파일 객체 추가
+                } else if (typeof item === 'string' && item.startsWith('http')) {
+                    console.log("DEBUG 용");
+                }
+            });
+        }
+
+        // FormData 내용 확인 (디버깅용)
+        // for (const pair of formData.entries()) {
+        //     console.log(pair[0], pair[1]);
+        // }
+        
+        const res = await axios.post("/api/admin/createFestival", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        // 성공 시 모든 상태 초기화
         setData(initialFestivalData);
+        setPostFile(null);
+        setThumbnailFile(null);
+        setImages([]);
+
         alert(res.data.message);
     };
 
@@ -80,12 +157,28 @@ export default function Handlers(setData) {
         }
     };
 
+    const chooseFile = (e, setFile) => {
+        const {name, files} =  e.target;
+        const file = files[0];
+        if (file) {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: file.name
+            }));
+
+            if (setFile) {
+                setFile(file);
+            }
+        }
+    }
     return {
         inputChange,
         categoryChange,
         imageChange,
         addImageField,
+        addUrlField,
         submit,
         loginButtonSubmit,
+        chooseFile,
     }
 }
