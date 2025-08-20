@@ -4,12 +4,15 @@ import DateSelect from "./DateSelect";
 import CategorySelect from "./CategorySelect";
 import ResetButton from "./ResetButton";
 import SearchButton from "./SearchButton";
+import LoginButton from "./LoginButton";
+import { useNavigate } from "react-router-dom";
 import "../css/FestivalSearch.css";
 
 function FestivalSearch(props) {
   const [region, setRegion] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
+  const navigate = useNavigate();
 
   const handleReset = () => {
     setRegion("");
@@ -39,6 +42,9 @@ function FestivalSearch(props) {
     }
   };
 
+  function goadmin() {
+    navigate("/admin");
+  }
   const disabled = !region && !date && !category;
 
   return (
@@ -52,6 +58,9 @@ function FestivalSearch(props) {
       </div>
       <div className="item-auto">
         <SearchButton onClick={handleSearch} disabled={disabled} />
+      </div>
+      <div className="item-auto">
+        <LoginButton onClick={goadmin} />
       </div>
     </div>
   );
