@@ -77,7 +77,7 @@ export default function AdminMainPage() {
     };
 
     const handleEdit = (id) => {
-        navigate(`/admin/createFestival?edit=${id}`);
+        navigate(`/admin/editfestivalpage?edit=${id}`);
     };
 
     const handleDelete = async (id) => {
