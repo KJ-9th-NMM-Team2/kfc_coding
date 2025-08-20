@@ -87,7 +87,7 @@ function RegionSelect({ value = "", onChange }) {
   ];
 
   return (
-    <div style={{ width: 230 }}>
+    <span>
       <Select
         options={options}
         value={options.find((opt) => opt.value === value) || null}
@@ -101,7 +101,7 @@ function RegionSelect({ value = "", onChange }) {
           Control: CustomControl,
         }}
       />
-    </div>
+    </span>
   );
 }
 

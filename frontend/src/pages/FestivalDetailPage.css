@@ -1,0 +1,36 @@
+.content-container {
+  background: white;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+.content-container .festivalDetailPage {
+  max-width: 950px;
+}
+
+/* 부드러운 스크롤 효과 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 배경 이미지가 스크롤시 고정되도록 */
+body {
+  background-attachment: fixed !important;
+}
+
+/* FestivalDetailPage에서만 헤더 스타일 오버라이드 */
+.Header.text-white .nav-link,
+.Header.text-white .navbar-brand {
+  color: white !important;
+}
+
+.Header.text-white .nav-link:hover,
+.Header.text-white .navbar-brand:hover {
+  color: #f0f0f0 !important;
+}
+
+/* FestivalDetailPage에서 로고 색상 반전 */
+.Header.text-white .mainLogo {
+  filter: invert(1) brightness(1);
+}

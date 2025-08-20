@@ -44,8 +44,8 @@ const styles = {
     backgroundColor: state.isSelected
       ? PRIMARY
       : state.isFocused
-        ? "rgba(13,110,253,.08)"
-        : "#fff",
+      ? "rgba(13,110,253,.08)"
+      : "#fff",
     ":active": {
       backgroundColor: state.isSelected ? PRIMARY : "rgba(13,110,253,.12)",
     },
@@ -105,7 +105,7 @@ function CategorySelect({ value = "", onChange }) {
   ];
 
   return (
-    <div style={{ width: 230 }}>
+    <span>
       <Select
         options={options}
         value={options.find((opt) => opt.value === value) || null}
@@ -121,7 +121,7 @@ function CategorySelect({ value = "", onChange }) {
           SingleValue: CustomSingleValue,
         }}
       />
-    </div>
+    </span>
   );
 }
 

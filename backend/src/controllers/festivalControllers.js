@@ -2,6 +2,13 @@ const asyncHandler = require("express-async-handler");
 const Festival = require("../models/Festival.js");
 const { response } = require("express");
 
+const getCurrentTime = () => {
+  const originalTime = new Date();
+  originalTime.setHours(0, 0, 0, 0);
+  const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
+  return now;
+};
+
 // GET /api/festivals
 // 모든 축제 가져오기
 const getAllFestivals = asyncHandler(async (req, res) => {
@@ -74,9 +81,12 @@ const getOneFestival = asyncHandler(async (req, res) => {
 });
 
 // GET /api/festivals/top5
-// 첫 5개 축제 가져오기
+// 아직 끝나지 않은 축제 5개 가져오기
 const getFiveFestivals = asyncHandler(async (req, res) => {
-  const festivals = await Festival.find()
+  const today = getCurrentTime();
+  const festivals = await Festival.find({
+    end_date: { $gte: today }, // 아직 끝나지 않은 축제
+  })
     .limit(5)
     .select(
       "name short_description start_date end_date location thumbnail_url poster_url"

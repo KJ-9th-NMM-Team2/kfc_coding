@@ -4,7 +4,7 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer role="contentinfo">
+    <footer role="contentinfo" className="bg-white">
       <Container className="py-4">
         {/* 상단 링크 */}
         <Row className="mb-1">

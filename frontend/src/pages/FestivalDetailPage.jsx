@@ -9,6 +9,8 @@ import FestivalDetailOthers from "../components/FestivalDetailOthers.jsx";
 import FestivalDetailMap from "../components/FestivalDetailMap.jsx";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import FestivalDetailShortDesc from "../components/FestivalDetailShortDesc.jsx";
+import "./FestivalDetailPage.css";
+
 // import { useFestival } from '../components/FestivalDetailFindDBData.jsx';
 
 // 실제 API 데이터를 사용
@@ -37,7 +39,71 @@ const FestivalDetailPage = () => {
       }
     };
     fetchFestival();
+    window.scrollTo(0, 0); // 페이지 상단 스크롤
   }, [id]);
+
+  useEffect(() => {
+    if (festival?.thumbnail_url) {
+      document.body.style.width = "100%";
+      document.body.style.backgroundImage = `url(${festival.thumbnail_url})`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundRepeat = "no-repeat";
+      document.body.style.backgroundAttachment = "fixed";
+    }
+
+    // 헤더를 투명하게 만들고 텍스트를 흰색으로 변경
+    const header = document.querySelector(".Header");
+    if (header) {
+      header.style.background = "transparent";
+      header.style.backgroundColor = "transparent";
+      header.classList.remove("bg-white");
+      header.classList.add("text-white");
+
+      // 네비게이션 링크들도 흰색으로
+      const navLinks = header.querySelectorAll(".nav-link, .navbar-brand");
+      navLinks.forEach((link) => {
+        link.style.color = "white";
+        link.classList.add("text-white");
+      });
+
+      // 로고 이미지 색상 반전
+      const logo = header.querySelector(".mainLogo");
+      if (logo) {
+        logo.style.filter = "invert(1) brightness(1)";
+      }
+    }
+
+    return () => {
+      document.body.style.width = "";
+      document.body.style.backgroundImage = "";
+      document.body.style.backgroundSize = "";
+      document.body.style.backgroundPosition = "";
+      document.body.style.backgroundRepeat = "";
+      document.body.style.backgroundAttachment = "";
+
+      // 헤더 스타일 원복
+      const header = document.querySelector(".Header");
+      if (header) {
+        header.style.background = "";
+        header.style.backgroundColor = "";
+        header.classList.add("bg-white");
+        header.classList.remove("text-white");
+
+        const navLinks = header.querySelectorAll(".nav-link, .navbar-brand");
+        navLinks.forEach((link) => {
+          link.style.color = "";
+          link.classList.remove("text-white");
+        });
+
+        // 로고 이미지 색상 원복
+        const logo = header.querySelector(".mainLogo");
+        if (logo) {
+          logo.style.filter = "";
+        }
+      }
+    };
+  }, [festival?.thumbnail_url]);
 
   // 날짜 YYYY--MM--DD 형식으로 변환 함수 정의
   const formatDate = (iso) => {
@@ -83,42 +149,43 @@ const FestivalDetailPage = () => {
 
   return (
     <>
+      {/* Spacer to push content down initially */}
+      <div style={{ height: "95vh" }}></div>
+
       {/* Main Content */}
-      <Container className="py-5">
-        <Row>
-          {/* Hero Section - 썸네일 렌더링 */}
-          <FestivalDetailHeroSection festival={festival} />
+      <div className="content-container">
+        <Container className="festivalDetailPage pt-5">
+          <Row>
+            {/* ShortDescription 부분 */}
+            <FestivalDetailShortDesc festival={festival} />
+          </Row>
+          <Row>
+            <Col md={4}>
+              {/* 축제 메인 포스터 렌더링 */}
+              <FestivalDetailDesc festival={festival} />
+            </Col>
 
-          {/* ShortDescription 부분 */}
-          <FestivalDetailShortDesc festival={festival} />
-        </Row>
+            <Col md={8} className="d-grid gap-3">
+              {/* 날짜,위치,가격,주최,문의,홈페이지 */}
+              <FestivalDetailCard festival={festival} />
+            </Col>
+          </Row>
 
-        <Row>
-          <Col md={6}>
-            {/* 축제 메인 포스터 렌더링 */}
-            <FestivalDetailDesc festival={festival} />
-          </Col>
-
-          <Col md={6} className="d-grid gap-3">
-            {/* 날짜,위치,가격,주최,문의,홈페이지 */}
-            <FestivalDetailCard festival={festival} />
-          </Col>
-        </Row>
-
-        {/* 길찾기 부분 */}
-        <Row className="mt-4">
-          <FestivalDetailMap location={festival?.location} />
-        </Row>
-        <Row>
-          <FestivalDetailOthers id={festival?._id} />
-        </Row>
-        <Row>
-          <Col lg={11}>
-            {/* Contact Info Card */}
-            <FestivalContactInfoCard festival={festival} />
-          </Col>
-        </Row>
-      </Container>
+          {/* 길찾기 부분 */}
+          <Row className="mt-4">
+            <FestivalDetailMap location={festival?.location} />
+          </Row>
+          <Row>
+            <FestivalDetailOthers id={festival?._id} />
+          </Row>
+          <Row>
+            <Col lg={11}>
+              {/* Contact Info Card */}
+              <FestivalContactInfoCard festival={festival} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   );
 };
