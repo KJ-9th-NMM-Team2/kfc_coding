@@ -1,7 +1,7 @@
 // components/common/ChooseFestivalImage.jsx
 import React from 'react';
 
-export const ChooseFestivalImage = ({ controlId, name, onChange }) => {
+export const ChooseFestivalImage = ({ controlId, title, type, name, onChange }) => {
     return (
         <>
             <label 
@@ -9,14 +9,14 @@ export const ChooseFestivalImage = ({ controlId, name, onChange }) => {
                 className="btn btn-secondary mt-3" 
                 style={{ whiteSpace: 'nowrap' }}
             >
-                이미지 선택
+                {title}
             </label>
             <input
                 id={`file-input-${controlId}`}
-                type="file"
+                type={type}
                 name={name}
                 onChange={onChange}
-                className='d-none' // 파일을 선택하는 input을 숨김
+                className='d-none mr-5' // 파일을 선택하는 input을 숨김
             />
         </>
     );

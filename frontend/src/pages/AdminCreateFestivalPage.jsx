@@ -13,6 +13,7 @@ export default function AdminCreateFestivalPage() {
   // 파일 객체를 저장할 상태
   const [postFile, setPostFile] = useState(null);
   const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [images, setImages] = useState([]);
   const handlers = Handlers(setFestivalData);
   useEffect(() => {
     const adminAuthToken = async () => {
@@ -34,7 +35,7 @@ export default function AdminCreateFestivalPage() {
   return (
     <Container className="my-5">
       <h2 className="mb-4">축제 정보 등록</h2>
-      <Form onSubmit={(e) => { handlers.submit(e, festivalData) }}>
+      <Form onSubmit={(e) => { handlers.submit(e, festivalData, postFile, thumbnailFile, images, setPostFile, setThumbnailFile, setImages) }}>
         <Row className="mb-3">
           <AdminCreateForm controlId="formGridName" title="축제명" name="name" onChange={handlers.inputChange} value={festivalData.name} requiredStatus={true} />
           <AdminCreateForm controlId="formGridLocation" title="개최 장소" name="location" onChange={handlers.inputChange} value={festivalData.location} requiredStatus={true} />
@@ -57,33 +58,45 @@ export default function AdminCreateFestivalPage() {
         <AdminCreateForm controlId="formContact" title="공식 홈페이지" name="website" onChange={handlers.inputChange} value={festivalData.website} />
 
         <Row className="mb-3">
-          <AdminCreateForm controlId="formPosterUrl" title="포스터 사진" name="poster_url" type="image" onChange={handlers.chooseFile} value={festivalData.poster_url}/>
+          <AdminCreateForm controlId="formPosterUrl" title="포스터 사진" name="poster_url" type="file" onChange={handlers.inputChange} onChangeFile={(e) => handlers.chooseFile(e, setPostFile)} value={festivalData.poster_url}/>
 
-          <AdminCreateForm controlId="formThumbnailUrl" title="썸네일 사진" name="thumbnail_url" type="image" onChange={handlers.chooseFile} value={festivalData.thumbnail_url}/>
+          <AdminCreateForm controlId="formThumbnailUrl" title="썸네일 사진" name="thumbnail_url" type="file" onChange={handlers.inputChange} onChangeFile={(e) => handlers.chooseFile(e, setThumbnailFile)} value={festivalData.thumbnail_url}/>
         </Row>
 
+        {/* <AdminCreateForm title="이미지 URL" name="images" type="path" onChange={handlers.inputChange} onChangeFile={(e) => handlers.addImageField(e, setImages)} festivalData={festivalData} onClickButton={handlers.addUrlField}/> */}
         <Form.Group className="mb-3">
-          <Form.Label>이미지 URL</Form.Label>
-          {festivalData.images.map((image, index) => (
-            <div key={index} className="mb-2">
-              <Form.Control
-                type="path"
-                value={image}
-                name="images"
-                onChange={(e) => handlers.imageChange(e, index, festivalData)}
-              />
-            </div>
-          ))}
+            <Form.Label>이미지 URL</Form.Label>
+            {festivalData.images.map((image, index) => (
+                <div key={index} className="mb-2">
+                    <Form.Control
+                        type='text'
+                        value={image}
+                        name='images'
+                        onChange={(e) => handlers.imageChange(e, index, festivalData)}
+                    />
+                </div>
+            ))}
         </Form.Group>
-        {/* Choose File 버튼 스타일링을 위해 label과 input을 사용 */}
-        <ChooseFestivalImage controlId={"formImages"} name={"images"} onChange={(e) => handlers.addImageField(e)}/>
+        <ChooseFestivalImage controlId={"formImageFiles"} title="파일 선택" type="file" name={"images"} onChange={((e) => handlers.addImageField(e, setImages))}/>
+        <Button
+        className="btn btn-secondary ms-3 mt-3" 
+        style={{ whiteSpace: 'nowrap' }}
+        onClick={handlers.addUrlField}
+        >
+        URL 추가
+        </Button>
 
         <Row className="mb-10">
-          <AdminCreateForm controlId="formRegion" title="지역" name="region" onChange={handlers.inputChange} value={festivalData.region}/>
-          <AdminCreateForm controlId="formCategory" title="카테고리" type="radio" onChange={handlers.categoryChange} value={festivalData.category} festivalData={festivalData}/>
+          <AdminCreateForm controlId="formRegion" title="지역" name="region" onChange={handlers.inputChange} value={festivalData.region} requiredStatus={true}/>
+          <AdminCreateForm controlId="formCategory" title="카테고리" type="radio" onChange={handlers.categoryChange} value={festivalData.category} festivalData={festivalData} requiredStatus={true}/>
         </Row>
 
-        <Button variant="primary" type="submit">
+        <Button 
+          variant="primary" 
+          type="submit"
+          className="btn btn-secondary ms-3 mt-3" 
+          style={{ whiteSpace: 'nowrap' }}
+        >
           축제 등록
         </Button>
       </Form>
