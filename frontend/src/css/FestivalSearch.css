@@ -1,6 +1,6 @@
 .filter-bar {
     display: grid;
-    grid-template-columns: repeat(3, minmax(220px, 1fr)) auto auto;
+    grid-template-columns: repeat(3, minmax(220px, 1fr)) auto auto auto;
     gap: 12px;
     align-items: stretch;
 }
