@@ -26,10 +26,9 @@ export default function FestivalDetailShortDesc({ festival }) {
       ? "축제 종료"
       : "축제 진행 중";
 
-  // console.log(festival); // 디버깅용
   return (
     <Card className="mb-3">
-      <Card.Body>
+      <Card.Body className = "lh-lg fw-bold">
         {/* 축제간단설명 */}
         <Card.Title className="fs-4 fw-bold">
           {festival.short_description}
@@ -57,7 +56,7 @@ export default function FestivalDetailShortDesc({ festival }) {
         </Card.Text>
 
         {/* 행사 내용 */}
-        <Card.Text >{festival.description}</Card.Text>
+        <Card.Text className = "pretendard text-secondary" style={{ whiteSpace: 'pre-line' }}>{festival.description}</Card.Text>
       </Card.Body>
     </Card>
   );

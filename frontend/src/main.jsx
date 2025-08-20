@@ -5,6 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//CSS import
+import "./index.css";
+
+
 // APP 에서 Router 리턴
 createRoot(document.getElementById("root")).render(
   <StrictMode>
