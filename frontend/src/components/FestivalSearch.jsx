@@ -48,10 +48,16 @@ function FestivalSearch(props) {
   const disabled = !region && !date && !category;
 
   return (
-    <div className="filter-bar">
-      <div className="item"><DateSelect value={date} onChange={setDate} /></div>
-      <div className="item"><RegionSelect value={region} onChange={setRegion} /></div>
-      <div className="item"><CategorySelect value={category} onChange={setCategory} /></div>
+    <div className="filter-bar d-flex align-items-center">
+      <div className="item">
+        <DateSelect value={date} onChange={setDate} />
+      </div>
+      <div className="item">
+        <RegionSelect value={region} onChange={setRegion} />
+      </div>
+      <div className="item">
+        <CategorySelect value={category} onChange={setCategory} />
+      </div>
 
       <div className="item-auto">
         <ResetButton onClick={handleReset} />

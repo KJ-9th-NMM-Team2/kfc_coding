@@ -18,13 +18,20 @@ export default function FestivalDetailShortDesc({ festival }) {
   };
 
   // 남은 일수 계산
-  const dateDiff = Date.parse(festival.start_date) - Date.now();
+  const getCurrentTime = () => {
+    const originalTime = new Date();
+    originalTime.setHours(0, 0, 0, 0);
+    const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
+    return now;
+  };
+
+  const dateDiff = Date.parse(festival.start_date) - getCurrentTime();
   const calLeftDays = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
 
   const leftDays =
-    Date.parse(festival.start_date) > Date.now()
+    Date.parse(festival.start_date) > getCurrentTime()
       ? `D-${calLeftDays}`
-      : Date.parse(festival.end_date) < Date.now()
+      : Date.parse(festival.end_date) < getCurrentTime()
       ? "축제 종료"
       : "축제 진행 중";
 
