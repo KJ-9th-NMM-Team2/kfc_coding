@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import { forwardRef } from "react";
 import "./FestivalCardList.css";
 
 function FestivalCard(props) {
@@ -49,11 +50,11 @@ function FestivalCardEmpty() {
   );
 }
 
-function FestivalCardList(props) {
+function FestivalCardList(props, ref) {
   let filteredFestivals = props.festivals;
 
   return (
-    <div className="festival_card_list_container">
+    <div className="festival_card_list_container" ref={ref}>
       {/* <Breadcrumb className="festival_visual_list_order_btn">
         <Breadcrumb.Item active as="span" style={{ textDecorationLine: 'none'}}>축제일순</Breadcrumb.Item>
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>거리순</Breadcrumb.Item>
@@ -68,9 +69,8 @@ function FestivalCardList(props) {
           <FestivalCardEmpty />
         )}
       </ul>
-
     </div>
   );
-}
+};
 
-export default FestivalCardList;
+export default forwardRef(FestivalCardList);

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { AdminCreateForm } from "../components/admin/AdminCreateForm";
+import Handlers from "../components/handler/AdminHandler"
+
+// import axios from 'axios';
 
 export default function AdminPage() {
     const [id, setId] = useState('');
@@ -23,7 +26,7 @@ export default function AdminPage() {
             // 2. 이후 요청에 자동으로 토큰을 포함시키기 위해 axios 기본 헤더 설정
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            navigate("/admin/createFestival", { replace: true });
+            navigate("/admin/mainpage", { replace: true });
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -43,9 +46,9 @@ export default function AdminPage() {
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group className="mb-3" controlId="formBasicId">
                                     <Form.Label className="fw-semibold">아이디</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        placeholder="아이디를 입력하세요" 
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="아이디를 입력하세요"
                                         value={id}
                                         onChange={(e) => setId(e.target.value.trim())}
                                         required
@@ -54,15 +57,14 @@ export default function AdminPage() {
 
                                 <Form.Group className="mb-4" controlId="formBasicPassword">
                                     <Form.Label className="fw-semibold">비밀번호</Form.Label>
-                                    <Form.Control 
-                                        type="password" 
-                                        placeholder="비밀번호를 입력하세요" 
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="비밀번호를 입력하세요"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value.trim())}
                                         required
                                     />
                                 </Form.Group>
-
                                 <div className="d-grid">
                                     <Button variant="primary" type="submit" size="lg">
                                         로그인

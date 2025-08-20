@@ -80,7 +80,8 @@ const getFiveFestivals = asyncHandler(async (req, res) => {
     .limit(5)
     .select(
       "name short_description start_date end_date location thumbnail_url poster_url"
-    );
+    )
+    .sort({ _id: -1 });
   res.json(festivals);
 });
 
