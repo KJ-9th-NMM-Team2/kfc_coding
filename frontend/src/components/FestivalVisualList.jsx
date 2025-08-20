@@ -1,6 +1,5 @@
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { forwardRef } from "react";
 
 function FestivalVisual(props) {
   let festival = props;

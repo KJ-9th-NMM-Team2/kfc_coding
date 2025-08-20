@@ -11,6 +11,7 @@ function FestivalListPage() {
 
   // 자동스크롤 용도
   const festivalCardListRef = useRef(null);
+  const shouldScroll = useRef(false);
 
   useEffect(() => {
     const fetchFestivals = async () => {
@@ -30,6 +31,13 @@ function FestivalListPage() {
     fetchFestivals();
   }, []);
 
+  useEffect(() => {
+    if (shouldScroll.current) {
+      scrollTo(festivalCardListRef);
+      shouldScroll.current = false;
+    }
+  }, [festivals]);
+
   return (
     <Container fluid="sm">
       <div
@@ -44,8 +52,8 @@ function FestivalListPage() {
         {/* <a href="/festivals/68a3165616876786b3a4b469">테스트용 : 상세페이지</a> */}
         <FestivalSearch
           onSearch={(data) => {
+            shouldScroll.current = true;
             setFestivals(data);
-            scrollTo(festivalCardListRef);
           }}
         />
         <FestivalVisualList

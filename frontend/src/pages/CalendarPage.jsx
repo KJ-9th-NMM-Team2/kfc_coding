@@ -13,11 +13,20 @@ export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todayFestivals, setTodayFestivals] = useState([]);
   const festivalListRef = useRef(null);
+  const shouldScroll = useRef(false);
 
   // 현재 날짜의 축제 목록
   useEffect(() => {
     getDateFestivals(currentDate).then(setTodayFestivals);
   }, [currentDate]);
+
+  // 축제 목록이 변경되고 스크롤 플래그가 설정된 경우에만 스크롤
+  useEffect(() => {
+    if (shouldScroll.current && todayFestivals.length > 0) {
+      scrollTo(festivalListRef);
+      shouldScroll.current = false;
+    }
+  }, [todayFestivals]);
 
   // 연도, 월, 일 정보 추출
   const year = currentDate.getFullYear();
@@ -58,8 +67,8 @@ export default function CalendarPage() {
   const changeDay = (day) => {
     const newDate = new Date(currentDate);
     newDate.setDate(day);
+    shouldScroll.current = true; // 날짜 클릭 시에만 스크롤 플래그 설정
     setCurrentDate(newDate);
-    scrollTo(festivalListRef);
   };
 
   // 달력에 표시한 날짜
@@ -153,11 +162,7 @@ export default function CalendarPage() {
                 </h4>
               </div>
               <div className="festival-list-content">
-                {todayFestivals.length != 0 ? (
-                  <FestivalCardList festivals={todayFestivals} />
-                ) : (
-                  "축제가 없습니다."
-                )}
+                <FestivalCardList festivals={todayFestivals} />
               </div>
             </div>
           </Col>
