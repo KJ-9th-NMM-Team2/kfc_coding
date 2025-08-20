@@ -1,6 +1,6 @@
 import Card from "react-bootstrap/Card";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Link } from "react-router-dom";
+import "./FestivalCardList.css";
 
 function FestivalCard(props) {
   let festival = props.festival;
@@ -21,12 +21,12 @@ function FestivalCard(props) {
 
   return (
     <>
-      <li className="festival_card_item" style={{ display: 'inline-block', margin: '1rem' }}>
-        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '20rem', height: '20rem', border: 'none', textDecorationLine: 'none' }}>
-          <Card.Img src={festival.thumbnail_url} style={{ overflowClipMargin: 'content-box', overflow: 'hidden', objectFit: 'cover', height: '15rem' }} />
-          <Card.Body className="festival_card_body">
-            <Card.Title style={{ fontWeight: 'bold' }}>{festival.name}</Card.Title>
-            <Card.Text style={{ fontSize: '0.9rem', color: '#555' }}>
+      <li className="festival_card_item">
+        <Card className="festival_card" as={Link} to={`/festivals/${festival._id}`} style={{ border: 'none' }}>
+          <Card.Img className="festival_card_img" src={festival.thumbnail_url} />
+          <Card.Body>
+            <Card.Text className="festival_card_text">
+              <div className="festival_card_title">{festival.name}</div>
               {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}<br />
               {festival.region}
             </Card.Text>
@@ -34,6 +34,18 @@ function FestivalCard(props) {
         </Card>
       </li>
     </>
+  );
+}
+
+function FestivalCardEmpty() {
+  return (
+    <li className="festival_card_item">
+      <Card className="festival_card empty" style={{ border: 'none' }}>
+        <Card.Body>
+          <Card.Text className="festival_card_text">검색 조건에 맞는 축제가 없습니다.</Card.Text>
+        </Card.Body>
+      </Card>
+    </li>
   );
 }
 
@@ -47,10 +59,14 @@ function FestivalCardList(props) {
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>거리순</Breadcrumb.Item>
         <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>인기순</Breadcrumb.Item>
       </Breadcrumb> */}
-      <ul className="festival_card_list" style={{ paddingLeft: '0', width: 'fit-content' }}>
-        {filteredFestivals.map((festival) => (
-          <FestivalCard key={festival._id} festival={festival} />
-        ))}
+      <ul className="festival_card_list">
+        {filteredFestivals.length > 0 ? (
+          filteredFestivals.map((festival) => (
+            <FestivalCard key={festival._id} festival={festival} />
+          ))
+        ) : (
+          <FestivalCardEmpty />
+        )}
       </ul>
 
     </div>
