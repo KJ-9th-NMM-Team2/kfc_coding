@@ -132,7 +132,6 @@ export default function CalendarPage() {
           <Col>
             <div
               className="calendar-section calendar-calendar-section"
-              // ref={festivalListRef}
             >
               <Calendar
                 dates={getCalendarDates()}
