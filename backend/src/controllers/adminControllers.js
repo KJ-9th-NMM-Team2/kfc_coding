@@ -64,18 +64,18 @@ const authAdminToken = asyncHandler(async (req, res) => {
 const createFestival = asyncHandler(async (req, res) => {
     console.log("createFestival 접근 성공");
 
-    const { 
-        name, short_description, description, start_date, end_date, location, 
-        price, owner, contact, website, poster_url, thumbnail_url, images, 
-        region, category 
+    const {
+        name, short_description, description, start_date, end_date, location,
+        price, owner, contact, website, poster_url, thumbnail_url, images,
+        region, category
     } = req.body;
 
     // category 배열을 쉼표로 구분된 문자열로 변환
 
     // 2. 필수 필드 유효성 검사
     if (!name || !location || !region || !category.toString()) {
-        return res.status(400).json({ 
-            message: "필수 필드(축제명, 개최 장소, 지역, 카테고리)를 모두 입력해주세요." 
+        return res.status(400).json({
+            message: "필수 필드(축제명, 개최 장소, 지역, 카테고리)를 모두 입력해주세요."
         });
     }
 
@@ -103,22 +103,40 @@ const createFestival = asyncHandler(async (req, res) => {
             category: category.toString(),
         });
 
-        res.status(201).json({ 
+        res.status(201).json({
             message: "새로운 축제가 성공적으로 등록되었습니다.",
             festival: newFestival,
         });
-        
+
     } catch (error) {
         console.error("축제 데이터 생성 중 오류 발생:", error);
-        res.status(500).json({ 
+        res.status(500).json({
             message: "서버 오류: 축제 데이터를 생성하지 못했습니다.",
             error: error.message
         });
     }
 });
 
-module.exports = { 
+const deleateFestival = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    // ObjectId 유효성 체크(잘못된 id로 500 방지)
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: '유효하지 않은 ID 입니다.' });
+    }
+
+    const deleted = await Festival.findByIdAndDelete(id);
+    if (!deleted) {
+        return res.status(404).json({ message: '해당 축제를 찾을 수 없습니다.' });
+    }
+
+    res.status(200).json({ message: '삭제되었습니다.', id });
+});
+
+
+module.exports = {
     getAdminLogin,
     authAdminToken,
     createFestival,
-}
+    deleateFestival,
+};

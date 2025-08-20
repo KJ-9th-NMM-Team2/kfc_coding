@@ -24,7 +24,6 @@ export async function authAdminToken(token) {
         },
       }
     );
-    alert("admin 환영합니다.");
     return true;
   } catch (error) {
     // 인증 실패 (401 또는 403) 시 로그인 페이지로 리디렉션
