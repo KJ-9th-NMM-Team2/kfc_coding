@@ -52,7 +52,6 @@ export async function getDateFestivals(date) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
-    console.log(year, month, day);
     const res = await axios.get(`${API_URL}/festivals/date`, {
       params: { year, month, day },
     });
