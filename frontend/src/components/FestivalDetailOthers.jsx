@@ -59,7 +59,7 @@ export default function FestivalRecommendationSection({id}) {
                         <a href={`/festivals/${festival._id}`} style={{textDecoration: 'none'}}>
                             <Card className="h-100 border-0 shadow-sm">
                                 <Card.Img
-                                    src={festival.poster_url}
+                                    src={festival.thumbnail_url}
                                     alt={festival.name}
                                     style={{ 
                                         height: '200px', 
