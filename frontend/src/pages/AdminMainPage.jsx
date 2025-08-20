@@ -1,4 +1,3 @@
-// src/pages/AdminMainPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
@@ -20,6 +19,15 @@ export default function AdminMainPage() {
         return festivals.filter((f) => f.end_date && new Date(f.end_date) >= now).length;
     }, [festivals]);
 
+
+    useEffect(() => {
+        if (token) {
+            axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        } else {
+            delete axios.defaults.headers.common.Authorization;
+        }
+    }, [token]);
+
     useEffect(() => {
         const checkAuth = async () => {
             if (!isAuthed) {
@@ -27,9 +35,14 @@ export default function AdminMainPage() {
                 return;
             }
             try {
-                await axios.post("/api/admin/authToken");
+                await axios.post(
+                    "/api/admin/authToken",
+                    {},
+                    { headers: { Authorization: `Bearer ${token}` } } // ← 여기
+                );
             } catch {
                 localStorage.removeItem("admin");
+                delete axios.defaults.headers.common.Authorization;
                 navigate("/admin", { replace: true });
                 return;
             } finally {
@@ -72,7 +85,7 @@ export default function AdminMainPage() {
         try {
             await axios.post(
                 "/api/admin/deleateFestival",
-                { id }, // 바디에 id 전달
+                { id },
                 { headers: { Authorization: `Bearer ${localStorage.getItem("admin")}` } }
             );
             setFestivals((prev) => prev.filter((f) => f._id !== id));
