@@ -30,18 +30,25 @@ export default function Handlers(setData) {
 
     const imageChange = (e, index, festivalData) => {
         const newImages = [...festivalData.images];
-        newImages[index] = e.target.value;
+        newImages[index] = e.target;
         setData((prevData) => ({
         ...prevData,
         images: newImages,
         }));
     };
 
-    const addImageField = () => {
-        setData((prevData) => ({
-            ...prevData,
-            images: [...prevData.images, ""],
-        }));
+    const addImageField = (e) => {
+        // 1. 선택된 파일 객체 가져오기
+        const file = e.target.files[0];
+
+        // 파일이 선택되었을 때만 로직 실행
+        if (file) {
+            // 2. setData를 사용하여 새로운 필드를 추가하고 파일명 할당
+            setData((prevData) => ({
+                ...prevData,
+                images: [...prevData.images, file.name],
+            }));
+        }
     };
 
     const submit = async (e, festivalData) => {
@@ -80,6 +87,16 @@ export default function Handlers(setData) {
         }
     };
 
+    const chooseFile = (e) => {
+        const {name, files} =  e.target;
+        const file = files[0];
+        if (file) {
+            setData((prevData) => ({
+                ...prevData,
+                [name]: file.name
+            }));
+        }
+    }
     return {
         inputChange,
         categoryChange,
@@ -87,5 +104,6 @@ export default function Handlers(setData) {
         addImageField,
         submit,
         loginButtonSubmit,
+        chooseFile,
     }
 }

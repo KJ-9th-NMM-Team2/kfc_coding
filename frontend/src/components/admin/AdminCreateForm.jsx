@@ -1,5 +1,7 @@
 import { Form, Col } from 'react-bootstrap';
+import { ChooseFestivalImage } from './ChooseFestivalImage'
 import Handlers from '../handler/AdminHandler';
+
 
 export const AdminCreateForm = ({ controlId, title, name, type, onChange, value, requiredStatus, festivalData}) => {
     const regions = [
@@ -67,7 +69,7 @@ export const AdminCreateForm = ({ controlId, title, name, type, onChange, value,
             </Form.Select>
         </Form.Group>
         )
-    } else if (controlId === "formCategory"){
+    } else if (type === "radio"){
         return (
         <Form.Group as={Col} controlId={controlId}>
             <Form.Label>
@@ -84,6 +86,23 @@ export const AdminCreateForm = ({ controlId, title, name, type, onChange, value,
                     checked={festivalData.category.includes(category)}
                 />
             ))}
+        </Form.Group>
+        )
+    } else if (type === 'image') {
+        return (
+        <Form.Group as={Col} controlId={controlId} className="mb-4">
+            <Form.Label>
+                {title} {requiredStatus ? <span className="text-danger">*</span> : ""}
+            </Form.Label>
+            <Form.Control
+                type="text"
+                name={name}
+                value={value}
+                required={requiredStatus ? true : false}
+                readOnly
+            />
+            {/* Choose File 버튼 스타일링을 위해 label과 input을 사용 */}
+            <ChooseFestivalImage controlId={controlId} name={name} onChange={onChange}/>
         </Form.Group>
         )
     } else {
