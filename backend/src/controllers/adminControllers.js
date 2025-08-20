@@ -5,6 +5,7 @@ const Festival = require("../models/Festival.js");
 const bcrypt = require('bcrypt');
 const app = express();
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 require("dotenv").config();
 
 
@@ -118,9 +119,8 @@ const createFestival = asyncHandler(async (req, res) => {
 });
 
 const deleateFestival = asyncHandler(async (req, res) => {
-    const { id } = req.params;
+    const id = req.params?.id || req.body?.id;
 
-    // ObjectId 유효성 체크(잘못된 id로 500 방지)
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ message: '유효하지 않은 ID 입니다.' });
     }

@@ -20,7 +20,7 @@ router.route('/authToken').post(authAdminToken);
 // Admin Create Festival
 router.route('/createFestival').post(createFestival);
 
-//삭제 기능
+//축제 삭제
 router.route('/deleateFestival').post(deleateFestival);
 
 module.exports = router;

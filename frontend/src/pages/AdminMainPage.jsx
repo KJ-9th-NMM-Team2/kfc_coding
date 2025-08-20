@@ -70,9 +70,11 @@ export default function AdminMainPage() {
     const handleDelete = async (id) => {
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
         try {
-            await axios.delete(`/api/admin/festivals/${id}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem("admin")}` }
-            });
+            await axios.post(
+                "/api/admin/deleateFestival",
+                { id }, // 바디에 id 전달
+                { headers: { Authorization: `Bearer ${localStorage.getItem("admin")}` } }
+            );
             setFestivals((prev) => prev.filter((f) => f._id !== id));
         } catch (e) {
             console.error(e);
