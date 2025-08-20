@@ -8,7 +8,6 @@ const getAllFestivals = asyncHandler(async (req, res) => {
   const originalTime = new Date();
   originalTime.setHours(0, 0, 0, 0);
   const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
-  console.log(now)
 
   // 페이지 크기 계산(기본 20개)
   const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);

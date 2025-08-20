@@ -40,7 +40,7 @@ function FestivalListPage() {
   }, [festivals]);
 
   return (
-    <Container fluid="sm">
+    <Container>
       <div
         className="festival_list_page"
         style={{

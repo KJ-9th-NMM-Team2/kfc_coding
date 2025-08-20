@@ -34,27 +34,27 @@ export default function AdminCreateFestivalPage() {
   return (
     <Container className="my-5">
       <h2 className="mb-4">축제 정보 등록</h2>
-      <Form onSubmit={(e) => {handlers.submit(e, festivalData)}}>
+      <Form onSubmit={(e) => { handlers.submit(e, festivalData) }}>
         <Row className="mb-3">
           <AdminCreateForm controlId="formGridName" title="축제명" name="name" onChange={handlers.inputChange} value={festivalData.name} requiredStatus={true} />
-          <AdminCreateForm controlId="formGridLocation" title="개최 장소" name="location" onChange={handlers.inputChange} value={festivalData.location} requiredStatus={true} />          
+          <AdminCreateForm controlId="formGridLocation" title="개최 장소" name="location" onChange={handlers.inputChange} value={festivalData.location} requiredStatus={true} />
         </Row>
 
         <AdminCreateForm controlId="formShortDescription" title="한 줄 소개" name="short_description" onChange={handlers.inputChange} value={festivalData.short_description} />
-        <AdminCreateForm controlId="formDescription" title="축제 설명" name="description" onChange={handlers.inputChange} value={festivalData.description} type={"textarea"}/>
-        
+        <AdminCreateForm controlId="formDescription" title="축제 설명" name="description" onChange={handlers.inputChange} value={festivalData.description} type={"textarea"} />
+
         <Row className="mb-3">
-          <AdminCreateForm controlId="formStartDate" title="시작일" name="start_date" onChange={handlers.inputChange} value={festivalData.start_date} type={"date"}/>
-          <AdminCreateForm controlId="formEndDate" title="종료일" name="end_date" onChange={handlers.inputChange} value={festivalData.end_date} type={"date"}/>
+          <AdminCreateForm controlId="formStartDate" title="시작일" name="start_date" onChange={handlers.inputChange} value={festivalData.start_date} type={"date"} />
+          <AdminCreateForm controlId="formEndDate" title="종료일" name="end_date" onChange={handlers.inputChange} value={festivalData.end_date} type={"date"} />
         </Row>
 
         <Row className="mb-3">
-          <AdminCreateForm controlId="formPrice" title="입장료" name="price" onChange={handlers.inputChange} value={festivalData.price}/>
-          <AdminCreateForm controlId="formOwner" title="주체 기관" name="owner" onChange={handlers.inputChange} value={festivalData.owner}/>
-          <AdminCreateForm controlId="formContact" title="연락처" name="contact" onChange={handlers.inputChange} value={festivalData.contact}/>
+          <AdminCreateForm controlId="formPrice" title="입장료" name="price" onChange={handlers.inputChange} value={festivalData.price} />
+          <AdminCreateForm controlId="formOwner" title="주체 기관" name="owner" onChange={handlers.inputChange} value={festivalData.owner} />
+          <AdminCreateForm controlId="formContact" title="연락처" name="contact" onChange={handlers.inputChange} value={festivalData.contact} />
         </Row>
 
-        <AdminCreateForm controlId="formContact" title="공식 홈페이지" name="website" onChange={handlers.inputChange} value={festivalData.website}/>
+        <AdminCreateForm controlId="formContact" title="공식 홈페이지" name="website" onChange={handlers.inputChange} value={festivalData.website} />
 
         <Row className="mb-3">
           <AdminCreateForm controlId="formPosterUrl" title="포스터 사진" name="poster_url" type="image" onChange={handlers.chooseFile} value={festivalData.poster_url}/>

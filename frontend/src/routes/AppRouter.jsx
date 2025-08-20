@@ -6,6 +6,7 @@ import AdminPage from "../pages/AdminPage";
 import AdminCreateFestivalPage from "../pages/AdminCreateFestivalPage";
 import CalendarPage from "../pages/CalendarPage";
 import AdminMainPage from "../pages/AdminMainPage";
+import AdminEditFestivalPage from "../pages/AdminEditFestivalPage";
 
 function AppRouter() {
   return (
@@ -18,6 +19,7 @@ function AppRouter() {
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/admin/mainpage" element={<AdminMainPage />} />
       <Route path="/admin/createFestival" element={<AdminCreateFestivalPage />} />
+      <Route path="/admin/editfestivalpage" element={<AdminEditFestivalPage />} />
       {/* 경로가 없는 경우 홈페이지로 이동*/}
       <Route path="*" element={<HomePage />} />
     </Routes>
