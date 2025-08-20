@@ -1,5 +1,7 @@
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import "./FestivalVisualList.css";
 
 function FestivalVisual(props) {
   let festival = props;
@@ -21,51 +23,29 @@ function FestivalVisual(props) {
   return (
     <>
       <li
-        className="festival_visual_item"
-        style={{ display: "inline-block", margin: "1rem" }}
+        className={`festival_visual_item ${props.visualSelected}`}
+        onMouseEnter={() => props.setSelected(festival._id)}
       >
         <Card
+          className='festival_visual_card'
           as={Link}
           to={`/festivals/${festival._id}`}
-          style={{
-            width: "15rem",
-            height: "30rem",
-            border: "none",
-            position: "relative",
-            textDecorationLine: "none",
-          }}
+
         >
           <Card.Img
+            className='festival_visual_img'
             src={festival.thumbnail_url}
-            style={{
-              height: "100%",
-              overflowClipMargin: "content-box",
-              overflow: "hidden",
-              objectFit: "cover",
-            }}
+            
           />
           <Card.Body
             className="festival_visual_body"
-            style={{
-              position: "absolute",
-              top: "50%",
-              bottom: 0,
-              left: 0,
-              right: 0,
-              color: "white",
-              textShadow: "1px 1px 0px rgba(0, 0, 0, 0.6)",
-              borderRadius: "0.5rem",
-              background:
-                "linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0))",
-            }}
           >
             <Card.Title
-              className="festival_visual_title"
-              style={{ fontWeight: "bold" }}
+              className='festival_visual_title'
             >
               {festival.name}
             </Card.Title>
-            <Card.Text style={{ fontWeight: "bold" }}>
+            <Card.Text className='festival_visual_text'>
               {formatDate(festival.start_date)} ~{" "}
               {formatDate(festival.end_date)}
               <br />
@@ -80,15 +60,19 @@ function FestivalVisual(props) {
 
 function FestivalVisualList(props) {
   let featuredFestivals = props.festivals;
+  const [selected, setSelected] = useState(featuredFestivals.length > 0 ? featuredFestivals[0]._id : null);
 
   return (
-    <div className="festival_visual_list_container">
-      <ul className="festival_visual_list" style={{ paddingLeft: "0" }}>
-        {featuredFestivals.map((festival) => (
-          <FestivalVisual key={festival._id} {...festival} />
-        ))}
+    <>
+      <ul className="festival_visual_list">
+        {featuredFestivals.map((festival) => {
+          let visualSelected = festival._id === selected ? "selected" : "shrunk";
+          return (
+            <FestivalVisual key={festival._id} visualSelected={visualSelected} setSelected={setSelected} {...festival} />
+          );
+        })}
       </ul>
-    </div>
+    </>
   );
 }
 

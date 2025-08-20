@@ -41,12 +41,10 @@
   color: #999;
 }
 
-.festival_card_list_container {
-  padding-left: auto;
-  padding-right: auto;
-}
-
 .festival_card_list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   list-style-type: none;
   padding-left: 0;
 }

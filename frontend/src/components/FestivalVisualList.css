@@ -1,0 +1,66 @@
+.festival_visual_item {
+  flex: 0.3;
+  margin: 1rem;
+  transition: flex 0.3s ease;
+  word-break: keep-all;
+}
+
+.festival_visual_item.selected {
+  flex: 0.5;
+}
+
+.festival_visual_item.shrunk {
+  flex: 0.25;
+}
+
+.card.festival_visual_card {
+  height: 30rem;
+  border: none;
+  position: relative;
+  text-decoration-line: none;
+}
+
+.card-img.festival_visual_img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.shrunk .card-img.festival_visual_img {
+  opacity: 0.5;
+}
+
+.card-body.festival_visual_body {
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
+
+.card-title.festival_visual_title {
+  font-weight: bold;
+}
+
+.shrunk .card-title.festival_visual_title {
+  transform: translateY(-300%) rotate(90deg);
+  white-space: nowrap;
+}
+
+.selected .card-text.festival_visual_text {
+  display: block;
+}
+
+.shrunk .card-text.festival_visual_text {
+  display: none;
+}
+
+.festival_visual_list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}

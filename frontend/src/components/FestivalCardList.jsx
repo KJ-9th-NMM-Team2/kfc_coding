@@ -55,7 +55,7 @@ function FestivalCardEmpty() {
       <Card className="festival_card empty" style={{ border: "none" }}>
         <Card.Body>
           <Card.Text className="festival_card_text">
-            검색 조건에 맞는 축제가 없습니다.
+            조건에 맞는 축제가 없습니다.
           </Card.Text>
         </Card.Body>
       </Card>
@@ -68,11 +68,6 @@ function FestivalCardList(props, ref) {
 
   return (
     <div className="festival_card_list_container" ref={ref}>
-      {/* <Breadcrumb className="festival_visual_list_order_btn">
-        <Breadcrumb.Item active as="span" style={{ textDecorationLine: 'none'}}>축제일순</Breadcrumb.Item>
-        <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>거리순</Breadcrumb.Item>
-        <Breadcrumb.Item as="span" style={{ textDecorationLine: 'none'}}>인기순</Breadcrumb.Item>
-      </Breadcrumb> */}
       <ul className="festival_card_list">
         {filteredFestivals.length > 0 ? (
           filteredFestivals.map((festival) => (
