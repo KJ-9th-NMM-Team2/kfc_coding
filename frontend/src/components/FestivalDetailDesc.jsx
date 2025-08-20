@@ -9,13 +9,10 @@ export default function FestivalDetailDesc({ festival }) {
 
   
   return (
-    <div className="w-50 mx-auto">
       <Card className="shadow overflow-hidden" >
-       
         <img src={festival.poster_url}/>
-        
       </Card>
-    </div>
+    
   );
 }
 
