@@ -7,15 +7,9 @@ export default function FestivalDetailDesc({ festival }) {
     return <div>축제 이미지를 불러올 수 없습니다.</div>;
   }
 
-  
   return (
-    <div className="w-50 mx-auto">
-      <Card className="shadow overflow-hidden" >
-       
-        <img src={festival.poster_url}/>
-        
-      </Card>
-    </div>
+    <Card className="shadow overflow-hidden">
+      <img src={festival.poster_url} />
+    </Card>
   );
 }
-

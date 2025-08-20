@@ -1,0 +1,50 @@
+.festival_card_item {
+  display: inline-block;
+  margin: 0.5rem;
+}
+
+.festival_card {
+  width: 18rem;
+  height: 20rem;
+  border: none;
+  text-decoration: none;
+  word-break: keep-all;
+}
+
+.festival_card_img {
+  height: 60%;
+  overflow: hidden;
+  object-fit: cover;
+  height: 15rem;
+}
+
+.festival_card_text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.festival_card_title {
+  font-size: large;
+  font-weight: bold;
+}
+
+.festival_card.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20rem;
+}
+
+.festival_card.empty .festival_card_text {
+  font-size: large;
+  font-weight: bold;
+  color: #999;
+}
+
+.festival_card_list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding-left: 0;
+}

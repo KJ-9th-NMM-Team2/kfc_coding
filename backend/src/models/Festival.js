@@ -52,6 +52,11 @@ const festivalSchema = new mongoose.Schema({
     type: String,
     description: "축제 썸네일 서버 내 경로",
   },
+  likes: {
+    type: Number,
+    description: "좋아요 수",
+    default: 0,
+  },
   images: [
     {
       type: String,

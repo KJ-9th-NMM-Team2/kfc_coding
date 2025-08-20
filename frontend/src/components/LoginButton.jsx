@@ -1,9 +1,8 @@
-function SearchButton({ onClick, disabled }) {
+function LoginButton({ onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={disabled}
       className="btn d-flex align-items-center justify-content-center fw-bold"
       style={{
         background: "#6f42f5",
@@ -16,10 +15,10 @@ function SearchButton({ onClick, disabled }) {
         minWidth: 100,
       }}
     >
-      검색
+      로그인
       <i className="bi bi-arrow-right-circle" aria-hidden="true" />
-      <span className="visually-hidden">검색 실행</span>
+      <span className="visually-hidden">로그인 실행</span>
     </button>
   );
 }
-export default SearchButton;
+export default LoginButton;

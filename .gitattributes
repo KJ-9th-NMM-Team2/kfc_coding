@@ -10,3 +10,4 @@
 *.zip binary -text -eol
 *.ico binary -text -eol
 *.pdf binary -text -eol
+*.svg binary -text -eol

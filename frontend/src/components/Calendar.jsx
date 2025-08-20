@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
 import { getMonthFestivals } from "../api/api";
 import "./Calendar.css";
 
@@ -44,12 +45,9 @@ export default function Calendar(props) {
                       date.toDateString() === today.toDateString();
                     const isSelected =
                       date.toDateString() === selectedDate.toDateString();
-                    console.log(
-                      date.toDateString(),
-                      selectedDate.toDateString()
-                    );
+
                     let dateBox = (
-                      <td className="calendar-cell-empty">
+                      <td key={weekIndex * 7 + dayIndex} className="calendar-cell-empty">
                         <div className="p-2">
                           {/* 이번 달이 아닌 날짜는 숫자를 표시하지 않음 */}
                         </div>
@@ -80,11 +78,13 @@ export default function Calendar(props) {
                           onClick={() => props.onChangeDay(date.getDate())}
                         >
                           <div className="calendar-cell-content">
-                            <div className={dateClasses}>{date.getDate()}</div>
+                            <div className={`${dateClasses} mb-1`}>
+                              {date.getDate()}
+                            </div>
                             {monthInfo[date.getDate()] > 0 && (
-                              <div className="calendar-festival-count">
-                                {monthInfo[date.getDate()]}개
-                              </div>
+                              <Badge pill className="festival-count">
+                                {monthInfo[date.getDate()]}
+                              </Badge>
                             )}
                           </div>
                         </td>

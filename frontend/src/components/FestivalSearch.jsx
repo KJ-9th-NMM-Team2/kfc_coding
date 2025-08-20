@@ -4,12 +4,15 @@ import DateSelect from "./DateSelect";
 import CategorySelect from "./CategorySelect";
 import ResetButton from "./ResetButton";
 import SearchButton from "./SearchButton";
+import LoginButton from "./LoginButton";
+import { useNavigate } from "react-router-dom";
 import "../css/FestivalSearch.css";
 
 function FestivalSearch(props) {
   const [region, setRegion] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
+  const navigate = useNavigate();
 
   const handleReset = () => {
     setRegion("");
@@ -39,19 +42,31 @@ function FestivalSearch(props) {
     }
   };
 
+  function goadmin() {
+    navigate("/admin");
+  }
   const disabled = !region && !date && !category;
 
   return (
-    <div className="filter-bar">
-      <div className="item"><DateSelect value={date} onChange={setDate} /></div>
-      <div className="item"><RegionSelect value={region} onChange={setRegion} /></div>
-      <div className="item"><CategorySelect value={category} onChange={setCategory} /></div>
+    <div className="filter-bar d-flex align-items-center">
+      <div className="item">
+        <DateSelect value={date} onChange={setDate} />
+      </div>
+      <div className="item">
+        <RegionSelect value={region} onChange={setRegion} />
+      </div>
+      <div className="item">
+        <CategorySelect value={category} onChange={setCategory} />
+      </div>
 
       <div className="item-auto">
         <ResetButton onClick={handleReset} />
       </div>
       <div className="item-auto">
         <SearchButton onClick={handleSearch} disabled={disabled} />
+      </div>
+      <div className="item-auto">
+        <LoginButton onClick={goadmin} />
       </div>
     </div>
   );

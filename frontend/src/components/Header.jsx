@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <Navbar
-      as={Container}
-      className="bg-white text-dark py-2 align-items-center"
-    >
+    <Navbar className="sticky-top bg-white text-dark py-2 align-items-center Header">
       {/* 바로가기 링크 */}
       <Nav className="ms-3 me-auto d-flex align-items-center">
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">

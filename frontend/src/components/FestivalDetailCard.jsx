@@ -16,86 +16,170 @@ export default function FestivalDeatilCard({ festival }) {
   };
 
   return (
-    <Card className="shadow">
-      <Card.Body>
-        <Card.Title className="fs-5 fw-bold text-dark border-bottom pb-2 mb-3">
-          {" "}
-          축제 정보{" "}
+    <Card className="shadow h-100" style={{ maxHeight: "593.33px" }}>
+      <Card.Body className="d-flex flex-column">
+        <Card.Title className="fs-6 fw-bold text-dark border-bottom pb-2 mb-2">
+          축제 정보
         </Card.Title>
 
-        <div className="d-grid gap-3">
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📅</span>
-
-              {/* 축제기간 2025.MM.DD ~ 2025.MM.DD */}
-              {festival.start_date && festival.end_date && (
-                <Card.Text>
-                  {formatDate(festival.start_date)} ~{" "}
-                  {formatDate(festival.end_date)}
-                </Card.Text>
-              )}
-            </div>
+        <div className="d-grid gap-1 flex-grow-1">
+          {/* 축제 날짜 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>📅</span>
+            {festival.start_date && festival.end_date && (
+              <p
+                className="mb-0"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  color: "#1A1A24",
+                  lineHeight: "29px",
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  wordBreak: "break-word",
+                }}
+              >
+                {formatDate(festival.start_date)} ~{" "}
+                {formatDate(festival.end_date)}
+              </p>
+            )}
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📍</span>
-              <span className="fw-semibold text-dark">위치</span>
-            </div>
-            <p className="ps-5 text-muted small mb-0">{festival.location}</p>
+          {/* 위치 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>📍</span>
+            <p
+              className="mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              {festival.location}
+            </p>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">💰</span>
-              <span className="fw-semibold text-dark">가격</span>
-            </div>
-            <div className="ms-5">
-              <Badge bg="danger" className="px-3 py-2 fw-bold">
-                무료
-              </Badge>
-            </div>
+          {/* 가격 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>💰</span>
+            <Badge
+              bg="danger"
+              className="px-2 py-1 fw-bold"
+              style={{
+                fontSize: "14px",
+                fontWeight: "500",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              {festival.price === "무료"
+                ? "무료"
+                : (typeof festival.price === "number"
+                    ? `${festival.price.toLocaleString()}원`
+                    : (typeof festival.price === "string" && festival.price.trim() !== ""
+                        ? `${festival.price}원`
+                        : "정보 없음"))}
+            </Badge>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">🏢</span>
-              <span className="fw-semibold text-dark">주최</span>
-            </div>
-            <p className="ms-5 text-muted mb-0">{festival.region}</p>
+          {/* 주최 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>🏢</span>
+            <p
+              className="mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              {festival.region}
+            </p>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">🎇</span>
-              <span className="fw-semibold text-dark">카테고리</span>
-            </div>
-            <p className="ms-5 text-muted mb-0">{festival.category}</p>
+          {/* 카테고리 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>🎇</span>
+            <p
+              className="mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              {festival.category}
+            </p>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📞</span>
-              <span className="fw-semibold text-dark">문의</span>
-            </div>
-            <p className="ms-5 text-muted mb-0">{festival.contact}</p>
+          {/* 문의 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>📞</span>
+            <p
+              className="mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                maxWidth: "calc(100% - 60px)",
+              }}
+            >
+              {festival.contact}
+            </p>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">🌐</span>
-              <span className="fw-semibold text-dark">공식 홈페이지</span>
-            </div>
-            <a href={festival.website} className="ms-5 text-muted mb-0"  >{festival.website}</a>
+          {/* 공식 홈페이지 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>🌐</span>
+            <a
+              href={festival.website}
+              className="text-decoration-none mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                maxWidth: "calc(100% - 60px)",
+              }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {festival.website}
+            </a>
           </div>
 
-          <div>
-            <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📸</span>
-              <span className="fw-semibold text-dark">인스타그램</span>
-            </div>
-            <p className="ms-5 text-muted mb-0">@ssumday24</p>
+          {/* 인스타그램 */}
+          <div className="d-flex align-items-center" style={{ minWidth: 0 }}>
+            <span style={{ fontSize: "24px", marginRight: "12px" }}>📸</span>
+            <p
+              className="mb-0"
+              style={{
+                fontSize: "16px",
+                fontWeight: "500",
+                color: "#1A1A24",
+                lineHeight: "29px",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+              }}
+            >
+              @ssumday24
+            </p>
           </div>
         </div>
       </Card.Body>

@@ -1,5 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const Festival = require("../models/Festival.js");
+const { response } = require("express");
+
+const getCurrentTime = () => {
+  const originalTime = new Date();
+  originalTime.setHours(0, 0, 0, 0);
+  const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
+  return now;
+};
 
 // GET /api/festivals
 // 모든 축제 가져오기
@@ -8,7 +16,6 @@ const getAllFestivals = asyncHandler(async (req, res) => {
   const originalTime = new Date();
   originalTime.setHours(0, 0, 0, 0);
   const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
-  console.log(now)
 
   // 페이지 크기 계산(기본 20개)
   const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
@@ -74,13 +81,17 @@ const getOneFestival = asyncHandler(async (req, res) => {
 });
 
 // GET /api/festivals/top5
-// 첫 5개 축제 가져오기
+// 아직 끝나지 않은 축제 5개 가져오기
 const getFiveFestivals = asyncHandler(async (req, res) => {
-  const festivals = await Festival.find()
+  const today = getCurrentTime();
+  const festivals = await Festival.find({
+    end_date: { $gte: today }, // 아직 끝나지 않은 축제
+  })
     .limit(5)
     .select(
       "name short_description start_date end_date location thumbnail_url poster_url"
-    );
+    )
+    .sort({ _id: -1 });
   res.json(festivals);
 });
 
@@ -173,6 +184,27 @@ const getThreeFestivals = asyncHandler(async (req, res) => {
   res.json(festivals);
 });
 
+// POST /api/festivals/:id/like
+// 좋아요 수 1 증가시키기
+const handleLikeFestival = asyncHandler(async(req,res)=>{
+  const festivalId = req.params.id;
+
+  // DB 조회 후 Like 수 업데이트 처리
+  const updatedFestival = await Festival.findByIdAndUpdate(
+    festivalId,
+    { $inc: {likes : 1}},
+    { new : true} // true 설정 -> 업데이트 후의 문서 반환
+  );
+
+  // ID에 해당하는 축제가 없을때
+  if (!updatedFestival){
+    return response.status(404).json({message: "축제 못찾음"});
+  }
+
+  // 성공시 json 응답
+  res.status(200).json(updatedFestival);
+});
+
 module.exports = {
   getAllFestivals,
   getOneFestival,
@@ -180,4 +212,5 @@ module.exports = {
   getMonthFestivals,
   getDateFestivals,
   getThreeFestivals,
+  handleLikeFestival
 };

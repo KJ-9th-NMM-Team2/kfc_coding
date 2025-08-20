@@ -1,17 +1,19 @@
+import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+import "./FestivalVisualList.css";
 
 function FestivalVisual(props) {
   let festival = props;
 
   const formatDate = (date_str) => {
-    if (!date_str) return '';
+    if (!date_str) return "";
     try {
       const d = new Date(date_str);
       if (Number.isNaN(d.getTime())) return String(date_str).slice(0, 10);
       const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
       return `${yyyy}-${mm}-${dd}`;
     } catch {
       return String(date_str).slice(0, 10);
@@ -20,13 +22,33 @@ function FestivalVisual(props) {
 
   return (
     <>
-      <li className="festival_visual_item" style={{ display: 'inline-block', margin: '1rem' }}>
-        <Card as={Link} to={`/festivals/${festival._id}`} style={{ width: '15rem', height: '30rem', border: 'none', position: 'relative', textDecorationLine: 'none' }}>
-          <Card.Img src={festival.thumbnail_url} style={{ height: '100%', overflowClipMargin: 'content-box', overflow: 'hidden', objectFit: 'cover' }} />
-          <Card.Body className="festival_visual_body" style={{ position: 'absolute', top: '50%', bottom: 0, left: 0, right: 0, color: 'white', textShadow: '1px 1px 0px rgba(0, 0, 0, 0.6)', borderRadius: '0.5rem', background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0))' }}>
-            <Card.Title className="festival_visual_title" style={{ fontWeight: 'bold' }}>{festival.name}</Card.Title>
-            <Card.Text style={{ fontWeight: 'bold' }}>
-              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}<br />
+      <li
+        className={`festival_visual_item ${props.visualSelected}`}
+        onMouseEnter={() => props.setSelected(festival._id)}
+      >
+        <Card
+          className='festival_visual_card'
+          as={Link}
+          to={`/festivals/${festival._id}`}
+
+        >
+          <Card.Img
+            className='festival_visual_img'
+            src={festival.thumbnail_url}
+            
+          />
+          <Card.Body
+            className="festival_visual_body"
+          >
+            <Card.Title
+              className='festival_visual_title'
+            >
+              {festival.name}
+            </Card.Title>
+            <Card.Text className='festival_visual_text'>
+              {formatDate(festival.start_date)} ~{" "}
+              {formatDate(festival.end_date)}
+              <br />
               {festival.region}
             </Card.Text>
           </Card.Body>
@@ -38,15 +60,26 @@ function FestivalVisual(props) {
 
 function FestivalVisualList(props) {
   let featuredFestivals = props.festivals;
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    const handlePropsChange = () => {
+      setSelected(featuredFestivals.length > 0 ? featuredFestivals[0]._id : null);
+    };
+    handlePropsChange();
+  }, [featuredFestivals]);
 
   return (
-    <div className="festival_visual_list_container">
-      <ul className="festival_visual_list" style={{ paddingLeft: '0' }}>
-        {featuredFestivals.map(festival => (
-          <FestivalVisual key={festival._id} {...festival} />
-        ))}
+    <>
+      <ul className="festival_visual_list">
+        {featuredFestivals.map((festival) => {
+          let visualSelected = festival._id === selected ? "selected" : "shrunk";
+          return (
+            <FestivalVisual key={festival._id} visualSelected={visualSelected} setSelected={setSelected} {...festival} />
+          );
+        })}
       </ul>
-    </div>
+    </>
   );
 }
 
