@@ -78,7 +78,13 @@ export default function FestivalDeatilCard({ festival }) {
                 wordBreak: "break-word",
               }}
             >
-              {festival.price === "무료" ? "무료" : festival.price + "원"}
+              {festival.price === "무료"
+                ? "무료"
+                : (typeof festival.price === "number"
+                    ? `${festival.price.toLocaleString()}원`
+                    : (typeof festival.price === "string" && festival.price.trim() !== ""
+                        ? `${festival.price}원`
+                        : "정보 없음"))}
             </Badge>
           </div>
 
