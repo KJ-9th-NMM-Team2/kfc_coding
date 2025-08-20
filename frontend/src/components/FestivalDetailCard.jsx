@@ -26,11 +26,11 @@ export default function FestivalDeatilCard({ festival }) {
         <div className="d-grid gap-3">
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📅</span>
+              <span className="fs-1 me-2">📅</span>
 
               {/* 축제기간 2025.MM.DD ~ 2025.MM.DD */}
               {festival.start_date && festival.end_date && (
-                <Card.Text>
+                <Card.Text className="fw-bold fs-3">
                   {formatDate(festival.start_date)} ~{" "}
                   {formatDate(festival.end_date)}
                 </Card.Text>
@@ -40,19 +40,19 @@ export default function FestivalDeatilCard({ festival }) {
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📍</span>
-              <span className="fw-semibold text-dark">위치</span>
+              <span className="fs-1 me-2">📍</span>
+              <span className="fw-semibold text-dark fs-5">위치</span>
             </div>
-            <p className="ps-5 text-muted small mb-0">{festival.location}</p>
+            <p className="ps-5 text-muted small mb-0 fs-5">{festival.location}</p>
           </div>
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">💰</span>
-              <span className="fw-semibold text-dark">가격</span>
+              <span className="fs-1 me-2">💰</span>
+              <span className="fw-semibold text-dark fs-5">가격</span>
             </div>
             <div className="ms-5">
-              <Badge bg="danger" className="px-3 py-2 fw-bold">
+              <Badge bg="danger" className="px-3 py-2 fw-bold fs-6">
                 무료
               </Badge>
             </div>
@@ -60,34 +60,42 @@ export default function FestivalDeatilCard({ festival }) {
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">🏢</span>
-              <span className="fw-semibold text-dark">주최</span>
+              <span className="fs-1 me-2">🏢</span>
+              <span className="fw-semibold text-dark fs-5">주최</span>
             </div>
-            <p className="ms-5 text-muted mb-0">{festival.region}</p>
+            <p className="ms-5 text-muted mb-0 fs-5">{festival.region}</p>
           </div>
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📞</span>
-              <span className="fw-semibold text-dark">문의</span>
+              <span className="fs-1 me-2">🎇</span>
+              <span className="fw-semibold text-dark fs-5">카테고리</span>
             </div>
-            <p className="ms-5 text-muted mb-0">{festival.contact}</p>
+            <p className="ms-5 text-muted mb-0 fs-5">{festival.category}</p>
           </div>
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">🌐</span>
-              <span className="fw-semibold text-dark">공식 홈페이지</span>
+              <span className="fs-1 me-2">📞</span>
+              <span className="fw-semibold text-dark fs-5">문의</span>
             </div>
-            <a href={festival.website} className="ms-5 text-muted mb-0"  >{festival.website}</a>
+            <p className="ms-5 text-muted mb-0 fs-5">{festival.contact}</p>
           </div>
 
           <div>
             <div className="d-flex align-items-center mb-2">
-              <span className="fs-4 me-2">📸</span>
-              <span className="fw-semibold text-dark">인스타그램</span>
+              <span className="fs-1 me-2">🌐</span>
+              <span className="fw-semibold text-dark fs-5">공식 홈페이지</span>
             </div>
-            <p className="ms-5 text-muted mb-0">@ssumday24</p>
+            <a href={festival.website} className="ms-5 text-muted mb-0 fs-5"  >{festival.website}</a>
+          </div>
+
+          <div>
+            <div className="d-flex align-items-center mb-2">
+              <span className="fs-1 me-2">📸</span>
+              <span className="fw-semibold text-dark fs-5">인스타그램</span>
+            </div>
+            <p className="ms-5 text-muted mb-0 fs-5">@ssumday24</p>
           </div>
         </div>
       </Card.Body>

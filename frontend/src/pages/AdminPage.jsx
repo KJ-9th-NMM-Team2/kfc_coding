@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { AdminCreateForm } from "../components/admin/AdminCreateForm";
+import Handlers from "../components/handler/AdminHandler"
+
+// import axios from 'axios';
 
 export default function AdminPage() {
     const [id, setId] = useState('');
@@ -62,7 +65,6 @@ export default function AdminPage() {
                                         required
                                     />
                                 </Form.Group>
-
                                 <div className="d-grid">
                                     <Button variant="primary" type="submit" size="lg">
                                         로그인

@@ -1,15 +1,10 @@
 import React from "react";
 import Calendar from "../components/Calendar";
-import { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  ButtonGroup,
-} from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import Badge from "react-bootstrap/Badge";
-import FestivalVisualList from "../components/FestivalVisualList";
+import FestivalCardList from "../components/FestivalCardList";
+import { scrollTo } from "../components/scrollTo";
 import { getDateFestivals } from "../api/api";
 import "./CalendarPage.css";
 
@@ -17,11 +12,21 @@ export default function CalendarPage() {
   // 현재 날짜를 state로 관리
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todayFestivals, setTodayFestivals] = useState([]);
+  const festivalListRef = useRef(null);
+  const shouldScroll = useRef(false);
 
   // 현재 날짜의 축제 목록
   useEffect(() => {
     getDateFestivals(currentDate).then(setTodayFestivals);
   }, [currentDate]);
+
+  // 축제 목록이 변경되고 스크롤 플래그가 설정된 경우에만 스크롤
+  useEffect(() => {
+    if (shouldScroll.current && todayFestivals.length > 0) {
+      scrollTo(festivalListRef);
+      shouldScroll.current = false;
+    }
+  }, [todayFestivals]);
 
   // 연도, 월, 일 정보 추출
   const year = currentDate.getFullYear();
@@ -62,6 +67,7 @@ export default function CalendarPage() {
   const changeDay = (day) => {
     const newDate = new Date(currentDate);
     newDate.setDate(day);
+    shouldScroll.current = true; // 날짜 클릭 시에만 스크롤 플래그 설정
     setCurrentDate(newDate);
   };
 
@@ -92,42 +98,41 @@ export default function CalendarPage() {
       <Container className="calendar-page-container">
         {/* Header Section */}
         <Row className="mb-4">
-          <Col>
-            <div className="calendar-header-card">
+          <div className="calendar-header-card">
+            <Col xs={12} md={8}>
               <div>
                 <h2 className="calendar-title">축제 달력</h2>
                 <p className="calendar-subtitle">
                   대한민국 전국 축제 정보를 한눈에 확인하세요
                 </p>
               </div>
+            </Col>
+            <Col
+              xs={12}
+              md={4}
+              className="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0"
+            >
               <ButtonGroup className="calendar-nav">
-                <Button
-                  className="calendar-nav-button"
-                  onClick={toPrevMonth}
-                >
-                  ◀ 이전
+                <Button className="calendar-nav-button" onClick={toPrevMonth}>
+                  ◀
                 </Button>
-                <Button
-                  className="calendar-nav-button current"
-                  disabled
-                >
-                  {year}년 {month + 1}월
+                <Button className="calendar-nav-button current" disabled>
+                  {year}. {month + 1}
                 </Button>
-                <Button
-                  className="calendar-nav-button"
-                  onClick={toNextMonth}
-                >
-                  다음 ▶
+                <Button className="calendar-nav-button" onClick={toNextMonth}>
+                  ▶
                 </Button>
               </ButtonGroup>
-            </div>
-          </Col>
+            </Col>
+          </div>
         </Row>
 
         {/* Calendar Section */}
         <Row className="mb-4">
           <Col>
-            <div className="calendar-section">
+            <div
+              className="calendar-section calendar-calendar-section"
+            >
               <Calendar
                 dates={getCalendarDates()}
                 year={year}
@@ -142,9 +147,9 @@ export default function CalendarPage() {
         </Row>
 
         {/* Festival List Section */}
-        <Row>
+        <Row ref={festivalListRef}>
           <Col>
-            <div className="calendar-section">
+            <div className="calendar-section ">
               <div className="festival-list-header">
                 <h4 className="festival-list-title">
                   <span className="festival-list-indicator"></span>
@@ -156,7 +161,7 @@ export default function CalendarPage() {
                 </h4>
               </div>
               <div className="festival-list-content">
-                <FestivalVisualList festivals={todayFestivals} />
+                <FestivalCardList festivals={todayFestivals} />
               </div>
             </div>
           </Col>
