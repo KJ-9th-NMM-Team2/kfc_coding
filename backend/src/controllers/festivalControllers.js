@@ -5,7 +5,11 @@ const Festival = require("../models/Festival.js");
 // 모든 축제 가져오기
 const getAllFestivals = asyncHandler(async (req, res) => {
   // 현재 시간 받아오기
-  const now = new Date();
+  const originalTime = new Date();
+  originalTime.setHours(0, 0, 0, 0);
+  const now = new Date(originalTime.getTime() + 9 * 60 * 60 * 1000);
+  console.log(now)
+
   // 페이지 크기 계산(기본 20개)
   const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
   const filter = {
@@ -40,10 +44,7 @@ const getAllFestivals = asyncHandler(async (req, res) => {
     filter.category = category; // 카테고리가 지정되면 그 값만
   }
 
-  const festivals = await Festival.find(
-    filter,
-    "name start_date end_date region location thumbnail_url images"
-  )
+  const festivals = await Festival.find(filter)
     .sort({ start_date: 1, _id: 1 })
     .limit(limit);
 
