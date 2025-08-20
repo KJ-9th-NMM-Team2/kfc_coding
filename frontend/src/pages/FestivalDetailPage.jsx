@@ -63,7 +63,7 @@ const FestivalDetailPage = () => {
       // 네비게이션 링크들도 흰색으로
       const navLinks = header.querySelectorAll(".nav-link, .navbar-brand");
       navLinks.forEach((link) => {
-        link.style.color = "white !important";
+        link.style.color = "white";
         link.classList.add("text-white");
       });
 
