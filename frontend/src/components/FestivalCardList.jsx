@@ -23,14 +23,25 @@ function FestivalCard(props) {
   return (
     <>
       <li className="festival_card_item">
-        <Card className="festival_card" as={Link} to={`/festivals/${festival._id}`} style={{ border: 'none' }}>
-          <Card.Img className="festival_card_img" src={festival.thumbnail_url} />
-          <Card.Body>
-            <Card.Text className="festival_card_text">
-              <div className="festival_card_title">{festival.name}</div>
-              {formatDate(festival.start_date)} ~ {formatDate(festival.end_date)}<br />
-              {festival.region}
+        <Card
+          className="festival_card"
+          as={Link}
+          to={`/festivals/${festival._id}`}
+          style={{ border: "none" }}
+        >
+          <Card.Img
+            className="festival_card_img"
+            src={festival.thumbnail_url}
+          />
+          <Card.Body className="festival_card_text">
+            <Card.Text className="festival_card_title mb-0">
+              {festival.name}
             </Card.Text>
+            <Card.Text className="mb-0">
+              {formatDate(festival.start_date)} ~{" "}
+              {formatDate(festival.end_date)}
+            </Card.Text>
+            <Card.Text className="mb-0">{festival.region}</Card.Text>
           </Card.Body>
         </Card>
       </li>
@@ -41,9 +52,11 @@ function FestivalCard(props) {
 function FestivalCardEmpty() {
   return (
     <li className="festival_card_item">
-      <Card className="festival_card empty" style={{ border: 'none' }}>
+      <Card className="festival_card empty" style={{ border: "none" }}>
         <Card.Body>
-          <Card.Text className="festival_card_text">검색 조건에 맞는 축제가 없습니다.</Card.Text>
+          <Card.Text className="festival_card_text">
+            검색 조건에 맞는 축제가 없습니다.
+          </Card.Text>
         </Card.Body>
       </Card>
     </li>
@@ -71,6 +84,6 @@ function FestivalCardList(props, ref) {
       </ul>
     </div>
   );
-};
+}
 
 export default forwardRef(FestivalCardList);
