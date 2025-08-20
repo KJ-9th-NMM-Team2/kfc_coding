@@ -2,14 +2,8 @@
 @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@latest/nanumbarungothicsubset.css");
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
-.font-noto-sans {
-  font-family: "Noto Sans KR", sans-serif;
-}
 
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
-.pretendard {
-  font-family: "Pretendard Variable";
-}
 
 :root {
   --bs-body-font-family: "Pretendard Variable", "NanumBarunGothic", system-ui,
@@ -97,15 +91,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-/* 폰트 임포트 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
-.font-noto-sans{
-  font-family: 'Noto Sans KR' , sans-serif;
-}
-
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
-.pretendard{
-  font-family: 'Pretendard Variable';
-}
-
