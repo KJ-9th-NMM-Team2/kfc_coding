@@ -58,7 +58,7 @@ export default function FestivalDeatilCard({ festival }) {
               fontSize: "14px",
               fontWeight: "500"
             }}>
-              무료
+              {festival.price}
             </Badge>
           </div>
 
