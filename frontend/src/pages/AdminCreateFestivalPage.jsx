@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Container, Form, Button, Row } from "react-bootstrap";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { authAdminToken } from "../api/api";
 import { initialFestivalData } from "../components/InitialFestivalData.jsx";
 import { AdminCreateForm } from "../components/admin/AdminCreateForm.jsx";
@@ -32,6 +33,78 @@ export default function AdminCreateFestivalPage() {
     adminAuthToken();
   }, []);
 
+  const [festivalData, setFestivalData] = useState(initialFestivalData);
+
+  const regions = [
+    "서울",
+    "인천",
+    "대전",
+    "대구",
+    "광주",
+    "부산",
+    "울산",
+    "세종특별자치시",
+    "경기도",
+    "강원특별자치도",
+    "충청북도",
+    "충청남도",
+    "경상북도",
+    "경상남도",
+    "전북특별자치도",
+    "전라남도",
+    "제주특별자치도",
+  ];
+  const categories = [
+    "물놀이",
+    "여름",
+    "가족과함께",
+    "야행",
+    "문화예술",
+    "공연",
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFestivalData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCategoryChange = (e) => {
+    const { value, checked } = e.target;
+    setFestivalData((prevData) => {
+      const newCategories = checked
+        ? [...prevData.category, value]
+        : prevData.category.filter((cat) => cat !== value);
+      return { ...prevData, category: newCategories };
+    });
+  };
+
+  const handleImageChange = (e, index) => {
+    const newImages = [...festivalData.images];
+    newImages[index] = e.target.value;
+    setFestivalData((prevData) => ({
+      ...prevData,
+      images: newImages,
+    }));
+  };
+
+  const addImageField = () => {
+    setFestivalData((prevData) => ({
+      ...prevData,
+      images: [...prevData.images, ""],
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // 여기에서 API 호출 로직을 구현합니다.
+    // festivalData 객체를 백엔드에 전송
+    const res = await axios.post("/api/admin/createFestival", festivalData);
+    setFestivalData(initialFestivalData);
+    alert(res.data.message);
+  };
   return (
     <Container className="my-5">
       <h2 className="mb-4">축제 정보 등록</h2>
