@@ -1,15 +1,10 @@
 import React from "react";
 import Calendar from "../components/Calendar";
-import { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  ButtonGroup,
-} from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
+import { Container, Row, Col, Button, ButtonGroup } from "react-bootstrap";
 import Badge from "react-bootstrap/Badge";
-import FestivalVisualList from "../components/FestivalVisualList";
+import FestivalCardList from "../components/FestivalCardList";
+import { scrollTo } from "../components/scrollTo";
 import { getDateFestivals } from "../api/api";
 import "./CalendarPage.css";
 
@@ -17,6 +12,7 @@ export default function CalendarPage() {
   // 현재 날짜를 state로 관리
   const [currentDate, setCurrentDate] = useState(new Date());
   const [todayFestivals, setTodayFestivals] = useState([]);
+  const festivalListRef = useRef(null);
 
   // 현재 날짜의 축제 목록
   useEffect(() => {
@@ -63,6 +59,7 @@ export default function CalendarPage() {
     const newDate = new Date(currentDate);
     newDate.setDate(day);
     setCurrentDate(newDate);
+    scrollTo(festivalListRef);
   };
 
   // 달력에 표시한 날짜
@@ -92,42 +89,42 @@ export default function CalendarPage() {
       <Container className="calendar-page-container">
         {/* Header Section */}
         <Row className="mb-4">
-          <Col>
-            <div className="calendar-header-card">
+          <div className="calendar-header-card">
+            <Col xs={12} md={8}>
               <div>
                 <h2 className="calendar-title">축제 달력</h2>
                 <p className="calendar-subtitle">
                   대한민국 전국 축제 정보를 한눈에 확인하세요
                 </p>
               </div>
+            </Col>
+            <Col
+              xs={12}
+              md={4}
+              className="d-flex justify-content-md-end justify-content-start mt-3 mt-md-0"
+            >
               <ButtonGroup className="calendar-nav">
-                <Button
-                  className="calendar-nav-button"
-                  onClick={toPrevMonth}
-                >
-                  ◀ 이전
+                <Button className="calendar-nav-button" onClick={toPrevMonth}>
+                  ◀
                 </Button>
-                <Button
-                  className="calendar-nav-button current"
-                  disabled
-                >
-                  {year}년 {month + 1}월
+                <Button className="calendar-nav-button current" disabled>
+                  {year}. {month + 1}
                 </Button>
-                <Button
-                  className="calendar-nav-button"
-                  onClick={toNextMonth}
-                >
-                  다음 ▶
+                <Button className="calendar-nav-button" onClick={toNextMonth}>
+                  ▶
                 </Button>
               </ButtonGroup>
-            </div>
-          </Col>
+            </Col>
+          </div>
         </Row>
 
         {/* Calendar Section */}
         <Row className="mb-4">
           <Col>
-            <div className="calendar-section">
+            <div
+              className="calendar-section calendar-calendar-section"
+              // ref={festivalListRef}
+            >
               <Calendar
                 dates={getCalendarDates()}
                 year={year}
@@ -142,9 +139,9 @@ export default function CalendarPage() {
         </Row>
 
         {/* Festival List Section */}
-        <Row>
+        <Row ref={festivalListRef}>
           <Col>
-            <div className="calendar-section">
+            <div className="calendar-section ">
               <div className="festival-list-header">
                 <h4 className="festival-list-title">
                   <span className="festival-list-indicator"></span>
@@ -156,7 +153,11 @@ export default function CalendarPage() {
                 </h4>
               </div>
               <div className="festival-list-content">
-                <FestivalVisualList festivals={todayFestivals} />
+                {todayFestivals.length != 0 ? (
+                  <FestivalCardList festivals={todayFestivals} />
+                ) : (
+                  "축제가 없습니다."
+                )}
               </div>
             </div>
           </Col>
